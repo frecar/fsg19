@@ -14,7 +14,7 @@ import javax.swing.Icon;
 import no.ntnu.fp.model.Project;
 import no.ntnu.fp.model.Person;
 
-/**
+/** weeeeeeeeeeeeeeeeeeeeee
  * Implements the action for creating a new group of persons.
  * 
  * @author Thomas Oslash;sterlie
