@@ -12,16 +12,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		DatabaseHandler db = DatabaseHandler.getInstance();
-		db.lol();
-		
 		if(args.length != 1) {
 			System.out.println("Usage: java -jar Main.jar <port> \n" +
 			"For example: java -jar Main.jar 80");
 			System.exit(0);
 		}
 		else {
-			//new Main(args[0]);
+			new Main(args[0]);
 		}
 	}
 
