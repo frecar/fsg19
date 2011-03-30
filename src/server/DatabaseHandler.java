@@ -1,7 +1,9 @@
 package server;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DatabaseHandler {
@@ -27,12 +29,13 @@ public class DatabaseHandler {
      * And simply returns the Connection object ready to be used
      */
     private static Connection createConnection() {
-
+    	
+    	
         Connection conn = null;
         try {
         	Class.forName("com.mysql.jdbc.Driver").newInstance();
             conn = DriverManager.getConnection(
-            		"jdbc:mysql://mysql.stud.ntnu.no/"+Config.SQL_DB,
+            		"jdbc:mysql://mysql.stud.ntnu.no/" + Config.SQL_DB,
                             Config.SQL_USERNAME, Config.SQL_PASSWORD);
         }
         catch(SQLException se) {
@@ -46,8 +49,45 @@ public class DatabaseHandler {
         return conn;
     }
 
+    /**
+     * Prints out all tables in current database
+     */
+    public String getTables() {
+        Connection conn = createConnection();
+        String test = "";
+        
+        
+        try {
+        	DatabaseMetaData dbmd = conn.getMetaData();
+        	
+        	// Specify the type of object; in this case we want tables
+            String[] types = {"TABLE"};
+            ResultSet resultSet = dbmd.getTables(null, null, "%", types);
+
+            // Get the table names
+            while (resultSet.next()) {
+                // Get the table name
+                String tableName = resultSet.getString(3);
+                System.out.println(tableName);
+                // Get the table's catalog and schema names (if any)
+                String tableCatalog = resultSet.getString(1);
+                String tableSchema = resultSet.getString(2);
+                
+                conn.close();
+            }
+        } catch (SQLException e) {
+        }
+
+        
+
+        return test;
+}
+
+
+    /** Testing purposes */
     public void lol() {
     	System.out.println("test");
+    	this.createConnection();
     }
 
 }
