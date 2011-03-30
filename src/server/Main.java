@@ -18,7 +18,7 @@ public class Main {
 			System.exit(0);
 		}
 		else {
-			new Main(args[0]);
+			new Main("8122");
 		}
 	}
 

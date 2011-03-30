@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 	/**
-	* Represents one HTTP connection. Used the HttpProtocol class to
+	* Represents one connection. Uses the SessionHandler class to
 	* construct proper response.
 	*/
 	public class ClientThread implements Runnable {
