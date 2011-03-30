@@ -30,9 +30,9 @@ public class DatabaseHandler {
 
         Connection conn = null;
         try {
-        	Class.forName("com.mysql.jdbc.Driver").newInstance();
+        	Class.forName(Config.SQL_DRIVER).newInstance();
             conn = DriverManager.getConnection(
-            		"jdbc:mysql://mysql.stud.ntnu.no/"+Config.SQL_DB,
+            		Config.SQL_HOST+Config.SQL_DB,
                             Config.SQL_USERNAME, Config.SQL_PASSWORD);
         }
         catch(SQLException se) {
