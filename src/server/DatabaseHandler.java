@@ -10,7 +10,8 @@ public class DatabaseHandler {
 
 	// Singleton pattern
 	private static final DatabaseHandler INSTANCE = new DatabaseHandler();
-
+	public static Connection connection;
+	
 	// Error message for database failure
 	private static String errorMsg;
 
@@ -18,6 +19,7 @@ public class DatabaseHandler {
 	 * Private constructor prevents instantiation from other classes
 	 */
 	private DatabaseHandler() {
+		this.connection = createConnection();
 	}
  
 	public static DatabaseHandler getInstance() {

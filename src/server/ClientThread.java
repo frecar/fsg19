@@ -39,6 +39,7 @@ import java.net.Socket;
 			// Process request
 			outToClient.writeBytes(lol);
 			
+			
 			this.clientSocket.close();
 		}
 		catch(IOException e) {
