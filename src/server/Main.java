@@ -41,6 +41,7 @@ public class Main {
 	private void startListenLoop() {
 		
 		ServerSocket serverSocket = null;
+		
 		SessionHandler sessionHandler = new SessionHandler();
 
 		try {
