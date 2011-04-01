@@ -30,7 +30,7 @@ public class LoginDialog extends JDialog{
     	
     	JPanel panel = new JPanel(new GridLayout(3, 2, 5, 5));
 
-    	usernameLabel = new JLabel("Username: ");
+    	usernameLabel = new JLabel("Username: (bokstaven a gir tilgang) ");
     	panel.add(usernameLabel);
     	
     	usernameTextField = new JTextField(20);

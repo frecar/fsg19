@@ -48,13 +48,13 @@ public class MainFrame {
 		new MenuBarBuilder(frame, MenuBarBuilder.BEFORE_CONNECTED_MENUBAR);
 		
 		// Creates and show a login dialog
-		//showLogin();
+		showLogin();
 		
 		/**
 		 * Bypasses the login box because it became annoying after a while
 		 */
-		mainPanel.setVisible(true);
-		new MenuBarBuilder(frame, MenuBarBuilder.AFTER_CONNECTED_MENUBAR);
+//		mainPanel.setVisible(true);
+//		new MenuBarBuilder(frame, MenuBarBuilder.AFTER_CONNECTED_MENUBAR);
 		
 	}
 	
