@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 	/**
@@ -12,7 +14,7 @@ import java.net.Socket;
 	*/
 	public class ClientThread implements Runnable {
 	
-	private Socket clientSocket;
+	private Socket threadSocket;
 	private SessionHandler sessionHandler;
 	
 	private String ip;
@@ -20,10 +22,10 @@ import java.net.Socket;
 	/**
 	* Constructor, setting the socket and protocol
 	*/
-	public ClientThread(Socket clientSocket, SessionHandler sessionHandler) {
-		this.clientSocket = clientSocket;
+	public ClientThread(Socket socket, SessionHandler sessionHandler) {
+		this.threadSocket = socket;
 		this.sessionHandler = new SessionHandler();
-		this.ip = clientSocket.getInetAddress().toString();
+		this.ip = socket.getInetAddress().toString();
 		
 		System.out.println("Client accepted from " + this.ip);
 	}
@@ -31,25 +33,32 @@ import java.net.Socket;
 	public void run() {
 		String lol = "";
 		try {
-			BufferedReader inFromClient = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
-			DataOutputStream outToClient = new DataOutputStream(clientSocket.getOutputStream());
-	
-			lol = this.sessionHandler.processRequest(inFromClient, ip);
-		
-			// Process request
-			outToClient.writeBytes(lol);
 			
-			
-			this.clientSocket.close();
+			String str;
+		    str = " <?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+		    str += "<ticketRequest><customer custID=\"1\">";
+		    str += "</ticketRequest>";
+
+			ObjectInputStream ois = new ObjectInputStream(threadSocket.getInputStream());
+			String message = (String) ois.readObject();
+			System.out.println("Message: " + message);
+
+		    ObjectOutputStream oos = new ObjectOutputStream(threadSocket.getOutputStream());
+		    oos.writeObject(str);
+		    oos.close();
+
 		}
 		catch(IOException e) {
 			System.out.println("Could not handle the connection.");
 			e.printStackTrace();
 			System.out.println(lol);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		finally {
 			try {
-				clientSocket.close();
+				threadSocket.close();
 			} catch(IOException e) {
 		
 			}
