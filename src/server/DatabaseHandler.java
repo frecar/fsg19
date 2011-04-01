@@ -15,13 +15,7 @@ public class DatabaseHandler {
 	// Error message for database failure
 	private static String errorMsg;
 
-	/** 
-	 * Private constructor prevents instantiation from other classes
-	 */
-	private DatabaseHandler() {
-		this.connection = createConnection();
-	}
- 
+
 	public static DatabaseHandler getInstance() {
 		return INSTANCE;
 	}
@@ -30,16 +24,13 @@ public class DatabaseHandler {
      * Creates a database connection using credentials provided in Config.java
      * And simply returns the Connection object ready to be used
      */
-    private static Connection createConnection() {
+    public static Connection createConnection() {
     	
     	
         Connection conn = null;
         try {
         	Class.forName(Config.SQL_DRIVER).newInstance();
-            conn = DriverManager.getConnection(
-
-            		Config.SQL_HOST+Config.SQL_DB,
-
+            conn = DriverManager.getConnection(Config.SQL_HOST+Config.SQL_DB,
                             Config.SQL_USERNAME, Config.SQL_PASSWORD);
         }
         catch(SQLException se) {

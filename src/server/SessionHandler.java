@@ -7,14 +7,15 @@ import java.util.UUID;
 public class SessionHandler {
 
 	/** 
-	 * For now, returns input in uppercase
+	 * For now, this is not in use
 	 */
 	public String processRequest(BufferedReader inFromClient, String ip) throws IOException{
-		
-		String requestLine = inFromClient.readLine();
+		return inFromClient.readLine();
+		/*String requestLine = inFromClient.readLine();
 		System.out.println(ip + " says: " + requestLine);
-		
-		return processLogin(null, null); //return requestLine.toUpperCase();
+		return requestLine.toUpperCase();
+		*/
+		//return processLogin(null, null); //return requestLine.toUpperCase();
 	}
 	
 	/**
