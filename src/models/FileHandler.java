@@ -21,18 +21,17 @@ public class FileHandler {
 		}
 	}
 	
-	public static Person deSerialize(File file) {
+	public static Object deSerialize(File file, Object object) {
 		FileInputStream os;
-		Person form = null;
 		try {
 			os = new FileInputStream(file);
 			XMLDecoder decoder = new XMLDecoder(os);
-			form = (Person)decoder.readObject();
+			object = (Object)decoder.readObject();
 			decoder.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		return form;
+		return object;
 	}
 	
 	public static void serialize(Object object, File file){

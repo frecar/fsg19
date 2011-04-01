@@ -11,30 +11,45 @@ public class Person implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 7243262813969289084L;
+	private int id;
 	private String name;
-	private ArrayList<Meeting> Meetings;
+	private String email;
+	private String username;
+	private String password;
+	private Company company;
+
 	private File file;
 	
+	private ArrayList<Appointment> appointments;
+	
 	public Person(){
-		setList(new ArrayList<Meeting>());
+		setList(new ArrayList<Appointment>());
 	}
 	
 	public Person(String name) {
 		setName(name);
-		setList(new ArrayList<Meeting>());
+		setList(new ArrayList<Appointment>());
 		file = new File(name);
 	}
 	
-	public void setList(ArrayList<Meeting> m) {
-		Meetings = m;
+	public void save(){
+		System.out.println("saving " + name);
+		if(!file.exists()){
+			FileHandler.createFile(file);
+		}
+		FileHandler.serialize(this, file);
 	}
 	
-	public void addMeeting(Meeting Meeting){
-		Meetings.add(Meeting);
+	public void setList(ArrayList<Appointment> m) {
+		appointments = m;
 	}
 	
-	public ArrayList<Meeting> getList(){
-		return Meetings;
+	public void addAppointment(Appointment appointment){
+		appointments.add(appointment);
+	}
+	
+	public ArrayList<Appointment> getList(){
+		return appointments;
 	}
 
 	public void setName(String name) {
@@ -44,18 +59,58 @@ public class Person implements Serializable{
 	public String getName() {
 		return name;
 	}
-
-	public void save(){
-		System.out.println("saving " + name);
-		if(!file.exists()){
-			FileHandler.createFile(file);
-		}
-		FileHandler.serialize(this, file);
-	}
 	
 	public void load(){
 		System.out.println("loading " + name);
-		this.Meetings = FileHandler.deSerialize(file).Meetings;
+		Person temp = null;
+		try {
+			temp = (Person) FileHandler.deSerialize(file, this.getClass().newInstance());
+		} catch (InstantiationException e1) {
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			e1.printStackTrace();
+		}
+		this.appointments = temp.appointments;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	public Company getCompany() {
+		return company;
 	}
 	
 }
