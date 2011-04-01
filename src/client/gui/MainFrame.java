@@ -24,11 +24,11 @@ public class MainFrame {
 	private static void createAndShowGUI() {
 			
 		
-		/** try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
+		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
 		catch (ClassNotFoundException e) {}
 		catch (InstantiationException e) {}
 		catch (IllegalAccessException e) {}
-		catch (UnsupportedLookAndFeelException e) {} */
+		catch (UnsupportedLookAndFeelException e) {}
 
 		frame = new JFrame("Epic new application");
 		frame.setSize(800, 600);

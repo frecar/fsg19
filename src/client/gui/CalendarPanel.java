@@ -13,8 +13,7 @@ public class CalendarPanel extends JPanel {
 	private  JButton btnPrev, btnNext;
 	private JTable tblCalendar;
 	private  JComboBox cmbYear;
-	private  JPanel frmMain;
-	private  Container pane;
+
 	private  DefaultTableModel mtblCalendar; //Table model
 	private  JScrollPane stblCalendar; //The scrollpane
 	private  JPanel pnlCalendar;
@@ -23,11 +22,7 @@ public class CalendarPanel extends JPanel {
 	public CalendarPanel() {
 		
 		//Look and feel
-		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
-		catch (ClassNotFoundException e) {}
-		catch (InstantiationException e) {}
-		catch (IllegalAccessException e) {}
-		catch (UnsupportedLookAndFeelException e) {}
+		
 
 		//Prepare frame
 		//frmMain = new JPanel(); //Create frame
@@ -37,7 +32,7 @@ public class CalendarPanel extends JPanel {
 	
 		//Create controls
 		lblMonth = new JLabel ("January");
-		lblYear = new JLabel ("Change year:");
+		lblYear = new JLabel ("Change year");
 		cmbYear = new JComboBox();
 		btnPrev = new JButton ("<<");
 		btnNext = new JButton (">>");
@@ -66,7 +61,7 @@ public class CalendarPanel extends JPanel {
 		//Set bounds
 		pnlCalendar.setBounds(0, 0, 320, 335);
 		lblMonth.setBounds(160-lblMonth.getPreferredSize().width/2, 25, 100, 25);
-		lblYear.setBounds(10, 305, 80, 20);
+		lblYear.setBounds(10, 305, 100, 20);
 		cmbYear.setBounds(230, 305, 80, 20);
 		btnPrev.setBounds(10, 25, 50, 25);
 		btnNext.setBounds(260, 25, 50, 25);

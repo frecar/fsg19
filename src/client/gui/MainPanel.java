@@ -22,16 +22,20 @@ public class MainPanel extends JPanel{
 		north = new NorthPanel(new GridLayout(1, 1));
 		south = new SouthPanel(new BorderLayout());
 		center = new CenterPanel(new BorderLayout());
-		center.setOpaque(true);
-		center.setBackground(Color.BLUE);
+		//center.setOpaque(true);
+		//center.setBackground(Color.BLUE);
 		
-		west = new WestPanel(new BorderLayout());
-		east = new EastPanel(new BorderLayout());
+		west = new WestPanel(new BorderLayout(), this);
+		east = new EastPanel(new FlowLayout());
 		
 		add(north, BorderLayout.NORTH);
 		add(south, BorderLayout.SOUTH);
 		add(center, BorderLayout.CENTER);
 		add(west, BorderLayout.WEST);
 		add(east, BorderLayout.EAST);
+	}
+	
+	public JPanel getEastPanel() {
+		return this.east;
 	}
 }
