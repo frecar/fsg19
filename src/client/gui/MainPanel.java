@@ -1,6 +1,7 @@
 package client.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -21,6 +22,9 @@ public class MainPanel extends JPanel{
 		north = new NorthPanel(new GridLayout(1, 1));
 		south = new SouthPanel(new BorderLayout());
 		center = new CenterPanel(new BorderLayout());
+		center.setOpaque(true);
+		center.setBackground(Color.BLUE);
+		
 		west = new WestPanel(new BorderLayout());
 		east = new EastPanel(new BorderLayout());
 		

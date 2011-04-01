@@ -47,13 +47,25 @@ public class LoginDialog extends JDialog{
     	loginButton = new JButton("Login");
     	loginButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
-    			succeeded = true;
+    			
+    			// TODO: check with Person list if password was correct
+    			
+    			if(usernameTextField.getText().equals("a")) {
+    				succeeded = true;
+    			}
+    			
     			dispose();
     		}
     	});
     	panel.add(loginButton);
     	
     	cancelButton = new JButton("Cancel");
+    	cancelButton.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			
+    			dispose();
+    		}
+    	});
     	panel.add(cancelButton);
     	
     	add(panel);
