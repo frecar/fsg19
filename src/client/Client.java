@@ -28,9 +28,9 @@ public class Client {
 	
 	public Client() {
 		
-		System.out.println("client");
+		System.out.println("clieddddnt");
 		mf = new MainFrame(this);
-		//mf.createAndShowLogin();
+		mf.initGUI();
 		
 		
 		
@@ -38,7 +38,7 @@ public class Client {
 	}
 	
 	public static void main(String[] args){
-		//Client client = new Client();
+		Client client = new Client();
 		//client.getPersons();
 	}	
 	

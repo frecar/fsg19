@@ -8,8 +8,6 @@ public class HasAppointment {
 	private Meeting meeting;
 	private boolean responsible;
 	private boolean accepted;
-	
-	private File file;
 
 	public void setId(int id) {
 		this.id = id;
@@ -27,8 +25,9 @@ public class HasAppointment {
 		return employee;
 	}
 
-	public void setAppointment(Meeting appointment) {
-		this.meeting = appointment;
+
+	public void setMeeting(Meeting meeting) {
+		this.meeting = meeting;
 	}
 
 	public Meeting getMeeting() {
@@ -52,10 +51,25 @@ public class HasAppointment {
 	}
 	
 	public void save(){
+		File file = new File(Integer.toString(id));
 		System.out.println("saving " + id);
 		if(!file.exists()){
 			FileHandler.createFile(file);
 		}
 		FileHandler.serialize(this, file);
+	}
+	
+	public HasAppointment load(){
+		System.out.println("loading " + id);
+		File file = new File(Integer.toString(id));
+		HasAppointment temp = null;
+		try {
+			temp = (HasAppointment) FileHandler.deSerialize(file, this.getClass().newInstance());
+		} catch (InstantiationException e1) {
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			e1.printStackTrace();
+		}
+		return temp;	
 	}
 }
