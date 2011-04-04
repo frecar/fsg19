@@ -1,5 +1,6 @@
 package models;
 
+import java.io.File;
 import java.io.Serializable;
 
 public class Appointment implements Serializable{
@@ -22,5 +23,14 @@ public class Appointment implements Serializable{
 	}
 	public String getName() {
 		return name;
+	}
+	
+	public void save(){
+		File file = new File(name);
+		System.out.println("saving " + name);
+		if(!file.exists()){
+			FileHandler.createFile(file);
+		}
+		FileHandler.serialize(this, file);
 	}
 }

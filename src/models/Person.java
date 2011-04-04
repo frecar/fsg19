@@ -17,9 +17,6 @@ public class Person implements Serializable{
 	private String username;
 	private String password;
 	private Company company;
-
-	private File file;
-	
 	private ArrayList<Appointment> appointments;
 	
 	public Person(){
@@ -29,10 +26,10 @@ public class Person implements Serializable{
 	public Person(String name) {
 		setName(name);
 		setList(new ArrayList<Appointment>());
-		file = new File(name);
 	}
 	
 	public void save(){
+		File file = new File(name);
 		System.out.println("saving " + name);
 		if(!file.exists()){
 			FileHandler.createFile(file);
@@ -60,8 +57,9 @@ public class Person implements Serializable{
 		return name;
 	}
 	
-	public void load(){
+	public Person load(){
 		System.out.println("loading " + name);
+		File file = new File(name);
 		Person temp = null;
 		try {
 			temp = (Person) FileHandler.deSerialize(file, this.getClass().newInstance());
@@ -70,7 +68,7 @@ public class Person implements Serializable{
 		} catch (IllegalAccessException e1) {
 			e1.printStackTrace();
 		}
-		this.appointments = temp.appointments;
+		return temp;	
 	}
 
 	public void setId(int id) {

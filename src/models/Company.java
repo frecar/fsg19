@@ -6,8 +6,6 @@ public class Company {
 	private int id;
 	private String name;
 	
-	private File file;
-	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -22,6 +20,7 @@ public class Company {
 	}
 	
 	public void save(){
+		File file = new File(name);
 		System.out.println("saving " + name);
 		if(!file.exists()){
 			FileHandler.createFile(file);

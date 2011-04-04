@@ -31,6 +31,7 @@ public class Room {
 	}
 	
 	public void save(){
+		File file = new File(name);
 		System.out.println("saving " + name);
 		if(!file.exists()){
 			FileHandler.createFile(file);

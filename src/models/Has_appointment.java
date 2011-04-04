@@ -52,6 +52,7 @@ public class Has_appointment {
 	}
 	
 	public void save(){
+		File file = new File(Integer.toString(id));
 		System.out.println("saving " + id);
 		if(!file.exists()){
 			FileHandler.createFile(file);
