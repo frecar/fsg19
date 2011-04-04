@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionListener;
 
 import models.Person;
 import models.Room;
@@ -63,18 +66,18 @@ public class NewMeetingFrame extends JFrame {
 	
 	// TODO  bruk rooms istedenfor strings
 	private JComboBox roomsComboBox;
-	private ArrayList<Room> rooms = mainFrame.getClient().getRooms();
-	private String[] petStrings = { "Bird", "Cat", "Dog"};
+	private ArrayList<Room> rooms;
 	
 	private Person user;
 	
 	public NewMeetingFrame(MainFrame mainFrame) {
-		System.out.println(rooms);
+		System.out.println(rooms instanceof ArrayList);
 		setTitle("New meeting HELL YEAH");
 		
 		this.mainFrame = mainFrame;
 		this.persons = mainFrame.getClient().getPersons();
 		this.user = mainFrame.getClient().getUser();
+		this.rooms = mainFrame.getClient().getRooms();
 		
 		panel = new JPanel(new GridBagLayout());
 		
@@ -110,10 +113,10 @@ public class NewMeetingFrame extends JFrame {
 		timeEndTextField = new JTextField("10:00", 5);
 		///timeTextField.setEnabled(false);
 		
-		String[] petStrings = { "Bird", "Cat", "Dog"};
-		JComboBox rooms = new JComboBox(petStrings);
-		rooms.addActionListener(new SelectRoomListener());
-		
+		Object[] roomsStrings = rooms.toArray();
+		roomsComboBox = new JComboBox(roomsStrings);
+		roomsComboBox.addActionListener(new SelectRoomListener());
+	
 		roomTextField = new JTextField("Bøttekottet", 10);
 		roomTextField.setEnabled(false);
 		
@@ -199,7 +202,7 @@ public class NewMeetingFrame extends JFrame {
 		
 		c.gridx = 1;
 		c.gridy = 4;
-		panel.add(rooms, c);
+		panel.add(roomsComboBox, c);
 		
 		c.gridx = 2;
 		c.gridy = 4;
@@ -273,8 +276,8 @@ public class NewMeetingFrame extends JFrame {
 	class SelectRoomListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-//			String room = (String) roomsComboBox.getSelectedItem();
-//			roomTextField.setText(room);
+			String room = (String) roomsComboBox.getSelectedItem().toString();
+			roomTextField.setText(room);
 		}
 	}
 	class AddPersonListener implements ActionListener {
@@ -326,6 +329,19 @@ public class NewMeetingFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			
+			// TODO: Gather all data and make a meeting object, and save() it
+			String title = titleTextField.getText();
+			String responsible = getUser().getName();
+			String date = dateTextField.getText();
+			String timeStart = timeStartTextField.getText();
+			String timeEnd = timeEndTextField.getText();
+			String room = roomTextField.getText();
+			ArrayList<Person> participants = new ArrayList<Person>();
+			String description = descriptionTextField.getText();
+			
+			for(int i = 0; i < rightModel.size(); i++) {
+				participants.add((Person)rightModel.get(i));
+			}
 			// TODO: add meeting to model
 			JOptionPane.showMessageDialog(null, "The meeting was added.");
 			dispose();

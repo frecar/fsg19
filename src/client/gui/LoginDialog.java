@@ -45,7 +45,6 @@ public class LoginDialog extends JDialog implements ActionListener {
     	mainFrame2 = mainFrame;
     	
     	persons = mainFrame.getClient().getPersons();
-    	System.out.println("LAL" + persons);
     	JPanel panel = new JPanel(new GridLayout(3, 2, 5, 5));
 
     	usernameLabel = new JLabel("Username: (dag) ");
