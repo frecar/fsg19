@@ -31,7 +31,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.sun.tools.javac.util.List;
+//import com.sun.tools.javac.util.List;
 
 import client.gui.MainFrame;
 import models.Person;
@@ -44,11 +44,11 @@ public class Client {
 	public Client() {
 		mf = new MainFrame(this);	
 		
-		/*System.out.println("clieddddnt");
+		System.out.println("clieddddnt");
 		mf = new MainFrame(this);
 		mf.initGUI();
-		persons = new ArrayList();
-		*/
+		//persons = new ArrayList();
+		
 	}
 	
 	public static void main(String[] args){

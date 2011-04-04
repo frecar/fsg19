@@ -6,8 +6,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
@@ -44,23 +46,24 @@ public class EastPanel extends JPanel{
 		/**
 		 * The meeting which this panel currently holds
 		 */
-		private Meeting meeting;
+		Meeting model;
+		
 		
 		/**
 		 * When a new model is set, all the GUI components are updated
 		 */
-		public void setModel(Meeting meeting) {
-			this.meeting = meeting;
+		public void setModel(Meeting model) {
+			this.model = model;
 			
 			// Add this EastPanel as listener on the model
-			this.meeting.addMeetingListener(this);
+			model.addMeetingListener(this);
 			
-			this.titleTextField.setText(this.meeting.getTitle());
-			this.dateTextField.setText(this.meeting.getDate());
-			this.timeTextField.setText(this.meeting.getTime());
-			this.placeTextField.setText(this.meeting.getPlace());
-			this.participantsTextField.setText(this.meeting.getNumOfParticipants());
-			this.commentTextField.setText(this.meeting.getComment());
+			this.titleTextField.setText(this.model.getTitle());
+			this.dateTextField.setText(this.model.getDate());
+			this.timeTextField.setText(this.model.getTime());
+			this.placeTextField.setText(this.model.getPlace());
+			this.participantsTextField.setText(this.model.getNumOfParticipants());
+			this.commentTextField.setText(this.model.getComment());
 		}
 		
 		public MeetingPanel() {
@@ -147,15 +150,6 @@ public class EastPanel extends JPanel{
 			c.gridy = 5;
 			add(commentTextField, c);
 			
-			
-		
-			
-			c.gridx = 0;
-			c.gridy = 1;
-			
-			c.gridx = 1;
-			c.gridy = 1;
-			
 			//add(new JButton("rightpanel"));
 		}
 		
@@ -165,9 +159,10 @@ public class EastPanel extends JPanel{
 
 		@Override
 		public void meetingUpdated() {
-			System.out.println("oh my god, something was changed in the model");
+			System.out.println("A meetinglistener reveived a call to meetingUpdated. In other words; something changed in the model");
+			
 			// The setModel method will refresh the GUI elements according to the model
-			setModel(this.meeting);
+			setModel(this.model);
 			
 		}
 	}

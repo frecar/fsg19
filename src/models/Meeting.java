@@ -3,10 +3,11 @@ package models;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 import client.interfaces.*;
 
-public class Meeting implements Serializable{
+public class Meeting implements Serializable, Comparable<Meeting>{
 	/**
 	 * 
 	 */
@@ -94,8 +95,8 @@ public class Meeting implements Serializable{
 	 */
 	private void firePropertyChanged() {
 		//System.out.println("firePropertyChanged()");
-		for(MeetingListener m: meetingListeners) {
-			m.meetingUpdated();
+		for(MeetingListener meetingListener: meetingListeners) {
+			meetingListener.meetingUpdated();
 		}
 	}
 	
@@ -133,6 +134,26 @@ public class Meeting implements Serializable{
 	}
 	
 	public String toString() {
-		return title;
+		return title + " | " + date + " | " + time + " | " + place;
+	}
+
+
+	/**
+	 * Used for sorting dates in increasing order
+	 */
+	public int compareTo(Meeting m) {
+		String date = m.getDate();
+		int year = Integer.parseInt(date.substring(6, 10));
+		int month = Integer.parseInt(date.substring(3, 5));
+		int day = Integer.parseInt(date.substring(0, 2));
+		
+		int thisYear = Integer.parseInt(this.getDate().substring(6, 10));
+		int thisMonth = Integer.parseInt(this.getDate().substring(3, 5));
+		int thisDay = Integer.parseInt(this.getDate().substring(0, 2));
+		
+		Date mdate = new Date(year, month, day);
+		Date thisDate = new Date(thisYear, thisMonth, thisDay);
+		
+		return thisDate.compareTo(mdate);
 	}
 }
