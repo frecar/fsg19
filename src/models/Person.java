@@ -80,6 +80,10 @@ public class Person implements Serializable{
 	public int getId() {
 		return id;
 	}
+	
+	public File getFile() {
+		return file;
+	}
 
 	public void setEmail(String email) {
 		this.email = email;

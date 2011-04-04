@@ -38,9 +38,11 @@ import java.net.Socket;
 			System.out.println("Client says: " + message);
 			Object a = API.handle(message);
 		    ObjectOutputStream oos = new ObjectOutputStream(threadSocket.getOutputStream());
-		    oos.writeObject(a);
+		    		    
+		    oos.writeObject(a.toString());
 		    oos.close();
 		}
+		
 		catch(IOException e) {
 			System.out.println("Could not handle the connection.");
 			e.printStackTrace();

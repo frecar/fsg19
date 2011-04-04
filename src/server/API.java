@@ -7,6 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Locale;
 
+import java.beans.XMLEncoder;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import models.Person;
@@ -15,28 +21,34 @@ public class API {
 
 	public Object getPersons() {
 		
+		Person person;
 		MySQLAccess dao = new MySQLAccess();
+		
+		ByteArrayOutputStream xml = new ByteArrayOutputStream();
+		XMLEncoder encoder = new XMLEncoder(xml);
+        
 		try {
+			
 			Connection conn = dao.createConnection();
 			
 			Statement stat = conn.createStatement();
 			String query = "SELECT * FROM Person";
 			ResultSet result = stat.executeQuery(query);
-						
+
 			while(result.next()) {
-				System.out.println(result.getString("name"));
+				String name = result.getString("name");
+				encoder.writeObject(new Person(name));
 			}
-			
+
+			encoder.close();			
 			conn.close();
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return new Person("ok");
+				
+		return xml;
 	}
-
 
 	public Object getPersonById(String test, String tap) {
 		
