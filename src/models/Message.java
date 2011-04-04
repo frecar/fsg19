@@ -5,7 +5,7 @@ import java.io.File;
 public class Message {
 	private int id;
 	private String text;
-	private Has_appointment has_appointment;
+	private HasAppointment has_appointment;
 	
 	private File file;
 
@@ -25,11 +25,11 @@ public class Message {
 		return text;
 	}
 
-	public void setHas_appointment(Has_appointment has_appointment) {
+	public void setHas_appointment(HasAppointment has_appointment) {
 		this.has_appointment = has_appointment;
 	}
 
-	public Has_appointment getHas_appointment() {
+	public HasAppointment getHas_appointment() {
 		return has_appointment;
 	}
 	

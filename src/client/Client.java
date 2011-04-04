@@ -14,7 +14,7 @@ public class Client {
 	/*
 	 * Client API
 	 * 
-	 * Kaller metoder p� klienten, som sender et nettverks-kall til server
+	 * Kaller metoder p klienten, som sender et nettverks-kall til server
 	 * Server vil tolke strengen som er sendt, og finne tilsvarende metode
 	 * 
 	 * 
@@ -27,7 +27,9 @@ public class Client {
 	private MainFrame mf;
 	
 	public Client() {
-		//mf = new MainFrame(this);
+		
+		System.out.println("client");
+		mf = new MainFrame(this);
 		//mf.createAndShowLogin();
 		
 		
