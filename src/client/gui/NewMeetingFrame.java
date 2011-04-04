@@ -19,8 +19,16 @@ import javax.swing.JTextField;
 public class NewMeetingFrame extends JFrame {
 
 	private JPanel panel;
+	
 	private JLabel titleLabel, dateLabel, timeLabel, placeLabel, participantsLabel, commentLabel;
-	private JTextField titleTextField, dateTextField, timeTextField, placeTextField, participantsTextField, commentTextField;
+	
+	private JTextField titleTextField;
+	private JTextField dateTextField;
+	private JTextField timeTextField;
+	private JTextField placeTextField;
+	private JTextField participantsTextField;
+	private JTextField commentTextField;
+	
 	private JButton addMeeting, closeFrame;
 	
 	public NewMeetingFrame(String title) {
