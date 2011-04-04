@@ -5,6 +5,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+
+import client.gui.MainFrame;
 import models.Person;
 
 public class Client {
@@ -21,15 +23,17 @@ public class Client {
 	 */
 	
 	
+	private ArrayList<Person> persons;
+	private MainFrame mf;
 	
-	private ArrayList<Person> persons = new ArrayList();
+	public Client() {
+		mf = new MainFrame(this);
+		persons = new ArrayList();
+	}
 	
 	public static void main(String[] args){
-		
 		Client client = new Client();
-		
 		client.getPersons();
-		
 	}	
 	
 	public void getPersons() {
