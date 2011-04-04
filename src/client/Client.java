@@ -15,6 +15,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
+import client.gui.MainFrame;
+
 import models.Person;
 
 import server.API;
@@ -27,6 +29,7 @@ public class Client {
 		
 		Object a = server.API.handle("get,getPersonById, heisann,hallo");
 		
+		new Client().test();
 		/*
 		try {
 			Socket socket = new Socket("localhost", 8125);
@@ -53,4 +56,8 @@ public class Client {
 		
 		
 	}	
+	
+	void test() {
+		new MainFrame(this).initGUI();
+	}
 }

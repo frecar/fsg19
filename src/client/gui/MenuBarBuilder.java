@@ -17,20 +17,26 @@ public class MenuBarBuilder {
 	public static final int BEFORE_CONNECTED_MENUBAR = 0;
 	public static final int AFTER_CONNECTED_MENUBAR = 1;
 	
-	public MenuBarBuilder(JFrame f, int action) {
+	public MainFrame mf;
+	
+	public MenuBarBuilder(JFrame f, MainFrame mf, int action) {
 
+		this.mf = mf;
+		
 		if(action == MenuBarBuilder.AFTER_CONNECTED_MENUBAR) {
 			JMenuBar menuBar = new JMenuBar();
 			f.setJMenuBar(menuBar);
 			
-			JMenu fileMenu = new JMenu("File");
+			JMenu fileMenu = new JMenu("New");
 			menuBar.add(fileMenu);
 			
-				JMenuItem newMenuItem = new JMenuItem("New");
-				fileMenu.add(newMenuItem);
+				JMenuItem newMeetingMenuItem = new JMenuItem("New Meeting");
+				fileMenu.add(newMeetingMenuItem);
+				newMeetingMenuItem.addActionListener(new newMeetingListener());
 				
-				JMenuItem openMenuItem = new JMenuItem("Open");
-				fileMenu.add(openMenuItem);
+				JMenuItem newAppointmentMenuItem = new JMenuItem("New Appointment");
+				fileMenu.add(newAppointmentMenuItem);
+				newAppointmentMenuItem.addActionListener(new newAppointmentListener());
 				
 				fileMenu.addSeparator();
 				
@@ -57,15 +63,39 @@ public class MenuBarBuilder {
 			JMenu serverMenu = new JMenu("Server");
 			menuBar.add(serverMenu);
 			
-			JMenuItem connectMenuItem = new JMenuItem("Connect");
+			JMenuItem connectMenuItem = new JMenuItem("Login");
 			serverMenu.add(connectMenuItem);
-			
-			connectMenuItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					MainFrame.showLogin();
-				}
-			});			
+			connectMenuItem.addActionListener(new ConnectListener());			
 			
 		}
 	}
+	
+	class ConnectListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			mf.createAndShowLogin();
+		}
+	}
+
+	class newMeetingListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			System.out.println("new meeting");
+			mf.createAndShowAddMeeting();
+		}
+	}
+	
+	class newAppointmentListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			System.out.println("new appointment");
+		}
+	}
+
 }
