@@ -2,6 +2,8 @@ package models;
 
 import java.io.File;
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,6 +15,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	 */
 	private static final long serialVersionUID = 8417558628557030139L;
 	
+	private int id;
 	private String title;
 	private String date;
 	private String responsible;
@@ -25,17 +28,29 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	
 	private ArrayList<Person> participants;
 	
-
 	/**
 	 * All GUI listeners who is interested in the meetings
 	 */
 	private ArrayList<MeetingListener> meetingListeners = new ArrayList<MeetingListener>();
 	
+	public Meeting() {};
+	
 	public Meeting(String title) {
 		this.title = title;
 	}
 
-	public Meeting(String title, String date, String responsible, String timeStart,String time_end,
+	
+	public Meeting(ResultSet result) {
+		try {
+			this.id 			= Integer.parseInt(result.getString("id"));
+			this.title		 	= result.getString("title");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public Meeting(String title, String date, String responsible, String time_start,String time_end,
 			 String description, String canceled, String deleted, String room) {
 		
 		super();

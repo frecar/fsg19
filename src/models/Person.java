@@ -3,6 +3,7 @@ package models;
 import java.io.File;
 import java.io.Serializable;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.sun.org.apache.xml.internal.serializer.ToStream;
@@ -32,6 +33,17 @@ public class Person implements Serializable{
 	}
 	
 	public Person(ResultSet result) {
+		try {
+			this.id 		= Integer.parseInt(result.getString("id"));
+			this.name 		= result.getString("name");
+			this.email		= result.getString("email");
+			this.username 	= result.getString("username");
+			this.password 	= result.getString("password");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public String toString() {
@@ -120,5 +132,4 @@ public class Person implements Serializable{
 	public Company getCompany() {
 		return company;
 	}
-	
 }

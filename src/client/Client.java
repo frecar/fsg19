@@ -36,13 +36,16 @@ import org.xml.sax.SAXException;
 
 import client.gui.MainFrame;
 import models.FileHandler;
+import models.Meeting;
 import models.Person;
+import models.Room;
 
 public class Client {
 
-	private ArrayList<Object> persons;
-	private ArrayList<Object> meetings;
 	private Person user;
+	private ArrayList<Person> persons;
+	private ArrayList<Meeting> meetings;
+	private ArrayList<Room> rooms;
 	
 	private MainFrame mf;
 	
@@ -55,18 +58,13 @@ public class Client {
 
 		this.host = "78.91.2.18";
 		this.port = 8120;
-		
 	
 		mf = new MainFrame(this);
 		mf.initGUI();
-	   
-		
 	}
 	
 	public static void main(String[] args){
 		Client client = new Client();
-		//client.getPersons();
-		//client.getMeetings();
 	}
 	
 	public ArrayList<Object> request(String request) {
@@ -118,20 +116,33 @@ public class Client {
 		
 	}
 	
-	public ArrayList<Object> getPersons() {
+	public void updatePersons() {
 		String query = "get,getPersons";
 		ArrayList<Object> list = this.request(query);
-		persons = list;
-		System.out.println(persons);
-		return persons;
+		
+		for (Object object : list) {
+			
+		}
+		
 	}
 	
-	public ArrayList<Object> getMeetings() {
+	public void updateMeetings() {
 		String query = "get,getMeetings";
 		ArrayList<Object> list = this.request(query);
-		meetings = list;
-		System.out.println(meetings);
-		return meetings;
+	}
+	public void updateRooms() {
+		String query = "get,getRooms";
+		ArrayList<Object> list = this.request(query);
+	}
+	
+	public ArrayList<Room> getRooms() {
+		return this.rooms;
+	}
+	public ArrayList<Person> getPersons() {
+		return this.persons;
+	}
+	public ArrayList<Meeting> getMeetings() {
+		return this.meetings;
 	}
 	
 	public void setUser(Person user) {
