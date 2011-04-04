@@ -46,7 +46,7 @@ public class Client {
 	public static void main(String[] args){
 		Client client = new Client();
 		//Set auto-update
-		Thread thread1 = new Updater("najs", 1000, client);
+		Thread thread1 = new Updater("updated", 1000, client);
 	}
 	
 	public ArrayList<Object> request(String request) {
@@ -103,10 +103,8 @@ public class Client {
 		
 		for (Object object : list) {
 				boolean sat = false;
-				
 				for (Person person : this.persons) 
-				{
-					
+				{	
 					if(person.getId() == ((Person)object).getId()) 
 					{
 						sat = true;
@@ -118,17 +116,34 @@ public class Client {
 					persons.add((Person)object);
 				}
 		}
-		
-		System.out.println(this.getPersons());
 	}
 	
 	public void updateMeetings() {
 		String query = "get,getMeetings";
 		ArrayList<Object> list = this.request(query);
 	}
+	
+	
+	
 	public void updateRooms() {
 		String query = "get,getRooms";
 		ArrayList<Object> list = this.request(query);
+		
+		for (Object object : list) {
+				boolean sat = false;
+				for (Room room : this.rooms) 
+				{	
+					if(room.getId() == ((Room)object).getId()) 
+					{
+						sat = true;
+						room.setName(((Room)object).getName());
+					}
+				}
+				if(!sat) 
+				{
+					rooms.add((Room)object);
+				}
+		}
 	}
 	
 	public ArrayList<Room> getRooms() {
