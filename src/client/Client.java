@@ -27,15 +27,17 @@ public class Client {
 	private MainFrame mf;
 	
 	public Client() {
-		mf = new MainFrame(this);
+		//mf = new MainFrame(this);
 		//mf.createAndShowLogin();
+		
+		
 		
 		persons = new ArrayList();
 	}
 	
 	public static void main(String[] args){
-		Client client = new Client();
-		client.getPersons();
+		//Client client = new Client();
+		//client.getPersons();
 	}	
 	
 	public void getPersons() {
