@@ -57,7 +57,7 @@ public class NewMeetingFrame extends JFrame {
 	
 	private MainFrame mainFrame;
 	
-	private ArrayList<Object> persons;
+	private ArrayList<Person> persons;
 	
 	private Person user;
 	
@@ -245,7 +245,7 @@ public class NewMeetingFrame extends JFrame {
 	 * Fils the model with all persons, except the logged in user, which is already
 	 * in the right list
 	 */
-	private void fillModel(DefaultListModel model, ArrayList<Object> persons) {
+	private void fillModel(DefaultListModel model, ArrayList<Person> persons) {
 		
 		for(Object o: persons) {
 			Person p = (Person)o;
