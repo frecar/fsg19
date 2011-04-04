@@ -9,26 +9,57 @@ import java.util.Locale;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
 import models.Person;
-import server.DatabaseHandler;
 
 public class API {
 
-	
-	public Object getPersonById(String test, String tap) {
-		DatabaseHandler database = DatabaseHandler.getInstance();
+	public Object getPersons() {
 		
-		Connection conn = database.createConnection();
-		System.out.println(conn);
-				
+		MySQLAccess dao = new MySQLAccess();
 		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM Person");
-		} catch (SQLException e) {
+			Connection conn = dao.createConnection();
+			
+			Statement stat = conn.createStatement();
+			String query = "SELECT * FROM Person";
+			ResultSet result = stat.executeQuery(query);
+						
+			while(result.next()) {
+				System.out.println(result.getString("name"));
+			}
+			
+			conn.close();
+			
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		return new Person("ok");
+	}
+
+
+	public Object getPersonById(String test, String tap) {
+		
+		MySQLAccess dao = new MySQLAccess();
+		try {
+			Connection conn = dao.createConnection();
+			
+			Statement stat = conn.createStatement();
+			String query = "SELECT * FROM persons";
+			ResultSet result = stat.executeQuery("SELECT * FROM Person");
+			
+			System.out.println("Result:");
+			
+			while(result.next()) {
+				System.out.println(result.getString("name"));
+			}
+			
+			conn.close();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return new Person("ok");
 	}

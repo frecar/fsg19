@@ -33,20 +33,13 @@ import java.net.Socket;
 	public void run() {
 		String lol = "";
 		try {
-			
-			String str;
-		    str = " <?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-		    str += "<ticketRequest><customer custID=\"1\">";
-		    str += "</ticketRequest>";
-
 			ObjectInputStream ois = new ObjectInputStream(threadSocket.getInputStream());
 			String message = (String) ois.readObject();
-			System.out.println("Message: " + message);
-
+			System.out.println("Client says: " + message);
+			Object a = API.handle(message);
 		    ObjectOutputStream oos = new ObjectOutputStream(threadSocket.getOutputStream());
-		    oos.writeObject(str);
+		    oos.writeObject(a);
 		    oos.close();
-
 		}
 		catch(IOException e) {
 			System.out.println("Could not handle the connection.");
