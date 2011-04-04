@@ -10,17 +10,23 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import client.Client;
+
 public class MainPanel extends JPanel{
 
 	private JPanel west, east, north, south, center;
 	
-	MainPanel() {
+	private MainFrame mainFrame;
+	
+	public MainPanel(MainFrame mainFrame) {
+		
+		this.mainFrame = mainFrame;
 		
 		setLayout(new BorderLayout(5, 10));
 		//setBorder(new TitledBorder("KEKFACE"));
 		
 		north = new NorthPanel(new GridLayout(1, 1));
-		south = new SouthPanel(new BorderLayout());
+		south = new SouthPanel(new BorderLayout(), this);
 		center = new CenterPanel(new BorderLayout());
 		//center.setOpaque(true);
 		//center.setBackground(Color.BLUE);
@@ -35,6 +41,20 @@ public class MainPanel extends JPanel{
 		add(east, BorderLayout.EAST);
 	}
 	
+
+
+	public MainFrame getMainFrame() {
+		return mainFrame;
+	}
+
+
+
+	public void setMainFrame(MainFrame mainFrame) {
+		this.mainFrame = mainFrame;
+	}
+
+
+
 	public JPanel getEastPanel() {
 		return this.east;
 	}

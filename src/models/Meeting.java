@@ -19,10 +19,10 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	private String title;
 	private String date;
 	private String responsible;
-	private String time_start;
-	private String time_end;
+	private String timeStart;
+	private String timeEnd;
 	private String description;
-	private String canceled;
+	private String cancelled;
 	private String deleted;
 	private String room;
 	
@@ -38,6 +38,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	public Meeting(String title) {
 		this.title = title;
 	}
+
 	
 	public Meeting(ResultSet result) {
 		try {
@@ -56,10 +57,10 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		this.title = title;
 		this.date = date;
 		this.responsible = responsible;
-		this.time_start = time_start;
-		this.time_end = time_end;
+		this.timeStart = timeStart;
+		this.timeEnd = time_end;
 		this.description = description;
-		this.canceled = canceled;
+		this.cancelled = canceled;
 		this.deleted = deleted;
 		this.room = room;
 		
@@ -92,19 +93,19 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	}
 
 	public String getTime_start() {
-		return time_start;
+		return timeStart;
 	}
 
 	public void setTime_start(String time_start) {
-		this.time_start = time_start;
+		this.timeStart = time_start;
 	}
 
 	public String getTime_end() {
-		return time_end;
+		return timeEnd;
 	}
 
 	public void setTime_end(String time_end) {
-		this.time_end = time_end;
+		this.timeEnd = time_end;
 	}
 
 	public String getDescription() {
@@ -116,11 +117,11 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	}
 
 	public String getCanceled() {
-		return canceled;
+		return cancelled;
 	}
 
 	public void setCanceled(String canceled) {
-		this.canceled = canceled;
+		this.cancelled = canceled;
 	}
 
 	public String getDeleted() {
@@ -207,7 +208,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	}
 	
 	public String toString() {
-		return title + " | " + date + " | " + time_start + "-" + time_end + " | " + room;
+		return title + " | " + date + " | " + timeStart + "-" + timeEnd + " | " + room;
 	}
 
 

@@ -1,47 +1,22 @@
 package client;
 import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
-import java.io.BufferedInputStream;
-import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-//import com.sun.tools.javac.util.List;
-
 import client.gui.MainFrame;
-import models.FileHandler;
 import models.Meeting;
 import models.Person;
 import models.Room;
 
 public class Client {
 
+	private Person user;
 	private ArrayList<Person> persons;
 	private ArrayList<Meeting> meetings;
 	private ArrayList<Room> rooms;
@@ -52,11 +27,10 @@ public class Client {
 	private int port;
 	
 	public Client() {
-		mf = new MainFrame(this);	
 		
 		System.out.println("client started");
 
-		this.host = "localhost";
+		this.host = "78.91.2.18";
 		this.port = 8120;
 	
 		
@@ -71,10 +45,8 @@ public class Client {
 	
 	public static void main(String[] args){
 		Client client = new Client();
-		
 		//Set auto-update
 		Thread thread1 = new Updater("najs", 1000, client);
-
 	}
 	
 	public ArrayList<Object> request(String request) {
@@ -167,5 +139,13 @@ public class Client {
 	}
 	public ArrayList<Meeting> getMeetings() {
 		return this.meetings;
+	}
+	
+	public void setUser(Person user) {
+		this.user = user;
+	}
+	
+	public Person getUser() {
+		return this.user;
 	}
 }
