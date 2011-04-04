@@ -56,20 +56,20 @@ public class MainFrame {
 		mainPanel.setVisible(false);
 		frame.add(mainPanel);
 		
-		frame.pack();
+		//frame.pack();
 		frame.setVisible(true);
 		
 		// Adds the "before-login" menubar
 		new MenuBarBuilder(frame, this, MenuBarBuilder.BEFORE_CONNECTED_MENUBAR);
 		
 		// Creates and show a login dialog
-		//showLogin();
+		createAndShowLogin();
 		
 		/**
 		 * Bypasses the login box because it became annoying after a while
 //		 */	
-		mainPanel.setVisible(true);
-		new MenuBarBuilder(frame, this, MenuBarBuilder.AFTER_CONNECTED_MENUBAR);
+		//mainPanel.setVisible(true);
+		//new MenuBarBuilder(frame, this, MenuBarBuilder.AFTER_CONNECTED_MENUBAR);
 		
 	}
 	

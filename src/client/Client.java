@@ -38,28 +38,22 @@ import models.Person;
 
 public class Client {
 
-	/*
-	 * Client API
-	 * 
-	 * Kaller metoder på klienten, som sender et nettverks-kall til server
-	 * Server vil tolke strengen som er sendt, og finne tilsvarende metode (ClientThread.java)
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
-	
 	private ArrayList<Person> persons;
 	private MainFrame mf;
 	
 	public Client() {
 		mf = new MainFrame(this);	
+		
+		/*System.out.println("clieddddnt");
+		mf = new MainFrame(this);
+		mf.initGUI();
 		persons = new ArrayList();
+		*/
 	}
 	
 	public static void main(String[] args){
 		Client client = new Client();
-		client.getPersons();
+		//client.getPersons();
 	}	
 	
 	public String convertXMLFileToString(String fileName) 
