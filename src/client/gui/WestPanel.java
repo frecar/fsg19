@@ -1,6 +1,8 @@
 package client.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.util.Random;
@@ -11,6 +13,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -44,10 +48,12 @@ public class WestPanel extends JPanel implements ListSelectionListener {
 				"13 sadasfsafadfasdasdasd",
 				"14 sadasfsafadfasdasdasd"};
 		
-		JList appointments = new JList(list);
-		appointments.addListSelectionListener(this);
+		JList meetings = new JList(list);
+		meetings.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		meetings.addListSelectionListener(this);
+		meetings.setCellRenderer(new MeetingRenderer());
 		
-		JScrollPane scroll = new JScrollPane(appointments);
+		JScrollPane scroll = new JScrollPane(meetings);
 		
 		JPanel labels = new JPanel();
 		
@@ -64,7 +70,7 @@ public class WestPanel extends JPanel implements ListSelectionListener {
 		//System.out.println("mordi");
 		
 		/**
-		 *  Herregud så stygg kode. Masse stress for å få tak i riktige kompo
+		 *  Herregud så stygg kode. Masse stress for å få tak i riktige kompo-
 		 *  nenter som skal endres
 		 */
 		MainPanel m = (MainPanel)parent;
@@ -76,5 +82,29 @@ public class WestPanel extends JPanel implements ListSelectionListener {
 		String token = Long.toString(Math.abs(r.nextLong()), 36);
 		
 		titleTextField.setText(token);
+	}
+	
+	public class MeetingRenderer implements ListCellRenderer {
+
+		@Override
+		public Component getListCellRendererComponent(JList arg0, Object value,
+				int index, boolean isSelected, boolean cellHasFocus) {
+			
+			//PersonModel p = (PersonModel) value;   TODO: use meeting model
+			String s = (String) value;
+			
+			JLabel label = new JLabel();
+			label.setText(s);
+			label.setOpaque(true);
+
+			if (isSelected) {
+		        label.setBackground(Color.GREEN);
+		    } 
+		    else {
+		    	label.setBackground(Color.BLUE);
+		    }
+			return label;
+		}
+
 	}
 }

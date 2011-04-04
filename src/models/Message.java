@@ -6,8 +6,6 @@ public class Message {
 	private int id;
 	private String text;
 	private Has_appointment has_appointment;
-	
-	private File file;
 
 	public void setId(int id) {
 		this.id = id;
@@ -40,6 +38,20 @@ public class Message {
 			FileHandler.createFile(file);
 		}
 		FileHandler.serialize(this, file);
+	}
+	
+	public Message load(){
+		System.out.println("loading " + id);
+		File file = new File(Integer.toString(id));
+		Message temp = null;
+		try {
+			temp = (Message) FileHandler.deSerialize(file, this.getClass().newInstance());
+		} catch (InstantiationException e1) {
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			e1.printStackTrace();
+		}
+		return temp;	
 	}
 
 }

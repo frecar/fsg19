@@ -16,16 +16,16 @@ public class Person implements Serializable{
 	private String email;
 	private String username;
 	private String password;
-	private Company company;
-	private ArrayList<Appointment> appointments;
+	private Company company;	
+	private ArrayList<Meeting> appointments;
 	
 	public Person(){
-		setList(new ArrayList<Appointment>());
+		setList(new ArrayList<Meeting>());
 	}
 	
 	public Person(String name) {
 		setName(name);
-		setList(new ArrayList<Appointment>());
+		setList(new ArrayList<Meeting>());
 	}
 	
 	public void save(){
@@ -37,15 +37,15 @@ public class Person implements Serializable{
 		FileHandler.serialize(this, file);
 	}
 	
-	public void setList(ArrayList<Appointment> m) {
+	public void setList(ArrayList<Meeting> m) {
 		appointments = m;
 	}
 	
-	public void addAppointment(Appointment appointment){
+	public void addAppointment(Meeting appointment){
 		appointments.add(appointment);
 	}
 	
-	public ArrayList<Appointment> getList(){
+	public ArrayList<Meeting> getList(){
 		return appointments;
 	}
 

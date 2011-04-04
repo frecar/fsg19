@@ -7,8 +7,6 @@ public class Room {
 	private String name;
 	private Company company;
 	
-	private File file;
-	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -37,6 +35,20 @@ public class Room {
 			FileHandler.createFile(file);
 		}
 		FileHandler.serialize(this, file);
+	}
+	
+	public Room load(){
+		System.out.println("loading " + name);
+		File file = new File(name);
+		Room temp = null;
+		try {
+			temp = (Room) FileHandler.deSerialize(file, this.getClass().newInstance());
+		} catch (InstantiationException e1) {
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			e1.printStackTrace();
+		}
+		return temp;	
 	}
 
 }
