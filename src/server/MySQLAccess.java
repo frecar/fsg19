@@ -14,7 +14,7 @@ public class MySQLAccess {
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
 
-	public static Connection createConnection() {
+	public Connection createConnection() {
     	String errorMsg;
     	
         Connection conn = null;
@@ -33,5 +33,4 @@ public class MySQLAccess {
         }
         return conn;
     }
-
 }

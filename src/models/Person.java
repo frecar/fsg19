@@ -2,6 +2,7 @@ package models;
 
 import java.io.File;
 import java.io.Serializable;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import com.sun.org.apache.xml.internal.serializer.ToStream;
@@ -24,16 +25,19 @@ public class Person implements Serializable{
 	public Person(){
 		setList(new ArrayList<Meeting>());
 	}
-
-	public String toString() {
-		return this.name;
-	}
 	
 	public Person(String name) {
 		setName(name);
 		setList(new ArrayList<Meeting>());
 	}
 	
+	public Person(ResultSet result) {
+	}
+	
+	public String toString() {
+		return this.name;
+	}
+
 	public void save(){
 		File file = new File(name);
 		System.out.println("saving " + name);

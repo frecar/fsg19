@@ -41,6 +41,8 @@ import models.Person;
 public class Client {
 
 	private ArrayList<Object> persons;
+	private ArrayList<Object> meetings;
+	
 	private MainFrame mf;
 	
 	private String host;
@@ -62,6 +64,7 @@ public class Client {
 	public static void main(String[] args){
 		Client client = new Client();
 		client.getPersons();
+		client.getMeetings();
 	}	
 	
 	
@@ -90,10 +93,7 @@ public class Client {
 	        		list.add((Object)decoder.readObject());
 		        }
 		    } 
-			catch ( ArrayIndexOutOfBoundsException exception ) 
-			{
-				System.out.println("ARRAY ERROR");
-		    } 
+			catch ( ArrayIndexOutOfBoundsException exception ) {} 
 			finally 
 			{
 		        decoder.close();
@@ -117,13 +117,19 @@ public class Client {
 		
 	}
 	
-	public void getPersons() {
-	
+	public ArrayList<Object> getPersons() {
 		String query = "get,getPersons";
-		
 		ArrayList<Object> list = this.request(query);
-	
 		persons = list;
+		System.out.println(persons);
+		return persons;
+	}
 	
+	public ArrayList<Object> getMeetings() {
+		String query = "get,getMeetings";
+		ArrayList<Object> list = this.request(query);
+		meetings = list;
+		System.out.println(meetings);
+		return meetings;
 	}
 }

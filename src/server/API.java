@@ -19,36 +19,73 @@ import models.Person;
 
 public class API {
 
-	public Object getPersons() {
-		
-		Person person;
+	public ResultSet requestDatabase(String query) {
+
 		MySQLAccess dao = new MySQLAccess();
 		
-		ByteArrayOutputStream xml = new ByteArrayOutputStream();
-		XMLEncoder encoder = new XMLEncoder(xml);
-        
+		Connection conn = dao.createConnection();
+		Statement stat;
+		ResultSet result = null;
+		
 		try {
-			
-			Connection conn = dao.createConnection();
-			
-			Statement stat = conn.createStatement();
-			String query = "SELECT * FROM Person";
-			ResultSet result = stat.executeQuery(query);
+			stat = conn.createStatement();
+			result = stat.executeQuery(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 
+	
+	public Object getPersons() {
+		String query = "SELECT * FROM Person";
+		
+		ByteArrayOutputStream xml = new ByteArrayOutputStream();
+        XMLEncoder encoder = new XMLEncoder(xml);
+        
+        ResultSet result = requestDatabase(query);
+		
+		try {
 			while(result.next()) {
 				String name = result.getString("name");
 				encoder.writeObject(new Person(name));
 			}
-
-			encoder.close();			
-			conn.close();
-			
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-				
+	
+		encoder.close();	
+
 		return xml;
 	}
+	
+
+	public Object getMeetings() {
+		String query = "SELECT * FROM Person";
+		
+		ByteArrayOutputStream xml = new ByteArrayOutputStream();
+        XMLEncoder encoder = new XMLEncoder(xml);
+        
+        ResultSet result = requestDatabase(query);
+		
+		try {
+			while(result.next()) {
+				String name = result.getString("name");
+				encoder.writeObject(new Person(name));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		encoder.close();	
+
+		return xml;
+	}
+	
+	
 
 	public Object getPersonById(String test, String tap) {
 		
