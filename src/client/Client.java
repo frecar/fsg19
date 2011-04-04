@@ -123,9 +123,17 @@ public class Client {
 		ArrayList<Object> list = this.request(query);
 		
 		for (Object object : list) {
-			
+			for (Person person : this.getPersons()) {
+				boolean sat = false;
+				if(person.getId() == ((Person)object).getId()) {
+					sat = true;
+					person.setName(((Person)object).getName());
+				}
+				if(!sat) {
+					persons.add((Person)object);
+				}
+			}
 		}
-		
 	}
 	
 	public void updateMeetings() {

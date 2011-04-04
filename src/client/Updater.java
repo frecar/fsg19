@@ -19,7 +19,7 @@ public class Updater extends Thread {
 	@SuppressWarnings("static-access")
 	public void run(){
 		while (runs){
-			//gjør noe her
+
 			System.out.println(Thread.currentThread().getName());
 			try {
 				this.sleep(sleepTime);
