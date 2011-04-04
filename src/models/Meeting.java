@@ -21,7 +21,7 @@ public class Meeting implements Serializable{
 	public Meeting(String title) {
 		this.title = title;
 	}
-	
+
 	public Meeting(String title, String date, String responsible, String time_start,String time_end, String place,
 			String numOfParticipants, String description, String canceled, String deleted) {
 		super();
@@ -101,7 +101,6 @@ public class Meeting implements Serializable{
 		this.time_start = time;
 		firePropertyChanged();
 	}
-	
 
 	public void setTime_end(String time) {
 		this.time_start = time;

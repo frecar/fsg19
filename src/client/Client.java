@@ -40,11 +40,17 @@ import models.Person;
 
 public class Client {
 
-	private ArrayList<Person> persons;
+	private ArrayList<Object> persons;
 	private MainFrame mf;
+	
+	private String host;
+	private int port;
 	
 	public Client() {
 		mf = new MainFrame(this);	
+		
+		this.host = "localhost";
+		this.port = 8120;
 		
 		/*System.out.println("clieddddnt");
 		mf = new MainFrame(this);
@@ -58,34 +64,41 @@ public class Client {
 		client.getPersons();
 	}	
 	
-	public void getPersons() {
+	
+	public ArrayList<Object> request(String request) {
+		
 		Object object;
 		FileInputStream os;
 
+		ArrayList<Object> list = new ArrayList<Object>();
+
 		try {
-			Socket socket = new Socket("localhost", 8120);		
+			Socket socket = new Socket(this.host, this.port);		
+		
 			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());	
-			oos.writeObject("get,getPersons");
+			oos.writeObject(request);
 			ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 			String message = (String) ois.readObject();
 			
 			InputStream is = new ByteArrayInputStream(message.getBytes("UTF-8"));
 			XMLDecoder decoder = new XMLDecoder(is);
 			
-			ArrayList<Object> list = new ArrayList<Object>();
-		    
-			try {
-		        while ( true ) {
+			try 
+			{
+		        while ( true ) 
+		        {
 	        		list.add((Object)decoder.readObject());
 		        }
-		    } catch ( ArrayIndexOutOfBoundsException exception ) {
-		    } finally {
+		    } 
+			catch ( ArrayIndexOutOfBoundsException exception ) 
+			{
+				System.out.println("ARRAY ERROR");
+		    } 
+			finally 
+			{
 		        decoder.close();
 		    }
-
-		    for (Object object2 : list) {
-		    	System.out.println(((Person) object2).toString());
-		    }
+	    
 			ois.close();
 			oos.close();
 			
@@ -99,5 +112,18 @@ public class Client {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return list;
+		
+	}
+	
+	public void getPersons() {
+	
+		String query = "get,getPersons";
+		
+		ArrayList<Object> list = this.request(query);
+	
+		persons = list;
+	
 	}
 }
