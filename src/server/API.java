@@ -1,24 +1,63 @@
 package server;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Locale;
 
 import java.beans.XMLEncoder;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import models.Person;
 
 public class API {
 
+	public Object getPersons() {
+		String query = "SELECT * FROM Person";
+		return getObjects(query, "models.Person");
+	}
+	
+	public Object getMeetings() {
+		String query = "SELECT * FROM Meeting";
+		return getObjects(query, "models.Meeting");
+	}
+	
+	public Object getRooms() {
+		String query = "SELECT * FROM Room";
+		return getObjects(query, "models.Room");
+	}
+	
+	public Object getObjects(String query, String classname) {	
+		ByteArrayOutputStream xml = new ByteArrayOutputStream();
+        XMLEncoder encoder = new XMLEncoder(xml);
+        
+        ResultSet result = requestDatabase(query);
+        
+		try {
+			Class<?> cls = Class.forName(classname);
+            Class<?> partypes[] = new Class[1];
+            partypes[0] = ResultSet.class;
+            Constructor<?> ct = cls.getConstructor(partypes);
+            Object arglist[] = new Object[1];
+
+            while(result.next()) {								
+            	arglist[0] = result;
+                Object retobj = ct.newInstance(arglist);
+                encoder.writeObject(retobj);
+            }
+		}	
+		catch (Throwable e) {
+            System.err.println(e);
+         }
+		
+		encoder.close();	
+		return xml;
+	}
+	
+	/*
+	 * Specify format like this:
+	 * handle(method,arg1,arg2,arg3)
+	 * 
+	 */
 	public ResultSet requestDatabase(String query) {
 
 		MySQLAccess dao = new MySQLAccess();
@@ -36,92 +75,7 @@ public class API {
 		
 		return result;
 	}
-
 	
-	public Object getPersons() {
-		String query = "SELECT * FROM Person";
-		
-		ByteArrayOutputStream xml = new ByteArrayOutputStream();
-        XMLEncoder encoder = new XMLEncoder(xml);
-        
-        ResultSet result = requestDatabase(query);
-		
-		try {
-			while(result.next()) {
-				String name = result.getString("name");
-				encoder.writeObject(new Person(name));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
-		encoder.close();	
-
-		return xml;
-	}
-	
-
-	public Object getMeetings() {
-		String query = "SELECT * FROM Person";
-		
-		ByteArrayOutputStream xml = new ByteArrayOutputStream();
-        XMLEncoder encoder = new XMLEncoder(xml);
-        
-        ResultSet result = requestDatabase(query);
-		
-		try {
-			while(result.next()) {
-				String name = result.getString("name");
-				encoder.writeObject(new Person(name));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
-		encoder.close();	
-
-		return xml;
-	}
-	
-	
-
-	public Object getPersonById(String test, String tap) {
-		
-		MySQLAccess dao = new MySQLAccess();
-		try {
-			Connection conn = dao.createConnection();
-			
-			Statement stat = conn.createStatement();
-			String query = "SELECT * FROM persons";
-			ResultSet result = stat.executeQuery("SELECT * FROM Person");
-			
-			System.out.println("Result:");
-			
-			while(result.next()) {
-				System.out.println(result.getString("name"));
-			}
-			
-			conn.close();
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return new Person("ok");
-	}
-	
-	public String test() {
-		return "test OK";
-	}
-	
-	/*
-	 * Specify format like this:
-	 * handle(method,arg1,arg2,arg3)
-	 * 
-	 */
 	public static Object handle(String request) {
 		
 		API api = new API();

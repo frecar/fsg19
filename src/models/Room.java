@@ -1,17 +1,37 @@
 package models;
 
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Room {
 	private int id;
 	private String name;
 	private Company company;
 	
+	public Room() {};
+	
+	public Room(ResultSet result) {
+		try {
+			this.id 		= Integer.parseInt(result.getString("id"));
+			this.name 		= result.getString("name");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public int getId() {
 		return id;
+	}
+	
+	public String toString() {
+		return this.name;
 	}
 	
 	public void setName(String name) {
