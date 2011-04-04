@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -86,7 +87,7 @@ public class NewMeetingFrame extends JFrame {
 		String loggedInUser;
 		
 		if(this.getUser() == null) {
-			loggedInUser = "YOU BYPASSED THE LOGIN";
+			loggedInUser = "YOU BYPASSED THE LOGIN YOU HACKLER";
 		}
 		else {
 			loggedInUser = this.getUser().getName();
@@ -103,8 +104,11 @@ public class NewMeetingFrame extends JFrame {
 		timeEndTextField = new JTextField("10:00", 5);
 		///timeTextField.setEnabled(false);
 		
-		roomTextField = new JTextField("Bøttekottet", 20);
-		//placeTextField.setEnabled(false);
+		String[] petStrings = { "Bird", "Cat", "Dog"};
+		JComboBox rooms = new JComboBox(petStrings);
+		
+		roomTextField = new JTextField("Bøttekottet", 10);
+		roomTextField.setEnabled(false);
 		
 		leftModel = new DefaultListModel();
 		rightModel = new DefaultListModel();
@@ -188,7 +192,11 @@ public class NewMeetingFrame extends JFrame {
 		
 		c.gridx = 1;
 		c.gridy = 4;
-		panel.add(roomTextField, c);
+		panel.add(rooms, c);
+		
+//		c.gridx = 2;
+//		c.gridy = 4;
+//		panel.add(roomTextField, c);
 		
 		c.gridx = 0;
 		c.gridy = 5;
@@ -261,6 +269,7 @@ public class NewMeetingFrame extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			
 			if(! leftModel.isEmpty() && leftList.getSelectedIndex() != -1) {
+				
 				// Add the selected person to the right list
 				Person person = (Person)leftList.getSelectedValue();
 				rightModel.addElement(person);
@@ -280,14 +289,17 @@ public class NewMeetingFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			if(! rightModel.isEmpty() && rightList.getSelectedIndex() != -1) {
-				Person person = (Person)rightList.getSelectedValue();
-				System.out.println((Person)rightList.getSelectedValue());
-				leftModel.addElement(person);
 				
-				// And then remove it from the left list
-				rightModel.removeElement(person);
-				// TODO: add meeting to model
-				//JOptionPane.showMessageDialog(null, "Person was REMOVED.");
+				Person person = (Person)rightList.getSelectedValue();
+				
+				// Dont allow people removing themselves from the meeting
+				if(person.getId() == getUser().getId()) {
+					JOptionPane.showMessageDialog(null, "You cant remove yourself.");
+				}
+				else {
+					leftModel.addElement(person);
+					rightModel.removeElement(person);
+				}
 			}
 			else {
 				System.out.println("the right list is empty or no element had focus");
