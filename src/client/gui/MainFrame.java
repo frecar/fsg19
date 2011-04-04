@@ -101,7 +101,7 @@ public class MainFrame {
 	
 	public void createAndShowAddMeeting() {
 		newMeeting = new NewMeetingFrame(this);
-		newMeeting.setSize(600, 500);
+		newMeeting.setSize(700, 600);
 		newMeeting.setLocationRelativeTo(null);
 		//newMeeting.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//newMeeting.setLayout(new GridBagLayout());

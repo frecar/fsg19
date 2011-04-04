@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import models.Person;
+import models.Room;
 
 /**
  * the frame for creating new meetings
@@ -60,10 +61,15 @@ public class NewMeetingFrame extends JFrame {
 	
 	private ArrayList<Person> persons;
 	
+	// TODO  bruk rooms istedenfor strings
+	private JComboBox roomsComboBox;
+	private ArrayList<Room> rooms = mainFrame.getClient().getRooms();
+	private String[] petStrings = { "Bird", "Cat", "Dog"};
+	
 	private Person user;
 	
 	public NewMeetingFrame(MainFrame mainFrame) {
-		
+		System.out.println(rooms);
 		setTitle("New meeting HELL YEAH");
 		
 		this.mainFrame = mainFrame;
@@ -106,6 +112,7 @@ public class NewMeetingFrame extends JFrame {
 		
 		String[] petStrings = { "Bird", "Cat", "Dog"};
 		JComboBox rooms = new JComboBox(petStrings);
+		rooms.addActionListener(new SelectRoomListener());
 		
 		roomTextField = new JTextField("Bøttekottet", 10);
 		roomTextField.setEnabled(false);
@@ -128,7 +135,7 @@ public class NewMeetingFrame extends JFrame {
 		removePerson = new JButton("Remove");
 		removePerson.addActionListener(new RemovePersonListener());
 		
-		participantsTextField = new JTextField("7", 3);
+		//participantsTextField = new JTextField("7", 3);  @DEPRECATED
 		//participantsTextField.setEnabled(false);
 		
 		descriptionTextField = new JTextField("Alle må ta med snacks", 20);
@@ -194,9 +201,9 @@ public class NewMeetingFrame extends JFrame {
 		c.gridy = 4;
 		panel.add(rooms, c);
 		
-//		c.gridx = 2;
-//		c.gridy = 4;
-//		panel.add(roomTextField, c);
+		c.gridx = 2;
+		c.gridy = 4;
+		panel.add(roomTextField, c);
 		
 		c.gridx = 0;
 		c.gridy = 5;
@@ -263,6 +270,13 @@ public class NewMeetingFrame extends JFrame {
 		}
 	}
 	
+	class SelectRoomListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+//			String room = (String) roomsComboBox.getSelectedItem();
+//			roomTextField.setText(room);
+		}
+	}
 	class AddPersonListener implements ActionListener {
 
 		@Override
