@@ -5,8 +5,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.util.Arrays;
 import java.util.Random;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -23,11 +25,13 @@ import models.Meeting;
 
 import client.gui.EastPanel.MeetingPanel;
 
-public class WestPanel extends JPanel implements ListSelectionListener {
+public class WestPanel extends JPanel {
 
 	private JPanel parent;
 	private JList meetings;
-	Meeting m1, m2, m3, m4, m5;
+	DefaultListModel model;
+	
+	private Meeting m1, m2, m3, m4, m5;
 	
 	
 	public WestPanel(LayoutManager layout, JPanel parent) {
@@ -37,24 +41,17 @@ public class WestPanel extends JPanel implements ListSelectionListener {
 		
 		setBorder(new TitledBorder("WEST"));
 		
+		m1 = new Meeting("tittel", "12.12 2011", "3", "16:15", "1800", "Will ther be cake?", "no", "no", "R7");
+		m2 = new Meeting("tittel222", "05.12 2011", "4", "10:15", "1400", "No cake for you?", "no", "no", "R50");
 		
-		Meeting[] list = new Meeting[5];
 		
-		m1 = new Meeting("Pizza kveld", "03.07 2011", "20:00","Bøttetkottet", "23", "loz lixom");
-		m2 = new Meeting("Bufsjettkutt", "12.12 2011", "12:00","Kontoret", "7", "lol, for lite penger");
-		m3 = new Meeting("Kurs i ballonger", "05.04 2011", "1015","Drivhuset", "3", "comment");
-		m4 = new Meeting("Fest hjemme hos Bjarne", "31.12 2011", "1015","Bjarne sin kjeller", "12", "bjarne skal bli full");
-		m5 = new Meeting("Tur til Thailand", "09.08 2011", "1015","Værnes flyplass", "5", "husk masse cash");
+		model = new DefaultListModel();
+		model.addElement(m1);
+		model.addElement(m2);
 		
-		list[0] = m1;
-		list[1] = m2;
-		list[2] = m3;
-		list[3] = m4;
-		list[4] = m5;		
-		
-		meetings = new JList(list);
+		meetings = new JList(getSortedMeetingsModel());
 		meetings.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		meetings.addListSelectionListener(this);
+		meetings.addListSelectionListener(new MeetingSelectionListener());
 		meetings.setCellRenderer(new MeetingRenderer());
 		
 		JScrollPane scroll = new JScrollPane(meetings);
@@ -68,8 +65,8 @@ public class WestPanel extends JPanel implements ListSelectionListener {
 		add(labels, BorderLayout.NORTH);
 		add(scroll, BorderLayout.CENTER);
 		
-		// Test for checking 
-		new Thread(new Runnable() {
+		// Test for checking model view controller
+		/*new Thread(new Runnable() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
@@ -85,30 +82,22 @@ public class WestPanel extends JPanel implements ListSelectionListener {
 					i += 10;
 				}
 			}
-		}).start();
+		}).start(); */
 		
 	
 	}
 
-	@Override
-	public void valueChanged(ListSelectionEvent arg0) {
-		//System.out.println("mordi");
+	public DefaultListModel getSortedMeetingsModel() {
 		
-		/**
-		 *  Herregud så stygg kode. Masse stress for å få tak i riktige kompo-
-		 *  nenter som skal endres
-		 */
-		MainPanel m = (MainPanel)parent;
-		EastPanel e = (EastPanel)m.getEastPanel();
-		MeetingPanel a = (MeetingPanel)e.getMeetingPanel();
-		a.setModel((Meeting)meetings.getSelectedValue());
-	
-//		JTextField titleTextField = a.getTitle();
-//		
-//		Random r = new Random();
-//		String token = Long.toString(Math.abs(r.nextLong()), 36);
-//		
-//		titleTextField.setText(token);
+		Object[] meetings = model.toArray();
+		Arrays.sort(meetings);
+		DefaultListModel model = new DefaultListModel();
+		
+		for(Object o: meetings) {
+			model.addElement(o);
+		}
+		
+		return model;
 	}
 	
 	public class MeetingRenderer implements ListCellRenderer {
@@ -117,6 +106,7 @@ public class WestPanel extends JPanel implements ListSelectionListener {
 		public Component getListCellRendererComponent(JList arg0, Object value,
 				int index, boolean isSelected, boolean cellHasFocus) {
 			
+			//System.out.println("ListCellRenderer: getListCellRendererComponent()");
 			Meeting m = (Meeting) value;
 			
 			JLabel label = new JLabel();
@@ -132,5 +122,32 @@ public class WestPanel extends JPanel implements ListSelectionListener {
 			return label;
 		}
 
+	}
+	
+	public class MeetingSelectionListener implements ListSelectionListener {
+
+		@Override
+		public void valueChanged(ListSelectionEvent arg0) {
+			System.out.println("A meeting was selected from the meetings JList");
+			
+			/**
+			 *  Herregud så stygg kode. Masse stress for å få tak i riktige kompo-
+			 *  nenter som skal endres
+			 */
+			MainPanel m = (MainPanel)parent;
+			EastPanel e = (EastPanel)m.getEastPanel();
+			MeetingPanel a = (MeetingPanel)e.getMeetingPanel();
+			a.setModel((Meeting)meetings.getSelectedValue());
+		
+			
+//			JTextField titleTextField = a.getTitle();
+//			
+//			Random r = new Random();
+//			String token = Long.toString(Math.abs(r.nextLong()), 36);
+//			
+//			titleTextField.setText(token);
+			
+		}
+		
 	}
 }

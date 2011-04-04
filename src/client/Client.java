@@ -32,7 +32,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.sun.tools.javac.util.List;
+//import com.sun.tools.javac.util.List;
 
 import client.gui.MainFrame;
 import models.FileHandler;
@@ -51,22 +51,24 @@ public class Client {
 	public Client() {
 		mf = new MainFrame(this);	
 		
+
+		System.out.println("client started");
+
 		this.host = "localhost";
 		this.port = 8120;
 		
-		/*System.out.println("clieddddnt");
+	
 		mf = new MainFrame(this);
 		mf.initGUI();
-		persons = new ArrayList();
-		*/
+	   
+		
 	}
 	
 	public static void main(String[] args){
 		Client client = new Client();
 		client.getPersons();
 		client.getMeetings();
-	}	
-	
+	}
 	
 	public ArrayList<Object> request(String request) {
 		

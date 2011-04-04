@@ -3,16 +3,29 @@ package models;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 import client.interfaces.*;
 
-public class Meeting implements Serializable{
+public class Meeting implements Serializable, Comparable<Meeting>{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8417558628557030139L;
-	private String title, date, responsible, time_start, time_end, room, numOfParticipants, description, canceled, deleted;
 	
+	private String title;
+	private String date;
+	private String responsible;
+	private String time_start;
+	private String time_end;
+	private String description;
+	private String canceled;
+	private String deleted;
+	private String room;
+	
+	private ArrayList<Person> participants;
+	
+
 	/**
 	 * All GUI listeners who is interested in the meetings
 	 */
@@ -22,99 +35,118 @@ public class Meeting implements Serializable{
 		this.title = title;
 	}
 
-	public Meeting(String title, String date, String responsible, String time_start,String time_end, String place,
-			String numOfParticipants, String description, String canceled, String deleted) {
+	public Meeting(String title, String date, String responsible, String time_start,String time_end,
+			 String description, String canceled, String deleted, String room) {
+		
 		super();
 		this.title = title;
 		this.date = date;
 		this.responsible = responsible;
 		this.time_start = time_start;
 		this.time_end = time_end;
-		this.room = place;
-		this.numOfParticipants = numOfParticipants;
 		this.description = description;
 		this.canceled = canceled;
 		this.deleted = deleted;
+		this.room = room;
 		
+		participants = new ArrayList<Person>();
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
+	
 	public String getTitle() {
 		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getDate() {
 		return date;
 	}
 
+	public void setDate(String date) {
+		this.date = date;
+	}
+
 	public String getResponsible() {
 		return responsible;
+	}
+
+	public void setResponsible(String responsible) {
+		this.responsible = responsible;
 	}
 
 	public String getTime_start() {
 		return time_start;
 	}
 
+	public void setTime_start(String time_start) {
+		this.time_start = time_start;
+	}
+
 	public String getTime_end() {
 		return time_end;
 	}
 
-	public String getRoom() {
-		return room;
-	}
-
-	public String getNumOfParticipants() {
-		return numOfParticipants;
+	public void setTime_end(String time_end) {
+		this.time_end = time_end;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public String getCanceled() {
 		return canceled;
+	}
+
+	public void setCanceled(String canceled) {
+		this.canceled = canceled;
 	}
 
 	public String getDeleted() {
 		return deleted;
 	}
 
-	public ArrayList<MeetingListener> getMeetingListeners() {
-		return meetingListeners;
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-		firePropertyChanged();
-	}
-
-
-	public void setDate(String date) {
-		this.date = date;
-		firePropertyChanged();
-	}
-
-	public void setTime_start(String time) {
-		this.time_start = time;
-		firePropertyChanged();
-	}
-
-	public void setTime_end(String time) {
-		this.time_start = time;
-		firePropertyChanged();
+	public String getRoom() {
+		return room;
 	}
 
 	public void setRoom(String room) {
 		this.room = room;
-		firePropertyChanged();
 	}
 
-	public void setNumOfParticipants(String numOfParticipants) {
-		this.numOfParticipants = numOfParticipants;
-		firePropertyChanged();
+	public ArrayList<Person> getParticipants() {
+		return participants;
+	}
+
+	public void setParticipants(ArrayList<Person> participants) {
+		this.participants = participants;
+	}
+	
+	public String getNumOfParticipants() {
+		if(participants.size() == 0) {
+			return "0";
+		}
+		
+		return participants.size() + "";
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public ArrayList<MeetingListener> getMeetingListeners() {
+		return meetingListeners;
 	}
 	
 	/**
@@ -122,8 +154,8 @@ public class Meeting implements Serializable{
 	 */
 	private void firePropertyChanged() {
 		//System.out.println("firePropertyChanged()");
-		for(MeetingListener m: meetingListeners) {
-			m.meetingUpdated();
+		for(MeetingListener meetingListener: meetingListeners) {
+			meetingListener.meetingUpdated();
 		}
 	}
 	
@@ -161,6 +193,26 @@ public class Meeting implements Serializable{
 	}
 	
 	public String toString() {
-		return title;
+		return title + " | " + date + " | " + time_start + "-" + time_end + " | " + room;
+	}
+
+
+	/**
+	 * Used for sorting dates in increasing order
+	 */
+	public int compareTo(Meeting m) {
+		String date = m.getDate();
+		int year = Integer.parseInt(date.substring(6, 10));
+		int month = Integer.parseInt(date.substring(3, 5));
+		int day = Integer.parseInt(date.substring(0, 2));
+		
+		int thisYear = Integer.parseInt(this.getDate().substring(6, 10));
+		int thisMonth = Integer.parseInt(this.getDate().substring(3, 5));
+		int thisDay = Integer.parseInt(this.getDate().substring(0, 2));
+		
+		Date mdate = new Date(year, month, day);
+		Date thisDate = new Date(thisYear, thisMonth, thisDay);
+		
+		return thisDate.compareTo(mdate);
 	}
 }
