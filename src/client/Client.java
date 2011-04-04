@@ -141,9 +141,11 @@ public class Client {
 				}
 				if(!sat) 
 				{
-					rooms.add((Room)object);
+					this.rooms.add((Room)object);
 				}
+				
 		}
+		
 	}
 	
 	public ArrayList<Room> getRooms() {

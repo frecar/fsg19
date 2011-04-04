@@ -31,7 +31,6 @@ public class Updater extends Thread {
 			internalSleep();
 			client.updateRooms();
 			internalSleep();
-			System.out.println(Thread.currentThread().getName());
 		}
 	}
 	
