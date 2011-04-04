@@ -41,8 +41,8 @@ public class WestPanel extends JPanel {
 		
 		setBorder(new TitledBorder("WEST"));
 		
-		m1 = new Meeting("tittel", "12.12 2011", "3", "16:15", "1800", "Will ther be cake?", "no", "no", "R7");
-		m2 = new Meeting("tittel222", "05.12 2011", "4", "10:15", "1400", "No cake for you?", "no", "no", "R50");
+		m1 = new Meeting("tittel", "12.12 2011", "3", "16:15", "18:00", "Will ther be cake?", "no", "no", "R7");
+		m2 = new Meeting("tittel222", "05.12 2011", "4", "10:15", "14:00", "No cake for you?", "no", "no", "R50");
 		
 		
 		model = new DefaultListModel();

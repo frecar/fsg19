@@ -38,7 +38,6 @@ public class Client {
 		rooms = new ArrayList<Room>();
 		meetings = new ArrayList<Meeting>();
 		
-		
 		mf = new MainFrame(this);
 		mf.initGUI();
 	}

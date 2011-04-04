@@ -22,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionListener;
 
+import models.Meeting;
 import models.Person;
 import models.Room;
 
@@ -71,7 +72,7 @@ public class NewMeetingFrame extends JFrame {
 	private Person user;
 	
 	public NewMeetingFrame(MainFrame mainFrame) {
-		System.out.println(rooms instanceof ArrayList);
+
 		setTitle("New meeting HELL YEAH");
 		
 		this.mainFrame = mainFrame;
@@ -117,7 +118,8 @@ public class NewMeetingFrame extends JFrame {
 		roomsComboBox = new JComboBox(roomsStrings);
 		roomsComboBox.addActionListener(new SelectRoomListener());
 	
-		roomTextField = new JTextField("Bøttekottet", 10);
+		String theFirstRoom = roomsComboBox.getItemAt(0).toString();
+		roomTextField = new JTextField(theFirstRoom , 10);
 		roomTextField.setEnabled(false);
 		
 		leftModel = new DefaultListModel();
@@ -343,6 +345,9 @@ public class NewMeetingFrame extends JFrame {
 				participants.add((Person)rightModel.get(i));
 			}
 			// TODO: add meeting to model
+			Meeting meeting = new Meeting(title, date, responsible, timeStart, timeEnd, description, "no", "no", room);
+			//meeting.save();
+			
 			JOptionPane.showMessageDialog(null, "The meeting was added.");
 			dispose();
 		}

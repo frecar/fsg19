@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -96,6 +97,7 @@ public class MainFrame {
 		}
 		else {
 			// User must now click Server -> Connect to try to login again
+			JOptionPane.showMessageDialog(null, "The username and password does not match.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

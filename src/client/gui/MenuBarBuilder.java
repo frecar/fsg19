@@ -84,7 +84,6 @@ public class MenuBarBuilder {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			System.out.println("new meeting");
 			mf.createAndShowAddMeeting();
 		}
 	}
@@ -94,7 +93,6 @@ public class MenuBarBuilder {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			System.out.println("new appointment");
 		}
 	}
 
