@@ -46,7 +46,6 @@ public class MainFrame {
 
 		// the main application frame
 		frame = new JFrame("Epic new application");
-		frame.setSize(800, 600);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());		
@@ -56,20 +55,20 @@ public class MainFrame {
 		mainPanel.setVisible(false);
 		frame.add(mainPanel);
 		
-		frame.pack();
+		//frame.pack();
 		frame.setVisible(true);
 		
 		// Adds the "before-login" menubar
 		new MenuBarBuilder(frame, this, MenuBarBuilder.BEFORE_CONNECTED_MENUBAR);
 		
 		// Creates and show a login dialog
-		//showLogin();
+		createAndShowLogin();
 		
 		/**
 		 * Bypasses the login box because it became annoying after a while
 //		 */	
-		mainPanel.setVisible(true);
-		new MenuBarBuilder(frame, this, MenuBarBuilder.AFTER_CONNECTED_MENUBAR);
+		//mainPanel.setVisible(true);
+		//new MenuBarBuilder(frame, this, MenuBarBuilder.AFTER_CONNECTED_MENUBAR);
 		
 	}
 	
