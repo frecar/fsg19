@@ -6,6 +6,7 @@ import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -57,7 +58,6 @@ public class Client {
 		client.getPersons();
 	}	
 	
-	
 	public void getPersons() {
 		Object object;
 		FileInputStream os;
@@ -68,15 +68,15 @@ public class Client {
 			oos.writeObject("get,getPersons");
 			ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 			String message = (String) ois.readObject();
-						
 			
 			InputStream is = new ByteArrayInputStream(message.getBytes("UTF-8"));
 			XMLDecoder decoder = new XMLDecoder(is);
 			
-			ArrayList list = new ArrayList();
-		    try {
+			ArrayList<Object> list = new ArrayList<Object>();
+		    
+			try {
 		        while ( true ) {
-		            list.add(decoder.readObject() );
+	        		list.add((Object)decoder.readObject());
 		        }
 		    } catch ( ArrayIndexOutOfBoundsException exception ) {
 		    } finally {
@@ -84,9 +84,8 @@ public class Client {
 		    }
 
 		    for (Object object2 : list) {
-				System.out.println(object2);
-			}
-		    
+		    	System.out.println(((Person) object2).toString());
+		    }
 			ois.close();
 			oos.close();
 			

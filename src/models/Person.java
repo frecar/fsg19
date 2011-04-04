@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.sun.org.apache.xml.internal.serializer.ToStream;
+
 
 public class Person implements Serializable{
 
@@ -21,6 +23,10 @@ public class Person implements Serializable{
 	
 	public Person(){
 		setList(new ArrayList<Meeting>());
+	}
+
+	public String toString() {
+		return this.name;
 	}
 	
 	public Person(String name) {
