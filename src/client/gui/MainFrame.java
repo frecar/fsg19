@@ -17,6 +17,14 @@ public class MainFrame {
 	private JFrame newMeeting;
 	private JPanel mainPanel;
 	
+	public JPanel getMainPanel() {
+		return mainPanel;
+	}
+
+	public void setMainPanel(JPanel mainPanel) {
+		this.mainPanel = mainPanel;
+	}
+
 	private Client client;
 	
 	public MainFrame(Client client) {
@@ -52,7 +60,7 @@ public class MainFrame {
 		frame.setLayout(new BorderLayout());		
 		
 		// Creates and add mainpanel, but does not show it yet(must login first)
-		mainPanel = new MainPanel();
+		mainPanel = new MainPanel(this);
 		mainPanel.setVisible(false);
 		frame.add(mainPanel);
 		
@@ -74,7 +82,7 @@ public class MainFrame {
 	}
 	
 	public void createAndShowLogin() {
-		loginDialog = new LoginDialog(frame);
+		loginDialog = new LoginDialog(frame, this);
 		loginDialog.setVisible(true);
 		
 		/**
@@ -92,7 +100,7 @@ public class MainFrame {
 	}
 	
 	public void createAndShowAddMeeting() {
-		newMeeting = new NewMeetingFrame("New meeting YEAH");
+		newMeeting = new NewMeetingFrame(this);
 		newMeeting.setSize(600, 500);
 		newMeeting.setLocationRelativeTo(null);
 		//newMeeting.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -42,6 +42,7 @@ public class Client {
 
 	private ArrayList<Object> persons;
 	private ArrayList<Object> meetings;
+	private Person user;
 	
 	private MainFrame mf;
 	
@@ -49,12 +50,10 @@ public class Client {
 	private int port;
 	
 	public Client() {
-		mf = new MainFrame(this);	
 		
-
 		System.out.println("client started");
 
-		this.host = "localhost";
+		this.host = "78.91.2.18";
 		this.port = 8120;
 		
 	
@@ -66,8 +65,8 @@ public class Client {
 	
 	public static void main(String[] args){
 		Client client = new Client();
-		client.getPersons();
-		client.getMeetings();
+		//client.getPersons();
+		//client.getMeetings();
 	}
 	
 	public ArrayList<Object> request(String request) {
@@ -133,5 +132,13 @@ public class Client {
 		meetings = list;
 		System.out.println(meetings);
 		return meetings;
+	}
+	
+	public void setUser(Person user) {
+		this.user = user;
+	}
+	
+	public Person getUser() {
+		return this.user;
 	}
 }

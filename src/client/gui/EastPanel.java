@@ -40,8 +40,37 @@ public class EastPanel extends JPanel{
 	 */
 	class MeetingPanel extends JPanel implements MeetingListener{
 		
-		private JLabel titleLabel, dateLabel, timeLabel, placeLabel, participantsLabel, commentLabel;
-		private JTextField titleTextField, dateTextField, timeTextField, placeTextField, participantsTextField, commentTextField;
+//		private JLabel titleLabel;
+//		private JLabel dateLabel;
+//		private JLabel timeLabel;
+//		private JLabel placeLabel;
+//		private JLabel participantsLabel;
+//		private JLabel commentLabel;
+//		
+//		private JTextField titleTextField;
+//		private JTextField dateTextField;
+//		private JTextField timeTextField;
+//		private JTextField placeTextField;
+//		private JTextField participantsTextField;
+//		private JTextField commentTextField;
+		
+		private JLabel titleLabel;
+		private JLabel dateLabel;
+		private JLabel responsibleLable;
+		private JLabel timeLabel;
+		private JLabel descriptionLabel;
+		private JLabel roomLabel;
+		private JLabel participantsLabel;
+
+		
+		private JTextField titleTextField;
+		private JTextField dateTextField;
+		private JTextField responsibleTextField;
+		private JTextField timeStartTextField;
+		private JTextField timeEndTextField;
+		private JTextField descriptionTextField;
+		private JTextField roomTextField;
+		private JTextField participantsTextField;
 		
 		/**
 		 * The meeting which this panel currently holds
@@ -55,15 +84,15 @@ public class EastPanel extends JPanel{
 		public void setModel(Meeting model) {
 			this.model = model;
 			
-			// Add this EastPanel as listener on the model
+			// Add this MeetingPanel as listener on the model
 			model.addMeetingListener(this);
 			
 			this.titleTextField.setText(this.model.getTitle());
 			this.dateTextField.setText(this.model.getDate());
-			this.timeTextField.setText(this.model.getTime_start());
-			this.placeTextField.setText(this.model.getRoom());
+			this.timeStartTextField.setText(this.model.getTime_start());
+			this.roomTextField.setText(this.model.getRoom());
 			this.participantsTextField.setText(this.model.getNumOfParticipants());
-			this.commentTextField.setText(this.model.getDescription());
+			this.descriptionTextField.setText(this.model.getDescription());
 		}
 		
 		public MeetingPanel() {
@@ -72,29 +101,33 @@ public class EastPanel extends JPanel{
 			setBorder(new TitledBorder("Selected appointment"));
 			
 			titleLabel = new JLabel("Title:");
+			responsibleLable = new JLabel("Responsible:");
 			dateLabel = new JLabel("Date:");
 			timeLabel = new JLabel("Time:");
-			placeLabel = new JLabel("Place:");
+			roomLabel = new JLabel("Room:");
 			participantsLabel = new JLabel("Participants:");
-			commentLabel = new JLabel("Comment:");
+			descriptionLabel = new JLabel("Description:");
 			
-			titleTextField = new JTextField("EMPTY", 20);
+			titleTextField = new JTextField("TITLE", 20);
 			titleTextField.setEnabled(false);
 			
-			dateTextField = new JTextField("EMPTY", 20);
+			dateTextField = new JTextField("DATE", 20);
 			dateTextField.setEnabled(false);
 			
-			timeTextField = new JTextField("EMPTY", 20);
-			timeTextField.setEnabled(false);
+			responsibleTextField = new JTextField("RESPONSIBLE", 20);
+			responsibleTextField.setEnabled(false);
 			
-			placeTextField = new JTextField("EMPTY", 20);
-			placeTextField.setEnabled(false);
+			timeStartTextField = new JTextField("TIMESTART", 20);
+			timeStartTextField.setEnabled(false);
 			
-			participantsTextField = new JTextField("EMPTY", 3);
+			roomTextField = new JTextField("ROOM", 20);
+			roomTextField.setEnabled(false);
+			
+			participantsTextField = new JTextField("PARTICIPANTS", 3);
 			participantsTextField.setEnabled(false);
 			
-			commentTextField = new JTextField("EMPTY", 20);
-			commentTextField.setEnabled(false);
+			descriptionTextField = new JTextField("DESCRIPTION", 20);
+			descriptionTextField.setEnabled(false);
 			
 			
 			GridBagConstraints c = new GridBagConstraints();
@@ -111,44 +144,65 @@ public class EastPanel extends JPanel{
 			
 			c.gridx = 0;
 			c.gridy = 1;
+			
+			add(responsibleLable, c);
+			
+			c.gridx = 1;
+			c.gridy = 1;
+			add(responsibleTextField, c);
+			
+			c.gridx = 0;
+			c.gridy = 2;
 			add(dateLabel, c);
 			
 			
 			c.gridx = 1;
-			c.gridy = 1;
+			c.gridy = 2;
 			add(dateTextField, c);
 			
 			c.gridx = 0;
-			c.gridy = 2;
+			c.gridy = 3;
 			add(timeLabel, c);
 			
 			c.gridx = 1;
-			c.gridy = 2;
-			add(timeTextField, c);
-			
-			c.gridx = 0;
 			c.gridy = 3;
-			add(placeLabel, c);
+			add(timeStartTextField, c);
 			
-			c.gridx = 1;
-			c.gridy = 3;
-			add(placeTextField, c);
+//			c.gridx = 2;
+//			c.gridy = 3;
+//			add(timeEndTextField, c);
 			
 			c.gridx = 0;
 			c.gridy = 4;
+			add(roomLabel, c);
+			
+			c.gridx = 1;
+			c.gridy = 4;
+			add(roomTextField, c);
+			
+			c.gridx = 0;
+			c.gridy = 5;
 			add(participantsLabel, c);
 			
 			c.gridx = 1;
-			c.gridy = 4;
+			c.gridy = 5;
 			add(participantsTextField, c);
 			
 			c.gridx = 0;
-			c.gridy = 5;
-			add(commentLabel, c);
+			c.gridy = 6;
+			add(descriptionLabel, c);
 			
 			c.gridx = 1;
-			c.gridy = 5;
-			add(commentTextField, c);
+			c.gridy = 6;
+			add(descriptionTextField, c);
+
+//			c.gridx = 0;
+//			c.gridy = 7;
+//			add(addMeeting, c);
+//			
+//			c.gridx = 1;
+//			c.gridy = 7;
+//			add(closeFrame, c);
 			
 			//add(new JButton("rightpanel"));
 		}
