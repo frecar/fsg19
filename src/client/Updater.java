@@ -16,16 +16,31 @@ public class Updater extends Thread {
 		start();
 	}
 	
-	@SuppressWarnings("static-access")
+	public Updater(String name, Client client){
+		super(name);
+		this.sleepTime = 10000;
+		this.client = client;
+		start();
+	}
+	
 	public void run(){
 		while (runs){
-			//gjør noe her
+			client.updateMeetings();
+			internalSleep();
+			client.updatePersons();
+			internalSleep();
+			client.updateRooms();
+			internalSleep();
 			System.out.println(Thread.currentThread().getName());
-			try {
-				this.sleep(sleepTime);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public void internalSleep(){
+		try {
+			this.sleep(sleepTime);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 
