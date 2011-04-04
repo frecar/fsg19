@@ -59,14 +59,22 @@ public class Client {
 		this.host = "localhost";
 		this.port = 8120;
 	
+		
+		persons = new ArrayList<Person>();
+		rooms = new ArrayList<Room>();
+		meetings = new ArrayList<Meeting>();
+		
+		
 		mf = new MainFrame(this);
 		mf.initGUI();
 	}
 	
 	public static void main(String[] args){
 		Client client = new Client();
-		client.getPersons();
-		client.getRooms();
+		
+		//Set auto-update
+		Thread thread1 = new Updater("najs", 1000, client);
+
 	}
 	
 	public ArrayList<Object> request(String request) {
@@ -115,7 +123,6 @@ public class Client {
 		}
 		
 		return list;
-		
 	}
 	
 	public void updatePersons() {
@@ -123,17 +130,24 @@ public class Client {
 		ArrayList<Object> list = this.request(query);
 		
 		for (Object object : list) {
-			for (Person person : this.getPersons()) {
 				boolean sat = false;
-				if(person.getId() == ((Person)object).getId()) {
-					sat = true;
-					person.setName(((Person)object).getName());
+				
+				for (Person person : this.persons) 
+				{
+					
+					if(person.getId() == ((Person)object).getId()) 
+					{
+						sat = true;
+						person.setName(((Person)object).getName());
+					}
 				}
-				if(!sat) {
+				if(!sat) 
+				{
 					persons.add((Person)object);
 				}
-			}
 		}
+		
+		System.out.println(this.getPersons());
 	}
 	
 	public void updateMeetings() {
