@@ -6,6 +6,7 @@ import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -34,75 +35,74 @@ import org.xml.sax.SAXException;
 //import com.sun.tools.javac.util.List;
 
 import client.gui.MainFrame;
+import models.FileHandler;
 import models.Person;
 
 public class Client {
 
-	private ArrayList<Person> persons;
+	private ArrayList<Object> persons;
 	private MainFrame mf;
+	
+	private String host;
+	private int port;
 	
 	public Client() {
 		mf = new MainFrame(this);	
 		
-		System.out.println("clieddddnt");
+
+		System.out.println("client started");
+
+		this.host = "localhost";
+		this.port = 8120;
+		
+		/*System.out.println("clieddddnt");
+ 		05b477c39217eab257eb81a5d9f5b5c175ac5c07
 		mf = new MainFrame(this);
 		mf.initGUI();
-		//persons = new ArrayList();
+	/persons = new ArrayList(); */
 		
 	}
 	
 	public static void main(String[] args){
 		Client client = new Client();
-		//client.getPersons();
+		client.getPersons();
 	}	
 	
-	public String convertXMLFileToString(String fileName) 
-    { 
-      try{ 
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance(); 
-        InputStream inputStream = new FileInputStream(new File(fileName)); 
-        org.w3c.dom.Document doc = documentBuilderFactory.newDocumentBuilder().parse(inputStream); 
-        StringWriter stw = new StringWriter(); 
-        Transformer serializer = TransformerFactory.newInstance().newTransformer(); 
-        serializer.transform(new DOMSource(doc), new StreamResult(stw)); 
-        return stw.toString(); 
-      } 
-      catch (Exception e) { 
-        e.printStackTrace(); 
-      } 
-        return null; 
-    }
 	
-	public void getPersons() {
+	public ArrayList<Object> request(String request) {
+		
 		Object object;
 		FileInputStream os;
 
+		ArrayList<Object> list = new ArrayList<Object>();
+
 		try {
-			Socket socket = new Socket("localhost", 8126);		
+			Socket socket = new Socket(this.host, this.port);		
+		
 			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());	
-			oos.writeObject("get,getPersons");
+			oos.writeObject(request);
 			ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 			String message = (String) ois.readObject();
-						
 			
 			InputStream is = new ByteArrayInputStream(message.getBytes("UTF-8"));
 			XMLDecoder decoder = new XMLDecoder(is);
 			
-			ArrayList list = new ArrayList();
-		    try {
-		        while ( true ) {
-		            list.add(decoder.readObject() );
+			try 
+			{
+		        while ( true ) 
+		        {
+	        		list.add((Object)decoder.readObject());
 		        }
-		    } catch ( ArrayIndexOutOfBoundsException exception ) {
-		    } finally {
+		    } 
+			catch ( ArrayIndexOutOfBoundsException exception ) 
+			{
+				System.out.println("ARRAY ERROR");
+		    } 
+			finally 
+			{
 		        decoder.close();
 		    }
-
-		    
-		    for (Object object2 : list) {
-				System.out.println(object2);
-			}
-		    
+	    
 			ois.close();
 			oos.close();
 			
@@ -116,5 +116,18 @@ public class Client {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return list;
+		
+	}
+	
+	public void getPersons() {
+	
+		String query = "get,getPersons";
+		
+		ArrayList<Object> list = this.request(query);
+	
+		persons = list;
+	
 	}
 }

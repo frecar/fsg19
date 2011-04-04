@@ -12,8 +12,17 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	 * 
 	 */
 	private static final long serialVersionUID = 8417558628557030139L;
-	private String title, date, time, place, numOfParticipants, comment;
+	private String title, place, date, responsible, time_start, time_end, room, numOfParticipants, description, canceled, deleted;
 	
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+
 	/**
 	 * All GUI listeners who is interested in the meetings
 	 */
@@ -22,22 +31,69 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	public Meeting(String title) {
 		this.title = title;
 	}
-	
-	
-	public Meeting(String title, String date, String time, String place,
-			String numOfParticipants, String comment) {
+
+	public Meeting(String title, String date, String responsible, String time_start,String time_end, String place,
+			String numOfParticipants, String description, String canceled, String deleted) {
 		super();
 		this.title = title;
 		this.date = date;
-		this.time = time;
-		this.place = place;
+		this.responsible = responsible;
+		this.time_start = time_start;
+		this.time_end = time_end;
+		this.room = place;
 		this.numOfParticipants = numOfParticipants;
-		this.comment = comment;
+		this.description = description;
+		this.canceled = canceled;
+		this.deleted = deleted;
+		
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	public String getTitle() {
 		return title;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public String getResponsible() {
+		return responsible;
+	}
+
+	public String getTime_start() {
+		return time_start;
+	}
+
+	public String getTime_end() {
+		return time_end;
+	}
+
+	public String getRoom() {
+		return room;
+	}
+
+	public String getNumOfParticipants() {
+		return numOfParticipants;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public String getCanceled() {
+		return canceled;
+	}
+
+	public String getDeleted() {
+		return deleted;
+	}
+
+	public ArrayList<MeetingListener> getMeetingListeners() {
+		return meetingListeners;
 	}
 
 	public void setTitle(String title) {
@@ -45,48 +101,29 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		firePropertyChanged();
 	}
 
-	public String getDate() {
-		return date;
-	}
 
 	public void setDate(String date) {
 		this.date = date;
 		firePropertyChanged();
 	}
 
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
+	public void setTime_start(String time) {
+		this.time_start = time;
 		firePropertyChanged();
 	}
 
-	public String getPlace() {
-		return place;
-	}
-
-	public void setPlace(String place) {
-		this.place = place;
+	public void setTime_end(String time) {
+		this.time_start = time;
 		firePropertyChanged();
 	}
 
-	public String getNumOfParticipants() {
-		return numOfParticipants;
+	public void setRoom(String room) {
+		this.room = room;
+		firePropertyChanged();
 	}
 
 	public void setNumOfParticipants(String numOfParticipants) {
 		this.numOfParticipants = numOfParticipants;
-		firePropertyChanged();
-	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
 		firePropertyChanged();
 	}
 	
@@ -134,7 +171,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	}
 	
 	public String toString() {
-		return title + " | " + date + " | " + time + " | " + place;
+		return title + " | " + date + " | " + time_start + " | " + place;
 	}
 
 
