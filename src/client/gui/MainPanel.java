@@ -38,4 +38,20 @@ public class MainPanel extends JPanel{
 	public JPanel getEastPanel() {
 		return this.east;
 	}
+	
+	public JPanel getWestPanel() {
+		return this.west;
+	}
+	
+	public JPanel getSouthPanel() {
+		return this.south;
+	}
+	
+	public JPanel getNorthPanel() {
+		return this.north;
+	}
+	
+	public JPanel getCenterPanel() {
+		return this.center;
+	}
 }

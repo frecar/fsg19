@@ -19,11 +19,16 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import client.gui.EastPanel.AppointmentPanel;
+import models.Meeting;
+
+import client.gui.EastPanel.MeetingPanel;
 
 public class WestPanel extends JPanel implements ListSelectionListener {
 
 	private JPanel parent;
+	private JList meetings;
+	Meeting m1, m2, m3, m4, m5;
+	
 	
 	public WestPanel(LayoutManager layout, JPanel parent) {
 		super(layout);
@@ -32,23 +37,22 @@ public class WestPanel extends JPanel implements ListSelectionListener {
 		
 		setBorder(new TitledBorder("WEST"));
 		
-		Object[] list = { "1 sadasfsafadfasdasdasd", 
-				"2 sadasfsafadfasdasdasd",
-				"3 sadasfsafadfasdasdasd",
-				"4 sadasfsafadfasdasdasd",
-				"5 sadasfsafadfasdasdasd",
-				"6 sadasfsafadfasdasdasd",
-				"7 sadasfsafadfasdasdasd",
-				"8 sadasfsafadfasdasdasd",
-				"9 sadasfsafadfasdasdasd",
-				"> 9000 sadasfsaf DENNE VAR LITT LENGRE ENN DE ANDRE",
-				"10 sadasfsafadfasdasdasd",
-				"11 sadasfsafadfasdasdasd",
-				"12 sadasfsafadfasdasdasd",
-				"13 sadasfsafadfasdasdasd",
-				"14 sadasfsafadfasdasdasd"};
 		
-		JList meetings = new JList(list);
+		Meeting[] list = new Meeting[5];
+		
+		m1 = new Meeting("Pizza kveld", "03.07 2011", "20:00","Bøttetkottet", "23", "loz lixom");
+		m2 = new Meeting("Bufsjettkutt", "12.12 2011", "12:00","Kontoret", "7", "lol, for lite penger");
+		m3 = new Meeting("Kurs i ballonger", "05.04 2011", "1015","Drivhuset", "3", "comment");
+		m4 = new Meeting("Fest hjemme hos Bjarne", "31.12 2011", "1015","Bjarne sin kjeller", "12", "bjarne skal bli full");
+		m5 = new Meeting("Tur til Thailand", "09.08 2011", "1015","Værnes flyplass", "5", "husk masse cash");
+		
+		list[0] = m1;
+		list[1] = m2;
+		list[2] = m3;
+		list[3] = m4;
+		list[4] = m5;		
+		
+		meetings = new JList(list);
 		meetings.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		meetings.addListSelectionListener(this);
 		meetings.setCellRenderer(new MeetingRenderer());
@@ -63,6 +67,27 @@ public class WestPanel extends JPanel implements ListSelectionListener {
 		
 		add(labels, BorderLayout.NORTH);
 		add(scroll, BorderLayout.CENTER);
+		
+		// Test for checking 
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				int i = 0;
+				while(true) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					m1.setTitle("the numbah is: " + i);
+					i += 10;
+				}
+			}
+		}).start();
+		
+	
 	}
 
 	@Override
@@ -75,13 +100,15 @@ public class WestPanel extends JPanel implements ListSelectionListener {
 		 */
 		MainPanel m = (MainPanel)parent;
 		EastPanel e = (EastPanel)m.getEastPanel();
-		AppointmentPanel a = (AppointmentPanel)e.getAppointmentPanel();
-		JTextField titleTextField = a.getTitle();
-		
-		Random r = new Random();
-		String token = Long.toString(Math.abs(r.nextLong()), 36);
-		
-		titleTextField.setText(token);
+		MeetingPanel a = (MeetingPanel)e.getMeetingPanel();
+		a.setModel((Meeting)meetings.getSelectedValue());
+	
+//		JTextField titleTextField = a.getTitle();
+//		
+//		Random r = new Random();
+//		String token = Long.toString(Math.abs(r.nextLong()), 36);
+//		
+//		titleTextField.setText(token);
 	}
 	
 	public class MeetingRenderer implements ListCellRenderer {
@@ -90,11 +117,10 @@ public class WestPanel extends JPanel implements ListSelectionListener {
 		public Component getListCellRendererComponent(JList arg0, Object value,
 				int index, boolean isSelected, boolean cellHasFocus) {
 			
-			//PersonModel p = (PersonModel) value;   TODO: use meeting model
-			String s = (String) value;
+			Meeting m = (Meeting) value;
 			
 			JLabel label = new JLabel();
-			label.setText(s);
+			label.setText(m.toString());
 			label.setOpaque(true);
 
 			if (isSelected) {

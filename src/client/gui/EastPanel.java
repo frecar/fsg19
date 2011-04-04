@@ -12,36 +12,61 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import models.Meeting;
+
+import client.interfaces.MeetingListener;
+
 public class EastPanel extends JPanel{
 	
-	private JPanel appointmentPanel;
+	private JPanel meetingPanel;
 	
 	public EastPanel(LayoutManager layout) {
 		super(layout);
 		
 		setBorder(new TitledBorder("EAST"));
 		
-		appointmentPanel = new AppointmentPanel();
-		add(appointmentPanel);
+		meetingPanel = new MeetingPanel();
+		add(meetingPanel);
 		
 	}
 	
-	public JPanel getAppointmentPanel() {
-		return this.appointmentPanel;
+	public JPanel getMeetingPanel() {
+		return this.meetingPanel;
 	}
 	/**
 	 * Contains the currently selected appointment from the list
 	 */
-	class AppointmentPanel extends JPanel {
+	class MeetingPanel extends JPanel implements MeetingListener{
 		
 		private JLabel titleLabel, dateLabel, timeLabel, placeLabel, participantsLabel, commentLabel;
 		private JTextField titleTextField, dateTextField, timeTextField, placeTextField, participantsTextField, commentTextField;
 		
-		public AppointmentPanel() {
+		/**
+		 * The meeting which this panel currently holds
+		 */
+		private Meeting meeting;
+		
+		/**
+		 * When a new model is set, all the GUI components are updated
+		 */
+		public void setModel(Meeting meeting) {
+			this.meeting = meeting;
+			
+			// Add this EastPanel as listener on the model
+			this.meeting.addMeetingListener(this);
+			
+			this.titleTextField.setText(this.meeting.getTitle());
+			this.dateTextField.setText(this.meeting.getDate());
+			this.timeTextField.setText(this.meeting.getTime());
+			this.placeTextField.setText(this.meeting.getPlace());
+			this.participantsTextField.setText(this.meeting.getNumOfParticipants());
+			this.commentTextField.setText(this.meeting.getComment());
+		}
+		
+		public MeetingPanel() {
 			
 			setLayout(new GridBagLayout());
 			setBorder(new TitledBorder("Selected appointment"));
-			//setSize(300, 500);
 			
 			titleLabel = new JLabel("Title:");
 			dateLabel = new JLabel("Date:");
@@ -50,22 +75,22 @@ public class EastPanel extends JPanel{
 			participantsLabel = new JLabel("Participants:");
 			commentLabel = new JLabel("Comment:");
 			
-			titleTextField = new JTextField("Budsjettkutt skal diskuteres", 20);
+			titleTextField = new JTextField("EMPTY", 20);
 			titleTextField.setEnabled(false);
 			
-			dateTextField = new JTextField("08.05.11", 20);
+			dateTextField = new JTextField("EMPTY", 20);
 			dateTextField.setEnabled(false);
 			
-			timeTextField = new JTextField("10:15", 20);
+			timeTextField = new JTextField("EMPTY", 20);
 			timeTextField.setEnabled(false);
 			
-			placeTextField = new JTextField("Bøttekottet", 20);
+			placeTextField = new JTextField("EMPTY", 20);
 			placeTextField.setEnabled(false);
 			
-			participantsTextField = new JTextField("7", 3);
+			participantsTextField = new JTextField("EMPTY", 3);
 			participantsTextField.setEnabled(false);
 			
-			commentTextField = new JTextField("Alle må ta med snacks", 20);
+			commentTextField = new JTextField("EMPTY", 20);
 			commentTextField.setEnabled(false);
 			
 			
@@ -131,18 +156,19 @@ public class EastPanel extends JPanel{
 			c.gridx = 1;
 			c.gridy = 1;
 			
-			
-			
-			
-			
-
-			
-			
 			//add(new JButton("rightpanel"));
 		}
 		
 		public JTextField getTitle() {
 			return this.titleTextField;
+		}
+
+		@Override
+		public void meetingUpdated() {
+			System.out.println("oh my god, something was changed in the model");
+			// The setModel method will refresh the GUI elements according to the model
+			setModel(this.meeting);
+			
 		}
 	}
 	
