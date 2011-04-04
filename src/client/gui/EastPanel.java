@@ -60,10 +60,10 @@ public class EastPanel extends JPanel{
 			
 			this.titleTextField.setText(this.model.getTitle());
 			this.dateTextField.setText(this.model.getDate());
-			this.timeTextField.setText(this.model.getTime());
+			this.timeTextField.setText(this.model.getTime_start());
 			this.placeTextField.setText(this.model.getPlace());
 			this.participantsTextField.setText(this.model.getNumOfParticipants());
-			this.commentTextField.setText(this.model.getComment());
+			this.commentTextField.setText(this.model.getDescription());
 		}
 		
 		public MeetingPanel() {

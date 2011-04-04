@@ -41,19 +41,12 @@ public class WestPanel extends JPanel {
 		
 		setBorder(new TitledBorder("WEST"));
 		
-		m1 = new Meeting("Pizza kveld", "03.07 2011", "20:00","Bøttetkottet", "23", "loz lixom");
-		m2 = new Meeting("Bufsjettkutt", "12.12 2011", "12:00","Kontoret", "7", "lol, for lite penger");
-		m3 = new Meeting("Kurs i ballonger", "05.04 2011", "1015","Drivhuset", "3", "comment");
-		m4 = new Meeting("Fest hjemme hos Bjarne", "31.12 2011", "1015","Bjarne sin kjeller", "12", "bjarne skal bli full");
-		m5 = new Meeting("Tur til Thailand", "09.08 2011", "1015","Værnes flyplass", "5", "husk masse cash");
+		m2 = new Meeting("Møte", "04.05 2011", "3", "10:15", "23:30", "3", "Masse godteri", "no", "no", "Bøttetkottet");
+		m1 = new Meeting("Kurs i HTML5", "12.10 2011", "20", "16:15", "20:30", "4", "Ta med alt av utstyr", "no", "no", "R7");
 		
 		model = new DefaultListModel();
 		model.addElement(m1);
 		model.addElement(m2);
-		model.addElement(m3);
-		model.addElement(m4);
-		model.addElement(m5);
-		
 		
 		meetings = new JList(getSortedMeetingsModel());
 		meetings.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -72,7 +65,7 @@ public class WestPanel extends JPanel {
 		add(scroll, BorderLayout.CENTER);
 		
 		// Test for checking model view controller
-		new Thread(new Runnable() {
+		/*new Thread(new Runnable() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
@@ -88,7 +81,7 @@ public class WestPanel extends JPanel {
 					i += 10;
 				}
 			}
-		}).start();
+		}).start(); */
 		
 	
 	}

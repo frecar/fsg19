@@ -32,15 +32,15 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		this.title = title;
 	}
 
-	public Meeting(String title, String date, String responsible, String time_start,String time_end, String place,
-			String numOfParticipants, String description, String canceled, String deleted) {
+	public Meeting(String title, String date, String responsible, String time_start,String time_end,
+			String numOfParticipants, String description, String canceled, String deleted, String room) {
 		super();
 		this.title = title;
 		this.date = date;
 		this.responsible = responsible;
 		this.time_start = time_start;
 		this.time_end = time_end;
-		this.room = place;
+		this.room = room;
 		this.numOfParticipants = numOfParticipants;
 		this.description = description;
 		this.canceled = canceled;
@@ -171,7 +171,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	}
 	
 	public String toString() {
-		return title + " | " + date + " | " + time_start + " | " + place;
+		return title + " | " + date + " | " + time_start + "-" + time_end + " | " + room;
 	}
 
 

@@ -55,17 +55,16 @@ public class Client {
 		this.host = "localhost";
 		this.port = 8120;
 		
-		/*System.out.println("clieddddnt");
- 		05b477c39217eab257eb81a5d9f5b5c175ac5c07
+	
 		mf = new MainFrame(this);
 		mf.initGUI();
-	/persons = new ArrayList(); */
+	   
 		
 	}
 	
 	public static void main(String[] args){
 		Client client = new Client();
-		client.getPersons();
+		//client.getPersons();
 	}	
 	
 	
