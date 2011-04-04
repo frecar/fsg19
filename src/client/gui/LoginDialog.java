@@ -45,16 +45,16 @@ public class LoginDialog extends JDialog implements ActionListener {
     	mainFrame2 = mainFrame;
     	
     	persons = mainFrame.getClient().getPersons();
-    	
+    	System.out.println("LAL" + persons);
     	JPanel panel = new JPanel(new GridLayout(3, 2, 5, 5));
 
-    	usernameLabel = new JLabel("Username: (bokstaven a gir tilgang) ");
+    	usernameLabel = new JLabel("Username: (dag) ");
     	panel.add(usernameLabel);
     	
     	usernameTextField = new JTextField(20);
     	panel.add(usernameTextField);
     	
-    	passwordLabel = new JLabel("Password: ");
+    	passwordLabel = new JLabel("Password: (a) ");
     	panel.add(passwordLabel);
     	
     	passwordTextField = new JPasswordField(20);
@@ -99,9 +99,9 @@ public class LoginDialog extends JDialog implements ActionListener {
 		
 		int index = 0;
 		
-		for(Object o: persons) {
-			String username = ((Person)o).getUsername();
-			String password = ((Person)o).getPassword();
+		for(Person o: persons) {
+			String username = o.getUsername();
+			String password = o.getPassword();
 			
 			//System.out.println("user: " + username + " pass: " + password);
 			
