@@ -14,7 +14,7 @@ public class Client {
 	/*
 	 * Client API
 	 * 
-	 * Kaller metoder p� klienten, som sender et nettverks-kall til server
+	 * Kaller metoder p klienten, som sender et nettverks-kall til server
 	 * Server vil tolke strengen som er sendt, og finne tilsvarende metode
 	 * 
 	 * 
@@ -27,8 +27,10 @@ public class Client {
 	private MainFrame mf;
 	
 	public Client() {
-		//mf = new MainFrame(this);
-		//mf.createAndShowLogin();
+		
+		System.out.println("clieddddnt");
+		mf = new MainFrame(this);
+		mf.initGUI();
 		
 		
 		
@@ -36,7 +38,7 @@ public class Client {
 	}
 	
 	public static void main(String[] args){
-		//Client client = new Client();
+		Client client = new Client();
 		//client.getPersons();
 	}	
 	

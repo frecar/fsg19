@@ -2,7 +2,7 @@ package models;
 
 import java.io.File;
 
-public class Has_appointment {
+public class HasAppointment {
 	private int id;
 	private Person employee;
 	private Meeting meeting;
@@ -24,6 +24,7 @@ public class Has_appointment {
 	public Person getEmployee() {
 		return employee;
 	}
+
 
 	public void setMeeting(Meeting meeting) {
 		this.meeting = meeting;
@@ -58,12 +59,12 @@ public class Has_appointment {
 		FileHandler.serialize(this, file);
 	}
 	
-	public Has_appointment load(){
+	public HasAppointment load(){
 		System.out.println("loading " + id);
 		File file = new File(Integer.toString(id));
-		Has_appointment temp = null;
+		HasAppointment temp = null;
 		try {
-			temp = (Has_appointment) FileHandler.deSerialize(file, this.getClass().newInstance());
+			temp = (HasAppointment) FileHandler.deSerialize(file, this.getClass().newInstance());
 		} catch (InstantiationException e1) {
 			e1.printStackTrace();
 		} catch (IllegalAccessException e1) {
