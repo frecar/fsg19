@@ -54,7 +54,7 @@ public class Message {
 		} catch (IllegalAccessException e1) {
 			e1.printStackTrace();
 		}
-		return temp;	
+		return temp;
 	}
 
 }
