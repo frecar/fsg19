@@ -34,6 +34,7 @@ import org.xml.sax.SAXException;
 import com.sun.tools.javac.util.List;
 
 import client.gui.MainFrame;
+import models.FileHandler;
 import models.Person;
 
 public class Client {
@@ -53,32 +54,16 @@ public class Client {
 	
 	public static void main(String[] args){
 		Client client = new Client();
-		//client.getPersons();
+		client.getPersons();
 	}	
 	
-	public String convertXMLFileToString(String fileName) 
-    { 
-      try{ 
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance(); 
-        InputStream inputStream = new FileInputStream(new File(fileName)); 
-        org.w3c.dom.Document doc = documentBuilderFactory.newDocumentBuilder().parse(inputStream); 
-        StringWriter stw = new StringWriter(); 
-        Transformer serializer = TransformerFactory.newInstance().newTransformer(); 
-        serializer.transform(new DOMSource(doc), new StreamResult(stw)); 
-        return stw.toString(); 
-      } 
-      catch (Exception e) { 
-        e.printStackTrace(); 
-      } 
-        return null; 
-    }
 	
 	public void getPersons() {
 		Object object;
 		FileInputStream os;
 
 		try {
-			Socket socket = new Socket("localhost", 8126);		
+			Socket socket = new Socket("localhost", 8120);		
 			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());	
 			oos.writeObject("get,getPersons");
 			ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
@@ -98,7 +83,6 @@ public class Client {
 		        decoder.close();
 		    }
 
-		    
 		    for (Object object2 : list) {
 				System.out.println(object2);
 			}
