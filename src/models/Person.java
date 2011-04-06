@@ -44,6 +44,15 @@ public class Person implements Serializable{
 		setList(new ArrayList<Meeting>());
 	}
 	
+	public Person get(String id) {
+		for (Person person : Person.all()) {
+			if(person.getId() == Integer.parseInt(id)) {
+				return person;
+			}
+		}
+		return null;
+	}
+	
 	public Person(ResultSet result) {
 		try {
 			this.id 		= Integer.parseInt(result.getString("id"));
