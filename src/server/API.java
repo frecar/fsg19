@@ -100,10 +100,10 @@ public class API {
 				"WHERE id = '"+p.getId()+"'";	
 		}
 		
+		performUpdateQuery(query);	    
 		if (p.getId()==0){
 			p.setId(Integer.parseInt(getHighestId("Meeting")));
 		}
-		performUpdateQuery(query);	    
 		arrangeMeetingsAndPersons(p);
 	}
 
