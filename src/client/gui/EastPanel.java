@@ -276,6 +276,9 @@ public class EastPanel extends JPanel{
 				
 				setModel(null);
 				
+				// Delete it from the server
+				model.delete();
+				
 				westPanel.getMeetings().setModel(westPanel.getSortedMeetingsModel());
 				
 				

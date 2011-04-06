@@ -140,7 +140,7 @@ public class WestPanel extends JPanel {
 					meetings.setModel(getSortedMeetingsModel());
 					
 					try {
-						Thread.sleep(10000);
+						Thread.sleep(5000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

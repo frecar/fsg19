@@ -106,10 +106,10 @@ public class NewMeetingFrame extends JFrame {
 		responsibleTextField = new JTextField(loggedInUser, 20);
 		responsibleTextField.setEnabled(false);
 		
-		dateTextField = new JTextField("08.05.11", 20);
+		dateTextField = new JTextField("08.05 2011", 20);
 		//dateTextField.setEnabled(false);
 		
-		timeStartTextField = new JTextField("0815", 5);
+		timeStartTextField = new JTextField("08:15", 5);
 		
 		timeEndTextField = new JTextField("10:00", 5);
 		///timeTextField.setEnabled(false);
