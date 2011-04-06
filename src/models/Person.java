@@ -31,7 +31,7 @@ public class Person implements Serializable{
 	private String password;
 	private Company company;	
 	
-	private ArrayList<Meeting> meetings;
+	private ArrayList<Meeting> meetings = new ArrayList<Meeting>();;
 	
 	private static ArrayList<Person> persons = new ArrayList<Person>();
 	
@@ -63,9 +63,22 @@ public class Person implements Serializable{
 	}
 	
 	public ArrayList<Meeting> get_meetings() {
-		ArrayList<Meeting> meetings = Meeting.all();
+		String query = "get,getMeetingsForUser,"+this.id;
+		ArrayList<Object> list = Client.request(query);
 		
-		
+		for (Object object : list) {
+				boolean sat = false;
+				for (Meeting meeting : meetings) {
+					if(meeting.getId() == ((Meeting)object).getId()) {
+						sat = true;
+					}
+				}
+				
+				if(!sat) {
+					meetings.add((Meeting)object);
+				}
+		}
+			
 		return meetings;
 	}
 	
