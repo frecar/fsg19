@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import sun.tools.tree.ThisExpression;
+
 import client.Client;
 import client.Config;
 import client.interfaces.*;
@@ -20,7 +22,10 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	 * 
 	 */
 	private static final long serialVersionUID = 8417558628557030139L;
+
 	
+	private static ArrayList<Meeting> meetings = new ArrayList<Meeting>();
+
 	private int id;
 	private String title;
 	private String date;
@@ -33,8 +38,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	private String room;
 	
 	private ArrayList<Person> participants;
-	private static ArrayList<Meeting> meetings = new ArrayList<Meeting>();
-	
+
 	/**
 	 * All GUI listeners who is interested in the meetings
 	 */
@@ -54,20 +58,9 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		this.room = "";
 	}
 	
-	public Meeting(ResultSet result) {
-		try {
-			this.id 			= Integer.parseInt(result.getString("id"));
-			this.title		 	= result.getString("title");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	public Meeting(String title, String date, String responsible, String timeStart,String timeEnd,
 			 String description, String canceled, String deleted, String room) {
 		
-		super();
 		this.title = title;
 		this.date = date;
 		this.responsible = responsible;
@@ -80,11 +73,37 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		
 		participants = new ArrayList<Person>();
 	}
-
 	
-	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
+	public Meeting(ResultSet result) {
+		try {
+			this.id 		= Integer.parseInt(result.getString("id"));
+			this.title 		= result.getString("title");
+			this.timeStart	= result.getString("time_start");
+			this.timeEnd 	= result.getString("time_end");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static ArrayList<Meeting> all() {
+		String query = "get,getMeetings";
+		ArrayList<Object> list = Client.request(query);
+		
+		for (Object object : list) {
+				boolean sat = false;
+				for (Meeting meeting: Meeting.meetings) {
+					if(meeting.getId() == ((Meeting)object).getId()) {
+						sat = true;
+						//meeting.updatePerson((Person)object);
+					}
+				}
+				
+				if(!sat) {
+					meetings.add((Meeting)object);
+				}
+		}
+		return meetings;
 	}
 	
 	public String getTitle() {
@@ -203,7 +222,6 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	}
 	
 	private void updateMeeting(Meeting object) {
-		
 		this.setTimeStart(object.getTimeStart());
 		this.setTimeEnd(object.getTimeEnd());
 		this.setTitle(object.getTitle());
@@ -213,31 +231,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		this.setDescription(object.getDescription());
 		this.setCanceled(object.getCanceled());	
 	}
-	
-	public static ArrayList<Meeting> all() {
-		String query = "get,getMeetings";
-		ArrayList<Object> list = Client.request(query);
-		
-		for (Object object : list) {
-				boolean sat = false;
-				for (Meeting meeting : Meeting.meetings) 
-				{	
-					if(meeting.getId() == ((Meeting)object).getId()) 
-					{
-						sat = true;
-						meeting.updateMeeting((Meeting)object);
-					}
-				}
-				if(!sat) 
-				{
-					meetings.add((Meeting)object);
-				}
-		}
-	
-		return meetings;
-	
-	}
-	
+
 	public void save(){
 		
 		ByteArrayOutputStream xml = new ByteArrayOutputStream();
@@ -254,14 +248,11 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 			e.printStackTrace();
 		}		
 		
-		Meeting.all();
-		
 	}
 	
 	public String toString() {
-		return title + " | " + date + " | " + timeStart + "-" + timeEnd + " | " + room;
+		return "id: " + id + ", title: "+title;
 	}
-
 
 	/**
 	 * Used for sorting dates in increasing order
@@ -282,5 +273,11 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		return thisDate.compareTo(mdate);
 	}
 
-	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }

@@ -130,7 +130,7 @@ public class API {
 
             while(result.next()) {								
             	arglist[0] = result;
-                Object retobj = ct.newInstance(arglist);
+            	Object retobj = ct.newInstance(arglist);
                 encoder.writeObject(retobj);
             }
 		}	
@@ -183,10 +183,9 @@ public class API {
 		
 		try {
 			Method m = api.getClass().getMethod(method, parameters);
-			
 			if(type.equals("get")) {
-			Object ret = (Object) m.invoke(api, arguments);
-			return (Object) ret;
+				Object ret = (Object) m.invoke(api, arguments);
+				return (Object) ret;
 			}
 			else {
 				m.invoke(api, arguments);

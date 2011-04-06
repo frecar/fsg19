@@ -30,11 +30,6 @@ public class Client {
 	public static void main(String[] args){
 		Client client = new Client();
 		Thread thread1 = new Updater("updated", 8000, client);	
-		
-		
-		System.out.println(Meeting.all());
-		Meeting.all();
-		System.out.println(Meeting.all());
 	}
 	
 	public static ArrayList<Object> request(String request) {
@@ -50,15 +45,13 @@ public class Client {
 			oos.writeObject(request);
 			ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 			String message = (String) ois.readObject();
-			
+					
 			InputStream is = new ByteArrayInputStream(message.getBytes("UTF-8"));
 			XMLDecoder decoder = new XMLDecoder(is);
 			
-			try 
-			{
-		        while ( true ) 
-		        {
-	        		list.add((Object)decoder.readObject());
+			try {
+		        while ( true ) {		        	
+		        	list.add((Object)decoder.readObject());
 		        }
 		    } 
 			catch ( ArrayIndexOutOfBoundsException exception ) {} 
@@ -80,7 +73,7 @@ public class Client {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+				
 		return list;
 	}
 	

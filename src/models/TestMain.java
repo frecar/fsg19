@@ -5,7 +5,7 @@ import java.io.File;
 
 public class TestMain {
 	public static void main(String[] args) {
-		Person person = new Person("Truls");
+		/*Person person = new Person("Truls");
 		Meeting appointment1 = new Meeting("viktig møte");
 		Meeting appointment2 = new Meeting("pizzakveld");
 		person.addAppointment(appointment1);
@@ -26,6 +26,7 @@ public class TestMain {
 		person2.addAppointment(appointment3);
 		System.out.println(person2.getList().size());
 		person2.save();
+		*/
 	}
 
 }
