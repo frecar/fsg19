@@ -37,8 +37,10 @@ public class Client {
 		Client client = new Client();
 		Thread thread1 = new Updater("updated", 8000, client);
 
-		Meeting.all().get(0).delete();
-		
+	
+		Meeting m = Meeting.get(1);
+		m.setTitle("hey");
+		m.save();
 	}
 		
 	

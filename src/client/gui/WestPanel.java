@@ -129,7 +129,7 @@ public class WestPanel extends JPanel {
 		
 		for(Meeting m: Client.user.get_meetings()) {
 			model.addElement(m);
-			System.out.println(m.getDate());
+			
 		}
 		
 		meetings.setModel(model);
@@ -140,7 +140,7 @@ public class WestPanel extends JPanel {
 					meetings.setModel(getSortedMeetingsModel());
 					
 					try {
-						Thread.sleep(5000);
+						Thread.sleep(2000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
