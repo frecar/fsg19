@@ -53,7 +53,7 @@ public class WestPanel extends JPanel {
 			System.out.println(m.getTitle());
 		}
 		
-		System.exit(0);
+		//System.exit(0);
 		m1 = new Meeting("Fest hos Arne", "12.12 2011", "3", "16:15", "18:00", "Will ther be cake?", "no", "no", "R7");
 		m2 = new Meeting("Budsjett", "05.12 2011", "4", "10:15", "14:00", "No cake for you?", "no", "no", "R50");
 		m3 = new Meeting("Kurs i java", "04.12 2011", "4", "10:15", "14:00", "No cake for you?", "no", "no", "R50");
