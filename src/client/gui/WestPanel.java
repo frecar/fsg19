@@ -25,6 +25,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import models.Meeting;
+import models.Person;
 
 import client.gui.EastPanel.MeetingPanel;
 
@@ -47,7 +48,9 @@ public class WestPanel extends JPanel {
 		setBorder(new TitledBorder("WEST"));
 		
 		MainPanel mainPanel = (MainPanel)parent;
-		meetingsList = Meeting.all();
+		Person user = mainPanel.getMainFrame().getClient().user;
+		
+		//meetingsList = Meeting.all();
 		
 //		for(Meeting m: meetingsList) {
 //			// System.out.println(m.getTitle());
@@ -63,6 +66,7 @@ public class WestPanel extends JPanel {
 		model.addElement(m2);
 		model.addElement(m3);
 	
+		
 		meetings = new JList(getSortedMeetingsModel());
 		meetings.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		meetings.addListSelectionListener(new MeetingSelectionListener());

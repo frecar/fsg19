@@ -341,7 +341,7 @@ public class NewMeetingFrame extends JFrame {
 			ArrayList<Person> participants = new ArrayList<Person>();
 			String description = descriptionTextField.getText();
 			
-			Meeting meeting = new Meeting(title, date, responsible, timeStart, timeEnd, description, "no", "no", room);
+			Meeting meeting = new Meeting(title, date, user.getId() + "", timeStart, timeEnd, description, "no", "no", room);
 			
 			
 			for(int i = 0; i < rightModel.size(); i++) {
