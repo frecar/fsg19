@@ -82,6 +82,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 			this.timeStart		= result.getString("time_start");
 			this.timeEnd 		= result.getString("time_end");
 			this.room 			= result.getString("room");
+			this.date 			= result.getString("date");
 			this.description 	= result.getString("description");
 
 		} catch (SQLException e) {
