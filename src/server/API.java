@@ -56,7 +56,6 @@ public class API {
 
 		performUpdateQuery(query);	    
 	}
-	
 		
 	public void arrangeMeetingsAndPersons(Meeting meeting) {
 		String query;
