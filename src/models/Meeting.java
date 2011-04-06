@@ -33,7 +33,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	private String room;
 	
 	private ArrayList<Person> participants;
-	private static ArrayList<Meeting> meetings;
+	private static ArrayList<Meeting> meetings = new ArrayList<Meeting>();
 	
 	/**
 	 * All GUI listeners who is interested in the meetings
@@ -204,8 +204,15 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	
 	private void updateMeeting(Meeting object) {
 		
+		this.setTimeStart(object.getTimeStart());
+		this.setTimeEnd(object.getTimeEnd());
+		this.setTitle(object.getTitle());
+		this.setDate(object.getDate());
+		this.setRoom(object.getRoom());
+		this.setResponsible(object.getResponsible());
+		this.setDescription(object.getDescription());
+		this.setCanceled(object.getCanceled());	
 	}
-	
 	
 	public static ArrayList<Meeting> all() {
 		String query = "get,getMeetings";
@@ -218,12 +225,12 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 					if(meeting.getId() == ((Meeting)object).getId()) 
 					{
 						sat = true;
-						meeting.updateMeeting((Person)object);
+						meeting.updateMeeting((Meeting)object);
 					}
 				}
 				if(!sat) 
 				{
-					meetings.add((Person)object);
+					meetings.add((Meeting)object);
 				}
 		}
 	

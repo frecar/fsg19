@@ -67,8 +67,8 @@ public class API {
 					"VALUES (" +
 					"'"+p.getTitle()+"'," +
 					"'"+p.getRoom()+"'," +
-					"'"+p.getTime_start()+"'," +
-					"'"+p.getTime_end()+"'," +
+					"'"+p.getTimeStart()+"'," +
+					"'"+p.getTimeEnd()+"'," +
 					"'"+p.getDescription()+"'," +
 					"'"+p.getResponsible()+"'" +
 					")";
@@ -77,8 +77,8 @@ public class API {
 			query = "UPDATE Meeting SET " +
 				"title='"+p.getTitle()+"', " +
 				"room='"+p.getRoom()+"', " +
-				"time_start='"+p.getTime_start()+"', " +
-				"time_end='"+p.getTime_end()+"' " +
+				"time_start='"+p.getTimeStart()+"', " +
+				"time_end='"+p.getTimeEnd()+"' " +
 				"responsible='"+p.getResponsible()+"' " +
 				"WHERE id = '"+p.getId()+"'";	
 		}
