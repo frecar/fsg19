@@ -81,24 +81,32 @@ public class EastPanel extends JPanel{
 			this.model = model;
 			
 			// Add this MeetingPanel as listener on the model
-			model.addMeetingListener(this);
-			
-			this.titleTextField.setText(this.model.getTitle());
-			this.responsibleTextField.setText(this.model.getResponsible());
-			this.dateTextField.setText(this.model.getDate());
-			this.timeStartTextField.setText(this.model.getTimeStart());
-			this.roomTextField.setText(this.model.getRoom());
-			this.participantsTextField.setText(this.model.getNumOfParticipants());
-			this.descriptionTextField.setText(this.model.getDescription());
-			
-			MainPanel mainPanel = (MainPanel)parent;
-			Person user = mainPanel.getMainFrame().getClient().user;
-			
-			if(user.getName().equals(this.model.getResponsible())) {
-				editButton.setEnabled(true);
+			if(model != null) {
+				setVisible(true);
+				editButton.setEnabled(false);
+				
+				model.addMeetingListener(this);
+				
+				this.titleTextField.setText(this.model.getTitle());
+				this.responsibleTextField.setText(this.model.getResponsible());
+				this.dateTextField.setText(this.model.getDate());
+				this.timeStartTextField.setText(this.model.getTimeStart());
+				this.roomTextField.setText(this.model.getRoom());
+				this.participantsTextField.setText(this.model.getNumOfParticipants());
+				this.descriptionTextField.setText(this.model.getDescription());
+				
+				MainPanel mainPanel = (MainPanel)parent;
+				Person user = mainPanel.getMainFrame().getClient().user;
+				
+				if(user.getName().equals(this.model.getResponsible())) {
+					editButton.setEnabled(true);
+				}
+				else {
+					
+				}
 			}
 			else {
-				editButton.setEnabled(false);
+				setVisible(false);
 			}
 	
 			repaint();
@@ -108,8 +116,8 @@ public class EastPanel extends JPanel{
 		public MeetingPanel() {
 			
 			setLayout(new GridBagLayout());
-			setBorder(new TitledBorder("Selected appointment"));
-			
+			setBorder(new TitledBorder("Selected meeting"));
+			setVisible(false);
 			titleLabel = new JLabel("Title:");
 			responsibleLable = new JLabel("Responsible:");
 			dateLabel = new JLabel("Date:");
@@ -258,6 +266,15 @@ public class EastPanel extends JPanel{
 				mainPanel.getMainFrame().createAndShowEditMeeting(model);
 			}
 			else if(event.getSource() == deleteButton) {
+				mainPanel = (MainPanel)parent;
+				WestPanel westPanel = (WestPanel)mainPanel.getWestPanel();
+				DefaultListModel defModel = westPanel.getModel();
+				defModel.removeElement(model);
+				
+				setModel(null);
+				
+				westPanel.getMeetings().setModel(westPanel.getSortedMeetingsModel());
+				
 				
 			}
 			
