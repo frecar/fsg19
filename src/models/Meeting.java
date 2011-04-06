@@ -50,7 +50,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		}
 	}
 	
-	public Meeting(String title, String date, String responsible, String time_start,String time_end,
+	public Meeting(String title, String date, String responsible, String timeStart,String timeEnd,
 			 String description, String canceled, String deleted, String room) {
 		
 		super();
@@ -58,7 +58,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		this.date = date;
 		this.responsible = responsible;
 		this.timeStart = timeStart;
-		this.timeEnd = time_end;
+		this.timeEnd = timeEnd;
 		this.description = description;
 		this.cancelled = canceled;
 		this.deleted = deleted;
