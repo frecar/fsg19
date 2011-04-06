@@ -87,10 +87,12 @@ public class EastPanel extends JPanel{
 				
 				model.addMeetingListener(this);
 				
+				System.out.println("RES; " + this.model.getResponsible());
 				this.titleTextField.setText(this.model.getTitle());
 				this.responsibleTextField.setText(this.model.getResponsible());
 				this.dateTextField.setText(this.model.getDate());
 				this.timeStartTextField.setText(this.model.getTimeStart());
+				this.timeEndTextField.setText(this.model.getTimeEnd());
 				this.roomTextField.setText(this.model.getRoom());
 				this.participantsTextField.setText(this.model.getNumOfParticipants());
 				this.descriptionTextField.setText(this.model.getDescription());

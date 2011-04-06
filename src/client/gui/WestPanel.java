@@ -126,11 +126,28 @@ public class WestPanel extends JPanel {
 		model.addElement(m2);
 		model.addElement(m3);
 		
+		
 		for(Meeting m: Client.user.get_meetings()) {
 			model.addElement(m);
+			System.out.println(m.getDate());
 		}
 		
 		meetings.setModel(model);
+		
+		new Thread(new Runnable() {
+			public void run() {
+				while(true) {
+					meetings.setModel(getSortedMeetingsModel());
+					
+					try {
+						Thread.sleep(10000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
 
 	
 	}
@@ -154,8 +171,11 @@ public class WestPanel extends JPanel {
 		Arrays.sort(meetings);
 		DefaultListModel model = new DefaultListModel();
 		
-		for(Object o: meetings) {
-			model.addElement(o);
+		if(Client.user != null) {
+			for(Object o: Client.user.get_meetings()) {
+				model.addElement(o);
+				System.out.println(((Meeting)o).getResponsible());
+			}
 		}
 		
 		return model;

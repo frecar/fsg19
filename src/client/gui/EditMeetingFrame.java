@@ -344,6 +344,7 @@ public class EditMeetingFrame extends JFrame {
 			ArrayList<Person> participants = new ArrayList<Person>();
 			String description = descriptionTextField.getText();
 			
+			
 			for(int i = 0; i < rightModel.size(); i++) {
 				participants.add((Person)rightModel.get(i));
 			}

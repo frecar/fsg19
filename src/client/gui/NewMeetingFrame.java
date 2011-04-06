@@ -342,7 +342,7 @@ public class NewMeetingFrame extends JFrame {
 			String description = descriptionTextField.getText();
 			
 			Meeting meeting = new Meeting(title, date, user.getId() + "", timeStart, timeEnd, description, "no", "no", room);
-			
+			System.out.println("DATO: " + date);
 			
 			for(int i = 0; i < rightModel.size(); i++) {
 				Person p = (Person)rightModel.get(i);
