@@ -50,7 +50,7 @@ public class WestPanel extends JPanel {
 		meetingsList = Meeting.all();
 		
 		for(Meeting m: meetingsList) {
-			System.out.println(m.getTitle());
+			// System.out.println(m.getTitle());
 		}
 		
 		//System.exit(0);
@@ -150,7 +150,7 @@ public class WestPanel extends JPanel {
 				meeting.getDate() + sep + meeting.getTimeStart() + "-" +
 					meeting.getTimeEnd() + sep + meeting.getRoom();
 			
-			Icon icon = new ImageIcon("/home/nab/fsg19/src/images/meeting_icon.gif");
+			Icon icon = new ImageIcon("src/images/meeting_icon.gif");
 			JLabel label = new JLabel(icon, JLabel.LEFT);
 			label.setText(labelText);
 			label.setOpaque(true);
