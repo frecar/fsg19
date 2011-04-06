@@ -32,7 +32,7 @@ public class WestPanel extends JPanel {
 
 	private JPanel parent;
 	private JList meetings;
-	DefaultListModel model;
+	private DefaultListModel model;
 	
 	private ArrayList<Meeting> meetingsList;
 	
@@ -62,7 +62,7 @@ public class WestPanel extends JPanel {
 		model.addElement(m1);
 		model.addElement(m2);
 		model.addElement(m3);
-		
+	
 		meetings = new JList(getSortedMeetingsModel());
 		meetings.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		meetings.addListSelectionListener(new MeetingSelectionListener());
@@ -80,26 +80,42 @@ public class WestPanel extends JPanel {
 		add(scroll, BorderLayout.CENTER);
 		
 		// Test for checking model view controller
-		/*new Thread(new Runnable() {
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				int i = 0;
-				while(true) {
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					m1.setTitle("the numbah is: " + i);
-					i += 10;
-				}
-			}
-		}).start(); */
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				int i = 0;
+//				//while(true) {
+//					try {
+//						Thread.sleep(4000);
+//					} catch (InterruptedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//					model.removeElement(m3);
+//					meetings.setModel(model);
+//					System.out.println("boyah!");
+//					//m1.setTitle("the numbah is: " + i);
+//					//i += 10;
+//				//}
+//			}
+//		}).start();
 		
 	
 	}
+
+	public JList getMeetings() {
+		return meetings;
+	}
+
+	public void setMeetings(JList meetings) {
+		this.meetings = meetings;
+	}
+
+	public DefaultListModel getModel() {
+		return model;
+	}
+
 
 	public DefaultListModel getSortedMeetingsModel() {
 		
@@ -176,11 +192,13 @@ public class WestPanel extends JPanel {
 			 *  Herregud så stygg kode. Masse stress for å få tak i riktige kompo-
 			 *  nenter som skal endres
 			 */
-			MainPanel m = (MainPanel)parent;
-			EastPanel e = (EastPanel)m.getEastPanel();
-			MeetingPanel a = (MeetingPanel)e.getMeetingPanel();
-			a.setModel((Meeting)meetings.getSelectedValue());
-		
+			
+			if(meetings.getSelectedIndex() != -1) {
+				MainPanel m = (MainPanel)parent;
+				EastPanel e = (EastPanel)m.getEastPanel();
+				MeetingPanel a = (MeetingPanel)e.getMeetingPanel();
+				a.setModel((Meeting)meetings.getSelectedValue());
+			}
 			
 //			JTextField titleTextField = a.getTitle();
 //			
