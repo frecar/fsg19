@@ -75,6 +75,8 @@ public class Person implements Serializable{
 		String query = "get,getMeetingsForUser,"+this.id;
 		ArrayList<Object> list = Client.request(query);
 		
+		ArrayList<Meeting> p = new ArrayList<Meeting>();
+		
 		for (Object object : list) {
 				boolean sat = false;
 				for (Meeting meeting : meetings) {
@@ -89,6 +91,10 @@ public class Person implements Serializable{
 				}
 		}
 			
+		for (Object meeting : list) {
+			meetings.add((Meeting)meeting);
+		}
+		
 		return meetings;
 	}
 	
