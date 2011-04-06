@@ -31,11 +31,10 @@ public class Client {
 		Client client = new Client();
 		Thread thread1 = new Updater("updated", 8000, client);	
 		
-		Meeting k = new Meeting("hei");
-		k.save();
-	
-		k.setTitle("OLE");
-		k.save();
+		
+		System.out.println(Meeting.all());
+		Meeting.all();
+		System.out.println(Meeting.all());
 	}
 	
 	public static ArrayList<Object> request(String request) {
