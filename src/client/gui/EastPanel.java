@@ -5,6 +5,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -15,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import models.Meeting;
+import models.Person;
 
 import client.interfaces.MeetingListener;
 
@@ -22,8 +25,12 @@ public class EastPanel extends JPanel{
 	
 	private JPanel meetingPanel;
 	
-	public EastPanel(LayoutManager layout) {
+	private JPanel parent;
+	
+	public EastPanel(LayoutManager layout, JPanel parent) {
 		super(layout);
+		
+		this.parent = parent;
 		
 		setBorder(new TitledBorder("EAST"));
 		
@@ -38,21 +45,8 @@ public class EastPanel extends JPanel{
 	/**
 	 * Contains the currently selected appointment from the list
 	 */
-	class MeetingPanel extends JPanel implements MeetingListener{
+	class MeetingPanel extends JPanel implements MeetingListener, ActionListener {
 		
-//		private JLabel titleLabel;
-//		private JLabel dateLabel;
-//		private JLabel timeLabel;
-//		private JLabel placeLabel;
-//		private JLabel participantsLabel;
-//		private JLabel commentLabel;
-//		
-//		private JTextField titleTextField;
-//		private JTextField dateTextField;
-//		private JTextField timeTextField;
-//		private JTextField placeTextField;
-//		private JTextField participantsTextField;
-//		private JTextField commentTextField;
 		
 		private JLabel titleLabel;
 		private JLabel dateLabel;
@@ -72,6 +66,8 @@ public class EastPanel extends JPanel{
 		private JTextField roomTextField;
 		private JTextField participantsTextField;
 		
+		private JButton editButton;
+		
 		/**
 		 * The meeting which this panel currently holds
 		 */
@@ -88,11 +84,25 @@ public class EastPanel extends JPanel{
 			model.addMeetingListener(this);
 			
 			this.titleTextField.setText(this.model.getTitle());
+			this.responsibleTextField.setText(this.model.getResponsible());
 			this.dateTextField.setText(this.model.getDate());
-			this.timeStartTextField.setText(this.model.getTime_start());
+			this.timeStartTextField.setText(this.model.getTimeStart());
 			this.roomTextField.setText(this.model.getRoom());
 			this.participantsTextField.setText(this.model.getNumOfParticipants());
 			this.descriptionTextField.setText(this.model.getDescription());
+			
+			MainPanel mainPanel = (MainPanel)parent;
+			Person user = mainPanel.getMainFrame().getClient().user;
+			
+			if(user.getName().equals(this.model.getResponsible())) {
+				editButton.setEnabled(true);
+			}
+			else {
+				editButton.setEnabled(false);
+			}
+	
+			repaint();
+		
 		}
 		
 		public MeetingPanel() {
@@ -117,8 +127,11 @@ public class EastPanel extends JPanel{
 			responsibleTextField = new JTextField("RESPONSIBLE", 20);
 			responsibleTextField.setEnabled(false);
 			
-			timeStartTextField = new JTextField("TIMESTART", 20);
+			timeStartTextField = new JTextField("TIMESTART", 10);
 			timeStartTextField.setEnabled(false);
+			
+			timeEndTextField = new JTextField("TIMEEND", 10);
+			timeEndTextField.setEnabled(false);
 			
 			roomTextField = new JTextField("ROOM", 20);
 			roomTextField.setEnabled(false);
@@ -129,6 +142,8 @@ public class EastPanel extends JPanel{
 			descriptionTextField = new JTextField("DESCRIPTION", 20);
 			descriptionTextField.setEnabled(false);
 			
+			editButton = new JButton("Edit");
+			editButton.addActionListener(this);
 			
 			GridBagConstraints c = new GridBagConstraints();
 			//c.fill = GridBagConstraints.HORIZONTAL;
@@ -168,9 +183,9 @@ public class EastPanel extends JPanel{
 			c.gridy = 3;
 			add(timeStartTextField, c);
 			
-//			c.gridx = 2;
-//			c.gridy = 3;
-//			add(timeEndTextField, c);
+			c.gridx = 2;
+			c.gridy = 3;
+			add(timeEndTextField, c);
 			
 			c.gridx = 0;
 			c.gridy = 4;
@@ -195,6 +210,11 @@ public class EastPanel extends JPanel{
 			c.gridx = 1;
 			c.gridy = 6;
 			add(descriptionTextField, c);
+			
+			c.gridx = 0;
+			c.gridy = 7;
+			add(editButton, c);
+		
 
 //			c.gridx = 0;
 //			c.gridy = 7;
@@ -219,7 +239,18 @@ public class EastPanel extends JPanel{
 			setModel(this.model);
 			
 		}
+
+		/**
+		 * Pops up a JFrame where the meeting can be edited
+		 */
+		public void actionPerformed(ActionEvent event) {
+		
+			MainPanel mainPanel = (MainPanel)parent;
+			
+			mainPanel.getMainFrame().createAndShowEditMeeting(model);
+			
+		}
 	}
-	
+
 	
 }

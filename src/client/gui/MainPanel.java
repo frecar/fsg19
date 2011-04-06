@@ -32,7 +32,7 @@ public class MainPanel extends JPanel{
 		//center.setBackground(Color.BLUE);
 		
 		west = new WestPanel(new BorderLayout(), this);
-		east = new EastPanel(new FlowLayout());
+		east = new EastPanel(new FlowLayout(), this);
 		
 		add(north, BorderLayout.NORTH);
 		add(south, BorderLayout.SOUTH);

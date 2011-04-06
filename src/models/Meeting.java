@@ -111,19 +111,19 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		this.responsible = responsible;
 	}
 
-	public String getTime_start() {
+	public String getTimeStart() {
 		return timeStart;
 	}
 
-	public void setTime_start(String time_start) {
+	public void setTimeStart(String time_start) {
 		this.timeStart = time_start;
 	}
 
-	public String getTime_end() {
+	public String getTimeEnd() {
 		return timeEnd;
 	}
 
-	public void setTime_end(String time_end) {
+	public void setTimeEnd(String time_end) {
 		this.timeEnd = time_end;
 	}
 
