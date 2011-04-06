@@ -57,12 +57,15 @@ public class Person implements Serializable{
 		}
 	}
 	
+	private void updatePerson(Person object) 
+	{
+		this.setName(object.getName());
+	}
+	
 	public static ArrayList<Person> all() {
 		String query = "get,getPersons";
 		ArrayList<Object> list = Client.request(query);
 		
-		System.out.println(list);
-		System.out.println(Person.persons);
 		for (Object object : list) {
 				boolean sat = false;
 				for (Person person : Person.persons) 
@@ -70,7 +73,7 @@ public class Person implements Serializable{
 					if(person.getId() == ((Person)object).getId()) 
 					{
 						sat = true;
-						person.setName(((Person)object).getName());
+						person.updatePerson((Person)object);
 					}
 				}
 				if(!sat) 
@@ -98,10 +101,13 @@ public class Person implements Serializable{
 		try {
 			socket = new Socket(Config.SERVER, Config.SERVER_PORT);
 			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());	
-			oos.writeObject("SER DU DETTE?");
+			oos.writeObject("set,savePerson,"+xml);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
+		
+		Person.all();
+	
 	}
 	
 	public void setList(ArrayList<Meeting> m) {

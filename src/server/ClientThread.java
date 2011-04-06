@@ -35,7 +35,7 @@ import java.net.Socket;
 		try {
 			ObjectInputStream ois = new ObjectInputStream(threadSocket.getInputStream());
 			String message = (String) ois.readObject();
-			System.out.println("Client says: " + message);
+			//System.out.println("Client says: " + message);
 			Object a = API.handle(message);
 		    ObjectOutputStream oos = new ObjectOutputStream(threadSocket.getOutputStream());
 		    		    

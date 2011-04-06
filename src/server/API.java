@@ -4,13 +4,102 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
+import models.Meeting;
+import models.Person;
+import models.Room;
+
 public class API {
 
+
+	private Object retreiveObject(String str) {
+		try {
+			InputStream is = new ByteArrayInputStream(str.getBytes("UTF-8"));
+			XMLDecoder decoder = new XMLDecoder(is);
+			return (Object)decoder.readObject();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void savePerson(String str) {
+		Person p = (Person)retreiveObject(str);
+
+		String query;
+		
+		if (p.getId()==0){
+			query = "INSERT INTO Person (name, email,username,password) " +
+					"VALUES (" +
+					"'"+p.getName()+"'," +
+					"'"+p.getEmail()+"'," +
+					"'"+p.getUsername()+"'," +
+					"'"+p.getPassword()+"'" +
+					")";
+		}
+		else {
+			query = "UPDATE Person SET " +
+				"name='"+p.getName()+"', " +
+				"email='"+p.getEmail()+"', " +
+				"username='"+p.getUsername()+"', " +
+				"password='"+p.getPassword()+"' " +
+				"WHERE id = '"+p.getId()+"'";	
+		}
+
+		performUpdateQuery(query);	    
+	}
+	
+	public void saveMeeting(String str) {
+		Meeting p = (Meeting)retreiveObject(str);
+
+		String query;
+		
+		if (p.getId()==0){
+			query = "INSERT INTO Meeting (title, room, time_start, time_end, description, responsible) " +
+					"VALUES (" +
+					"'"+p.getTitle()+"'," +
+					"'"+p.getRoom()+"'," +
+					"'"+p.getTime_start()+"'," +
+					"'"+p.getTime_end()+"'," +
+					"'"+p.getDescription()+"'," +
+					"'"+p.getResponsible()+"'" +
+					")";
+		}
+		else {
+			query = "UPDATE Meeting SET " +
+				"title='"+p.getTitle()+"', " +
+				"room='"+p.getRoom()+"', " +
+				"time_start='"+p.getTime_start()+"', " +
+				"time_end='"+p.getTime_end()+"' " +
+				"responsible='"+p.getResponsible()+"' " +
+				"WHERE id = '"+p.getId()+"'";	
+		}
+
+		performUpdateQuery(query);	    
+	}
+
+	private void performUpdateQuery(String query) {
+		MySQLAccess dao = new MySQLAccess();
+		
+		Connection conn = dao.createConnection();
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+		    String sql = query;
+		    int updateCount = stmt.executeUpdate(sql);		    
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public Object getPersons() {
 		String query = "SELECT * FROM Person";
 		return getObjects(query, "models.Person");
@@ -31,7 +120,7 @@ public class API {
         XMLEncoder encoder = new XMLEncoder(xml);
         
         ResultSet result = requestDatabase(query);
-        
+
 		try {
 			Class<?> cls = Class.forName(classname);
             Class<?> partypes[] = new Class[1];
@@ -94,9 +183,15 @@ public class API {
 		
 		try {
 			Method m = api.getClass().getMethod(method, parameters);
+			
+			if(type.equals("get")) {
 			Object ret = (Object) m.invoke(api, arguments);
 			return (Object) ret;
-		
+			}
+			else {
+				m.invoke(api, arguments);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

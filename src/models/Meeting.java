@@ -1,12 +1,18 @@
 package models;
 
+import java.beans.XMLEncoder;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.Socket;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import client.Client;
+import client.Config;
 import client.interfaces.*;
 
 public class Meeting implements Serializable, Comparable<Meeting>{
@@ -27,6 +33,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	private String room;
 	
 	private ArrayList<Person> participants;
+	private static ArrayList<Meeting> meetings;
 	
 	/**
 	 * All GUI listeners who is interested in the meetings
@@ -37,8 +44,15 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	
 	public Meeting(String title) {
 		this.title = title;
+		this.date = "";
+		this.responsible = "";
+		this.timeStart = "";
+		this.timeEnd = "";
+		this.description = "";
+		this.cancelled = "";
+		this.deleted = "";
+		this.room = "";
 	}
-
 	
 	public Meeting(ResultSet result) {
 		try {
@@ -188,28 +202,53 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		}
 	}
 	
-	public void save(){
-		File file = new File(title);
-		System.out.println("saving " + title);
-		if(!file.exists()){
-			FileHandler.createFile(file);
-		}
+	private void updateMeeting(Meeting object) {
 		
-		FileHandler.serialize(this, file);
 	}
 	
-	public Meeting load(){
-		System.out.println("loading " + title);
-		File file = new File(title);
-		Meeting temp = null;
-		try {
-			temp = (Meeting) FileHandler.deSerialize(file, this.getClass().newInstance());
-		} catch (InstantiationException e1) {
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			e1.printStackTrace();
+	
+	public static ArrayList<Meeting> all() {
+		String query = "get,getMeetings";
+		ArrayList<Object> list = Client.request(query);
+		
+		for (Object object : list) {
+				boolean sat = false;
+				for (Meeting meeting : Meeting.meetings) 
+				{	
+					if(meeting.getId() == ((Meeting)object).getId()) 
+					{
+						sat = true;
+						meeting.updateMeeting((Person)object);
+					}
+				}
+				if(!sat) 
+				{
+					meetings.add((Person)object);
+				}
 		}
-		return temp;
+	
+		return meetings;
+	
+	}
+	
+	public void save(){
+		
+		ByteArrayOutputStream xml = new ByteArrayOutputStream();
+        XMLEncoder encoder = new XMLEncoder(xml);
+        encoder.writeObject(this);
+        encoder.close();
+        
+    	Socket socket;
+		try {
+			socket = new Socket(Config.SERVER, Config.SERVER_PORT);
+			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());	
+			oos.writeObject("set,saveMeeting,"+xml);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		
+		Meeting.all();
+		
 	}
 	
 	public String toString() {
