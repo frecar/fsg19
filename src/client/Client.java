@@ -37,12 +37,10 @@ public class Client {
 		Client client = new Client();
 		Thread thread1 = new Updater("updated", 8000, client);
 
+		Meeting.all().get(0).delete();
 		
 	}
-	
 		
-
-	
 	
 	public static ArrayList<Object> request(String request) {
 		Object object;

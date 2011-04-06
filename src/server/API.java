@@ -74,6 +74,15 @@ public class API {
 		
 	}
 	
+	public void deleteMeeting(String str) {
+
+		String query = "DELETE FROM Meeting_Person WHERE meeting_id="+str;
+		performUpdateQuery(query);	    
+		String qq = "DELETE FROM Meeting WHERE id="+str;
+		performUpdateQuery(qq);	  
+		System.out.println(qq);
+	}
+	
 	public void saveMeeting(String str) {
 		Meeting p = (Meeting)retreiveObject(str);
 				
@@ -236,6 +245,7 @@ public class API {
 				Object ret = (Object) m.invoke(api, arguments);
 				return (Object) ret;
 			}
+			
 			else {
 				m.invoke(api, arguments);
 			}

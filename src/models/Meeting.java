@@ -114,6 +114,18 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	public String getTitle() {
 		return title;
 	}
+	
+	public void delete() {
+		Socket socket;
+		try {
+			socket = new Socket(Config.SERVER, Config.SERVER_PORT);
+			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());	
+			oos.writeObject("delete,deleteMeeting,"+this.id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		
+	}
 
 	public void setTitle(String title) {
 		this.title = title;
