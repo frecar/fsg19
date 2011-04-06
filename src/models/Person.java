@@ -1,10 +1,19 @@
 package models;
 
+import java.beans.XMLEncoder;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import client.Client;
+import client.Config;
 
 import com.sun.org.apache.xml.internal.serializer.ToStream;
 
@@ -21,7 +30,9 @@ public class Person implements Serializable{
 	private String username;
 	private String password;
 	private Company company;	
+	
 	private ArrayList<Meeting> appointments;
+	private static ArrayList<Person> persons;
 	
 	public Person(){
 		setList(new ArrayList<Meeting>());
@@ -46,17 +57,49 @@ public class Person implements Serializable{
 		}
 	}
 	
+	public static ArrayList<Person> all() {
+		String query = "get,getPersons";
+		ArrayList<Object> list = Client.request(query);
+		
+		for (Object object : list) {
+				boolean sat = false;
+				for (Person person : Person.persons) 
+				{	
+					if(person.getId() == ((Person)object).getId()) 
+					{
+						sat = true;
+						person.setName(((Person)object).getName());
+					}
+				}
+				if(!sat) 
+				{
+					persons.add((Person)object);
+				}
+		}
+	
+		return persons;
+	
+	}
+	
 	public String toString() {
 		return this.name;
 	}
 
 	public void save(){
-		File file = new File(name);
-		System.out.println("saving " + name);
-		if(!file.exists()){
-			FileHandler.createFile(file);
-		}
-		FileHandler.serialize(this, file);
+		
+		ByteArrayOutputStream xml = new ByteArrayOutputStream();
+        XMLEncoder encoder = new XMLEncoder(xml);
+        encoder.writeObject(this);
+        encoder.close();
+        
+    	Socket socket;
+		try {
+			socket = new Socket(Config.SERVER, Config.SERVER_PORT);
+			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());	
+			oos.writeObject("SER DU DETTE?");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 	}
 	
 	public void setList(ArrayList<Meeting> m) {

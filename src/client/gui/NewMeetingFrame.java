@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import client.Client;
+
 import models.Person;
 import models.Room;
 
@@ -63,7 +65,7 @@ public class NewMeetingFrame extends JFrame {
 	
 	// TODO  bruk rooms istedenfor strings
 	private JComboBox roomsComboBox;
-	private ArrayList<Room> rooms = mainFrame.getClient().getRooms();
+	private ArrayList<Room> rooms = Room.all();
 	private String[] petStrings = { "Bird", "Cat", "Dog"};
 	
 	private Person user;
@@ -73,8 +75,8 @@ public class NewMeetingFrame extends JFrame {
 		setTitle("New meeting HELL YEAH");
 		
 		this.mainFrame = mainFrame;
-		this.persons = mainFrame.getClient().getPersons();
-		this.user = mainFrame.getClient().getUser();
+		this.persons = Person.all();
+		this.user = Client.user;
 		
 		panel = new JPanel(new GridBagLayout());
 		

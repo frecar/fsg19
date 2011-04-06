@@ -15,6 +15,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import client.Client;
+
 import models.Person;
 
 public class LoginDialog extends JDialog implements ActionListener {
@@ -44,7 +46,7 @@ public class LoginDialog extends JDialog implements ActionListener {
     	
     	mainFrame2 = mainFrame;
     	
-    	persons = mainFrame.getClient().getPersons();
+    	persons = Person.all();
     	System.out.println("LAL" + persons);
     	JPanel panel = new JPanel(new GridLayout(3, 2, 5, 5));
 
@@ -111,7 +113,7 @@ public class LoginDialog extends JDialog implements ActionListener {
 				
 				// Sets the currently logged in user
 				Person user = (Person) persons.get(index);
-				mainFrame2.getClient().setUser(user);
+				Client.user = user;
 				
 				// Update the status
 				MainPanel mainPanel = (MainPanel)mainFrame2.getMainPanel();

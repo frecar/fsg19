@@ -68,6 +68,11 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	}
 
 	
+	public int getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -230,4 +235,6 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		
 		return thisDate.compareTo(mdate);
 	}
+
+	
 }

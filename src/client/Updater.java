@@ -1,5 +1,7 @@
 package client;
 
+import models.Person;
+
 public class Updater extends Thread {
 	boolean runs = true;
 	int sleepTime = 1000;
@@ -25,11 +27,7 @@ public class Updater extends Thread {
 	
 	public void run(){
 		while (runs){
-			client.updateMeetings();
-			internalSleep();
-			client.updatePersons();
-			internalSleep();
-			client.updateRooms();
+			Person.all();
 			internalSleep();
 		}
 	}

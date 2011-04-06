@@ -79,7 +79,7 @@ public class API {
 	public static Object handle(String request) {
 		
 		API api = new API();
-		
+
 		String[] requestSplitted = request.split(",");
 		String type 	= requestSplitted[0].trim();
 		String method 	= requestSplitted[1].trim();
