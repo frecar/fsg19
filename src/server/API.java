@@ -57,6 +57,7 @@ public class API {
 		performUpdateQuery(query);	    
 	}
 	
+		
 	public void arrangeMeetingsAndPersons(Meeting meeting) {
 		String query;
 		
@@ -119,8 +120,13 @@ public class API {
 	}
 	
 	public Object getParticipantsForMeeting(String id) {
-		String query = "SELECT Person.* FROM Person, Meeting_Person WHERE Person.id = Meeting_Person.id AND Meeting_Person.meeting_id = "+id;
+		String query = "SELECT Person.* FROM Person, Meeting_Person WHERE Person.id = Meeting_Person.person_id AND Meeting_Person.meeting_id = "+id;
 		return getObjects(query, "models.Person");
+	}
+	
+	public Object getMeetingsForUser(String id) {
+		String query = "SELECT Meeting.* FROM Meeting, Meeting_Person WHERE Meeting.id = Meeting_Person.meeting_id AND Meeting_Person.person_id = "+id;
+		return getObjects(query, "models.Meeting");
 	}
 	
 	public Object getPersons() {
