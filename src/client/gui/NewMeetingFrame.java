@@ -338,7 +338,7 @@ public class NewMeetingFrame extends JFrame {
 			String timeStart = timeStartTextField.getText();
 			String timeEnd = timeEndTextField.getText();
 			String room = roomTextField.getText();
-			ArrayList<Person> participants = new ArrayList<Person>();
+		
 			String description = descriptionTextField.getText();
 			
 			Meeting meeting = new Meeting(title, date, user.getId() + "", timeStart, timeEnd, description, "no", "no", room);
