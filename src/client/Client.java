@@ -33,8 +33,7 @@ public class Client {
 		
 		Person person = Person.all().get(0);
 		Meeting m = Meeting.all().get(0);
-		m.save();
-		
+		m.save();	
 	}
 	
 	public static ArrayList<Object> request(String request) {
