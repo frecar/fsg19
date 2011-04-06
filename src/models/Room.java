@@ -11,7 +11,7 @@ public class Room {
 	private int id;
 	private String name;
 	private Company company;
-	private static ArrayList<Room> rooms;
+	private static ArrayList<Room> rooms = new ArrayList();
 
 	public Room() {};
 	
@@ -27,7 +27,7 @@ public class Room {
 	}
 	
 	public static ArrayList<Room> all() {
-		String query = "get,getPersons";
+		String query = "get,getRooms";
 		ArrayList<Object> list = Client.request(query);
 		
 		for (Object object : list) {
@@ -37,7 +37,7 @@ public class Room {
 					if(room.getId() == ((Room)object).getId()) 
 					{
 						sat = true;
-						room.setName(((Person)object).getName());
+						room.setName(((Room)object).getName());
 					}
 				}
 				if(!sat) 

@@ -32,7 +32,7 @@ public class Person implements Serializable{
 	private Company company;	
 	
 	private ArrayList<Meeting> appointments;
-	private static ArrayList<Person> persons;
+	private static ArrayList<Person> persons = new ArrayList<Person>();
 	
 	public Person(){
 		setList(new ArrayList<Meeting>());
@@ -61,6 +61,8 @@ public class Person implements Serializable{
 		String query = "get,getPersons";
 		ArrayList<Object> list = Client.request(query);
 		
+		System.out.println(list);
+		System.out.println(Person.persons);
 		for (Object object : list) {
 				boolean sat = false;
 				for (Person person : Person.persons) 
