@@ -130,7 +130,7 @@ public class API {
 
             while(result.next()) {								
             	arglist[0] = result;
-                Object retobj = ct.newInstance(arglist);
+            	Object retobj = ct.newInstance(arglist);
                 encoder.writeObject(retobj);
             }
 		}	

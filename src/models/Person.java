@@ -31,7 +31,8 @@ public class Person implements Serializable{
 	private String password;
 	private Company company;	
 	
-	private ArrayList<Meeting> appointments;
+	private ArrayList<Meeting> meetings;
+	
 	private static ArrayList<Person> persons = new ArrayList<Person>();
 	
 	public Person(){
@@ -61,13 +62,18 @@ public class Person implements Serializable{
 		this.setName(object.getName());
 	}
 	
+	public ArrayList<Meeting> get_meetings() {
+		
+		return meetings;
+	}
+	
 	public static ArrayList<Person> all() {
 		String query = "get,getPersons";
 		ArrayList<Object> list = Client.request(query);
 		
 		for (Object object : list) {
 				boolean sat = false;
-				for (Person person : Person.persons) {	
+				for (Person person : Person.persons) {
 					if(person.getId() == ((Person)object).getId()) {
 						sat = true;
 						person.updatePerson((Person)object);
@@ -108,15 +114,15 @@ public class Person implements Serializable{
 	}
 	
 	public void setList(ArrayList<Meeting> m) {
-		appointments = m;
+		meetings = m;
 	}
 	
 	public void addAppointment(Meeting appointment){
-		appointments.add(appointment);
+		meetings.add(appointment);
 	}
 	
 	public ArrayList<Meeting> getList(){
-		return appointments;
+		return meetings;
 	}
 
 	public void setName(String name) {

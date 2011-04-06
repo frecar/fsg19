@@ -29,7 +29,7 @@ public class Client {
 	
 	public static void main(String[] args){
 		Client client = new Client();
-		Thread thread1 = new Updater("updated", 8000, client);				
+		Thread thread1 = new Updater("updated", 8000, client);	
 	}
 	
 	public static ArrayList<Object> request(String request) {
@@ -45,12 +45,12 @@ public class Client {
 			oos.writeObject(request);
 			ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 			String message = (String) ois.readObject();
-			
+					
 			InputStream is = new ByteArrayInputStream(message.getBytes("UTF-8"));
 			XMLDecoder decoder = new XMLDecoder(is);
 			
 			try {
-		        while ( true ) {
+		        while ( true ) {		        	
 		        	list.add((Object)decoder.readObject());
 		        }
 		    } 
@@ -73,7 +73,7 @@ public class Client {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+				
 		return list;
 	}
 	
