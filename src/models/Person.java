@@ -71,6 +71,7 @@ public class Person implements Serializable{
 				for (Meeting meeting : meetings) {
 					if(meeting.getId() == ((Meeting)object).getId()) {
 						sat = true;
+						meeting.updateMeeting((Meeting)object);
 					}
 				}
 				
