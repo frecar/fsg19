@@ -66,7 +66,7 @@ public class EastPanel extends JPanel{
 		private JTextField roomTextField;
 		private JTextField participantsTextField;
 		
-		private JButton editButton;
+		private JButton editButton, deleteButton;
 		
 		/**
 		 * The meeting which this panel currently holds
@@ -145,6 +145,9 @@ public class EastPanel extends JPanel{
 			editButton = new JButton("Edit");
 			editButton.addActionListener(this);
 			
+			deleteButton = new JButton("Delete");
+			deleteButton.addActionListener(this);
+			
 			GridBagConstraints c = new GridBagConstraints();
 			//c.fill = GridBagConstraints.HORIZONTAL;
 			c.insets = new Insets(10,0,0,0);
@@ -214,6 +217,10 @@ public class EastPanel extends JPanel{
 			c.gridx = 0;
 			c.gridy = 7;
 			add(editButton, c);
+			
+			c.gridx = 1;
+			c.gridy = 7;
+			add(deleteButton, c);
 		
 
 //			c.gridx = 0;
@@ -247,7 +254,12 @@ public class EastPanel extends JPanel{
 		
 			MainPanel mainPanel = (MainPanel)parent;
 			
-			mainPanel.getMainFrame().createAndShowEditMeeting(model);
+			if(event.getSource() == editButton) {
+				mainPanel.getMainFrame().createAndShowEditMeeting(model);
+			}
+			else if(event.getSource() == deleteButton) {
+				
+			}
 			
 		}
 	}
