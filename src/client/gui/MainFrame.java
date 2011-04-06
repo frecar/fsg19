@@ -9,13 +9,15 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import models.Meeting;
+
 import client.Client;
 
 public class MainFrame {
 
 	private LoginDialog loginDialog;
 	private JFrame frame;
-	private JFrame newMeeting;
+	private JFrame newMeeting, editMeeting;
 	private JPanel mainPanel;
 	
 	public JPanel getMainPanel() {
@@ -47,11 +49,11 @@ public class MainFrame {
 	private void createAndShowGUI() {
 			
 		
-		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
+		/* try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
 		catch (ClassNotFoundException e) {}
 		catch (InstantiationException e) {}
 		catch (IllegalAccessException e) {}
-		catch (UnsupportedLookAndFeelException e) {}
+		catch (UnsupportedLookAndFeelException e) {} */
 
 		// the main application frame
 		frame = new JFrame("Epic new application");
@@ -103,10 +105,19 @@ public class MainFrame {
 	
 	public void createAndShowAddMeeting() {
 		newMeeting = new NewMeetingFrame(this);
-		newMeeting.setSize(700, 600);
+		newMeeting.setSize(800, 600);
 		newMeeting.setLocationRelativeTo(null);
 		//newMeeting.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//newMeeting.setLayout(new GridBagLayout());
 		newMeeting.setVisible(true);
+	}
+	
+	public void createAndShowEditMeeting(Meeting meeting) {
+		editMeeting = new EditMeetingFrame(this, meeting);
+		editMeeting.setSize(800, 600);
+		editMeeting.setLocationRelativeTo(null);
+		//newMeeting.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//newMeeting.setLayout(new GridBagLayout());
+		editMeeting.setVisible(true);	
 	}
 }

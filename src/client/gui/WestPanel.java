@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -41,13 +43,14 @@ public class WestPanel extends JPanel {
 		
 		setBorder(new TitledBorder("WEST"));
 		
-		m1 = new Meeting("tittel", "12.12 2011", "3", "16:15", "18:00", "Will ther be cake?", "no", "no", "R7");
-		m2 = new Meeting("tittel222", "05.12 2011", "4", "10:15", "14:00", "No cake for you?", "no", "no", "R50");
-		
+		m1 = new Meeting("Fest hos Arne", "12.12 2011", "3", "16:15", "18:00", "Will ther be cake?", "no", "no", "R7");
+		m2 = new Meeting("Budsjett", "05.12 2011", "4", "10:15", "14:00", "No cake for you?", "no", "no", "R50");
+		m3 = new Meeting("Kurs i java", "04.12 2011", "4", "10:15", "14:00", "No cake for you?", "no", "no", "R50");
 		
 		model = new DefaultListModel();
 		model.addElement(m1);
 		model.addElement(m2);
+		model.addElement(m3);
 		
 		meetings = new JList(getSortedMeetingsModel());
 		meetings.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -107,17 +110,45 @@ public class WestPanel extends JPanel {
 				int index, boolean isSelected, boolean cellHasFocus) {
 			
 			//System.out.println("ListCellRenderer: getListCellRendererComponent()");
-			Meeting m = (Meeting) value;
+			Meeting meeting = (Meeting) value;
 			
-			JLabel label = new JLabel();
-			label.setText(m.toString());
+			// Find the meeting with the longest title, used for nice JLabel alignment
+//			Object[] meetings = model.toArray();
+//			int longest = 0;
+//			for(int i = 0; i < meetings.length; i++) {
+//				Meeting m1 = (Meeting)meetings[i];
+//				Meeting m2 = (Meeting)meetings[longest];
+//				
+//				if(m1.getTitle().length() > m2.getTitle().length()) {
+//					longest = i;
+//				}
+//			}
+//			Meeting meetingWithLongestTitle = (Meeting)meetings[longest];
+//			
+//			String labelText = meeting.getTitle();
+//			
+//			int meetingLength = meeting.getTitle().length();
+//			
+//			while(meetingLength <= meetingWithLongestTitle.getTitle().length()) {
+//				labelText += "  ";
+//				meetingLength++;
+//			}
+			String sep = " | ";
+			
+			String labelText = meeting.getTitle() + sep + 
+				meeting.getDate() + sep + meeting.getTimeStart() + "-" +
+					meeting.getTimeEnd() + sep + meeting.getRoom();
+			
+			Icon icon = new ImageIcon("/home/nab/fsg19/src/images/meeting_icon.gif");
+			JLabel label = new JLabel(icon, JLabel.LEFT);
+			label.setText(labelText);
 			label.setOpaque(true);
 
 			if (isSelected) {
 		        label.setBackground(Color.GREEN);
 		    } 
 		    else {
-		    	label.setBackground(Color.BLUE);
+		    	//label.setBackground(Color.BLUE);
 		    }
 			return label;
 		}

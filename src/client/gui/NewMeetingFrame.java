@@ -155,7 +155,7 @@ public class NewMeetingFrame extends JFrame {
 		GridBagConstraints c = new GridBagConstraints();
 		//c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(10,0,0,0);
-		c.fill = GridBagConstraints.HORIZONTAL;
+		//c.fill = GridBagConstraints.HORIZONTAL;
 	
 		c.gridx = 0;
 		c.gridy = 0;
