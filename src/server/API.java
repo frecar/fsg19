@@ -57,11 +57,29 @@ public class API {
 		performUpdateQuery(query);	    
 	}
 	
-	public void saveMeeting(String str) {
-		Meeting p = (Meeting)retreiveObject(str);
-
+	public void arrangeMeetingsAndPersons(Meeting meeting) {
 		String query;
 		
+		query = "DELETE FROM Meeting_Person WHERE meeting_id = '"+meeting.getId()+"'";	
+		performUpdateQuery(query);	    	
+	
+		for (Person person : meeting.getParticipants()) {
+			query = "INSERT INTO Meeting_Person (person_id, meeting_id) " +
+			"VALUES (" +
+			"'"+person.getId()+"'," +
+			"'"+meeting.getId()+"'" +
+			")";	
+			performUpdateQuery(query);	    	
+		}
+		
+	}
+	
+	public void saveMeeting(String str) {
+		Meeting p = (Meeting)retreiveObject(str);
+		
+		arrangeMeetingsAndPersons(p);
+		
+		String query;		
 		if (p.getId()==0){
 			query = "INSERT INTO Meeting (title, room, time_start, time_end, description, responsible) " +
 					"VALUES (" +
@@ -78,7 +96,7 @@ public class API {
 				"title='"+p.getTitle()+"', " +
 				"room='"+p.getRoom()+"', " +
 				"time_start='"+p.getTimeStart()+"', " +
-				"time_end='"+p.getTimeEnd()+"' " +
+				"time_end='"+p.getTimeEnd()+"', " +
 				"responsible='"+p.getResponsible()+"' " +
 				"WHERE id = '"+p.getId()+"'";	
 		}
@@ -98,6 +116,11 @@ public class API {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Object getParticipantsForMeeting(String id) {
+		String query = "SELECT Person.* FROM Person, Meeting_Person WHERE Person.id = Meeting_Person.id AND Meeting_Person.meeting_id = "+id;
+		return getObjects(query, "models.Person");
 	}
 	
 	public Object getPersons() {
