@@ -248,7 +248,7 @@ public class EastPanel extends JPanel{
 
 		@Override
 		public void meetingUpdated() {
-			System.out.println("A meetinglistener reveived a call to meetingUpdated. In other words; something changed in the model");
+			//System.out.println("A meetinglistener reveived a call to meetingUpdated. In other words; something changed in the model");
 			
 			// The setModel method will refresh the GUI elements according to the model
 			setModel(this.model);

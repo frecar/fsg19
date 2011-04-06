@@ -49,10 +49,10 @@ public class WestPanel extends JPanel {
 		MainPanel mainPanel = (MainPanel)parent;
 		meetingsList = Meeting.all();
 		
-		for(Meeting m: meetingsList) {
-			// System.out.println(m.getTitle());
-		}
-		
+//		for(Meeting m: meetingsList) {
+//			// System.out.println(m.getTitle());
+//		}
+//		
 		//System.exit(0);
 		m1 = new Meeting("Fest hos Arne", "12.12 2011", "3", "16:15", "18:00", "Will ther be cake?", "no", "no", "R7");
 		m2 = new Meeting("Budsjett", "05.12 2011", "4", "10:15", "14:00", "No cake for you?", "no", "no", "R50");
@@ -186,11 +186,10 @@ public class WestPanel extends JPanel {
 
 		@Override
 		public void valueChanged(ListSelectionEvent arg0) {
-			System.out.println("A meeting was selected from the meetings JList");
+			//System.out.println("A meeting was selected from the meetings JList");
 			
 			/**
-			 *  Herregud så stygg kode. Masse stress for å få tak i riktige kompo-
-			 *  nenter som skal endres
+			 *  Herregud så stygg kode. Masse stress for å få tak i riktige komponenter som skal endres
 			 */
 			
 			if(meetings.getSelectedIndex() != -1) {

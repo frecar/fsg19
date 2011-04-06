@@ -10,9 +10,9 @@ import java.util.*;
 
 public class CalendarPanel extends JPanel {
 	private JLabel lblMonth, lblYear;
-	private  JButton btnPrev, btnNext;
+	private JButton btnPrev, btnNext;
 	private JTable tblCalendar;
-	private  JComboBox cmbYear;
+	private JComboBox cmbYear;
 
 	private  DefaultTableModel mtblCalendar; //Table model
 	private  JScrollPane stblCalendar; //The scrollpane
@@ -48,6 +48,7 @@ public class CalendarPanel extends JPanel {
 		btnPrev.addActionListener(new btnPrev_Action());
 		btnNext.addActionListener(new btnNext_Action());
 		cmbYear.addActionListener(new cmbYear_Action());
+		
 		
 		//Add controls to this panel
 		add(pnlCalendar);
@@ -136,7 +137,7 @@ public class CalendarPanel extends JPanel {
 		for (int i=1; i<=nod; i++){
 			int row = new Integer((i+som-2)/7);
 			int column  =  (i+som-2)%7;
-			mtblCalendar.setValueAt(i, row, column);
+			mtblCalendar.setValueAt(i+10, row, column);
 		}
 
 		//Apply renderers
@@ -157,6 +158,7 @@ public class CalendarPanel extends JPanel {
 					setBackground(new Color(220, 220, 255));
 				}
 			}
+			//System.out.println("kake");
 			setBorder(null);
 			setForeground(Color.black);
 			return this;  
