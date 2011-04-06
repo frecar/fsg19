@@ -32,6 +32,9 @@ public class Client {
 		Thread thread1 = new Updater("updated", 8000, client);
 		
 		Person person = Person.all().get(0);
+		Meeting m = Meeting.all().get(0);
+		m.save();
+		
 	}
 	
 	public static ArrayList<Object> request(String request) {

@@ -77,9 +77,7 @@ public class API {
 	
 	public void saveMeeting(String str) {
 		Meeting p = (Meeting)retreiveObject(str);
-		
-		arrangeMeetingsAndPersons(p);
-		
+				
 		String query;		
 		if (p.getId()==0){
 			query = "INSERT INTO Meeting (title, room, time_start, time_end, description, responsible) " +
@@ -101,10 +99,31 @@ public class API {
 				"responsible='"+p.getResponsible()+"' " +
 				"WHERE id = '"+p.getId()+"'";	
 		}
-
+		
+		if (p.getId()==0){
+			p.setId(Integer.parseInt(getHighestId("Meeting")));
+		}
 		performUpdateQuery(query);	    
+		arrangeMeetingsAndPersons(p);
 	}
 
+	private String getHighestId(String table) {
+		
+		ResultSet result = this.requestDatabase("SELECT max(id) as id FROM "+table);
+		
+		try {
+			while(result.next()) {
+				return result.getString("id");
+			} 
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "";
+		
+	}
+	
 	private void performUpdateQuery(String query) {
 		MySQLAccess dao = new MySQLAccess();
 		
