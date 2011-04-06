@@ -92,10 +92,10 @@ public class Person implements Serializable{
 		}
 			
 		for (Object meeting : list) {
-			meetings.add((Meeting)meeting);
+			p.add((Meeting)meeting);
 		}
 		
-		return meetings;
+		return p;
 	}
 	
 	public static ArrayList<Person> all() {
