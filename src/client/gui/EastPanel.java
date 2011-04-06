@@ -89,7 +89,8 @@ public class EastPanel extends JPanel{
 				
 				System.out.println("RES; " + this.model.getResponsible());
 				this.titleTextField.setText(this.model.getTitle());
-				this.responsibleTextField.setText(this.model.getResponsible());
+				String name = Person.get(Integer.parseInt(this.model.getResponsible())).getName();
+				this.responsibleTextField.setText(name);
 				this.dateTextField.setText(this.model.getDate());
 				this.timeStartTextField.setText(this.model.getTimeStart());
 				this.timeEndTextField.setText(this.model.getTimeEnd());

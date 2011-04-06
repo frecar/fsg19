@@ -195,7 +195,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 					sat = true;
 				}
 			}
-			
+
 			if(!sat) {
 				participants.add((Person)object);
 			}

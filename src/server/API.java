@@ -79,10 +79,11 @@ public class API {
 				
 		String query;		
 		if (p.getId()==0){
-			query = "INSERT INTO Meeting (title, room, time_start, time_end, description, responsible) " +
+			query = "INSERT INTO Meeting (title, room, date, time_start, time_end, description, responsible) " +
 					"VALUES (" +
 					"'"+p.getTitle()+"'," +
 					"'"+p.getRoom()+"'," +
+					"'"+p.getDate()+"'," +
 					"'"+p.getTimeStart()+"'," +
 					"'"+p.getTimeEnd()+"'," +
 					"'"+p.getDescription()+"'," +
@@ -93,6 +94,7 @@ public class API {
 			query = "UPDATE Meeting SET " +
 				"title='"+p.getTitle()+"', " +
 				"room='"+p.getRoom()+"', " +
+				"date='"+p.getDate()+"', " +
 				"time_start='"+p.getTimeStart()+"', " +
 				"time_end='"+p.getTimeEnd()+"', " +
 				"responsible='"+p.getResponsible()+"' " +
