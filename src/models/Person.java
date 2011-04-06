@@ -63,6 +63,8 @@ public class Person implements Serializable{
 	}
 	
 	public ArrayList<Meeting> get_meetings() {
+		ArrayList<Meeting> meetings = Meeting.all();
+		
 		
 		return meetings;
 	}

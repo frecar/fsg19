@@ -38,7 +38,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	private String deleted;
 	private String room;
 	
-	private ArrayList<Person> participants;
+	private ArrayList<Person> participants = new ArrayList<Person>();
 
 	/**
 	 * All GUI listeners who is interested in the meetings
@@ -180,7 +180,29 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	}
 
 	public ArrayList<Person> getParticipants() {
+		
+		String query = "get,getParticipantsForMeeting,"+this.id;
+		ArrayList<Object> list = Client.request(query);
+		
+		for (Object object : list) {
+			boolean sat = false;
+			for (Person person : participants) {
+				if(person.getId() == ((Person)object).getId()) {
+					sat = true;
+				}
+			}
+			
+			if(!sat) {
+				participants.add((Person)object);
+			}
+		}
+
 		return participants;
+
+	}
+	
+	public void addParticipant(Person p) {
+		participants.add(p);
 	}
 
 	public void setParticipants(ArrayList<Person> participants) {
