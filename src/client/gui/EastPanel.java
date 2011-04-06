@@ -86,8 +86,7 @@ public class EastPanel extends JPanel{
 				editButton.setEnabled(false);
 				
 				model.addMeetingListener(this);
-				
-				System.out.println("RES; " + this.model.getResponsible());
+		
 				this.titleTextField.setText(this.model.getTitle());
 				String name = Person.get(Integer.parseInt(this.model.getResponsible())).getName();
 				this.responsibleTextField.setText(name);
@@ -101,7 +100,8 @@ public class EastPanel extends JPanel{
 				MainPanel mainPanel = (MainPanel)parent;
 				Person user = mainPanel.getMainFrame().getClient().user;
 				
-				if(user.getName().equals(this.model.getResponsible())) {
+				System.out.println();
+				if(user.getName().equals(Person.get(Integer.parseInt(this.model.getResponsible())).getName())) {
 					editButton.setEnabled(true);
 				}
 				else {
@@ -269,15 +269,17 @@ public class EastPanel extends JPanel{
 				mainPanel.getMainFrame().createAndShowEditMeeting(model);
 			}
 			else if(event.getSource() == deleteButton) {
+				// Delete it from the server
+				model.delete();
+				
 				mainPanel = (MainPanel)parent;
 				WestPanel westPanel = (WestPanel)mainPanel.getWestPanel();
 				DefaultListModel defModel = westPanel.getModel();
 				defModel.removeElement(model);
-				
+				System.out.println("sletter");
 				setModel(null);
 				
-				// Delete it from the server
-				model.delete();
+				
 				
 				westPanel.getMeetings().setModel(westPanel.getSortedMeetingsModel());
 				

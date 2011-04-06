@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionListener;
 
 import client.Client;
+import client.gui.EastPanel.MeetingPanel;
 import models.Meeting;
 import models.Person;
 import models.Room;
@@ -53,7 +54,7 @@ public class EditMeetingFrame extends JFrame {
 	private JTextField roomTextField;
 	private JTextField participantsTextField;
 	
-	private JButton addMeeting, closeFrame;
+	private JButton saveMeeting, closeFrame;
 	
 	private JList leftList, rightList;
 	private DefaultListModel leftModel;
@@ -94,7 +95,7 @@ public class EditMeetingFrame extends JFrame {
 		participantsLabel = new JLabel("Participants:");
 		descriptionLabel = new JLabel("Comment:");
 		
-		titleTextField = new JTextField("Budsjettkutt skal diskuteres", 20);
+		titleTextField = new JTextField(meeting.getTitle(), 20);
 		//titleTextField.setEnabled(false);
 		
 		String loggedInUser;
@@ -109,20 +110,32 @@ public class EditMeetingFrame extends JFrame {
 		responsibleTextField = new JTextField(loggedInUser, 20);
 		responsibleTextField.setEnabled(false);
 		
-		dateTextField = new JTextField("08.05.11", 20);
+		dateTextField = new JTextField(meeting.getDate(), 20);
 		//dateTextField.setEnabled(false);
 		
-		timeStartTextField = new JTextField("0815", 5);
+		timeStartTextField = new JTextField(meeting.getTimeStart(), 5);
 		
-		timeEndTextField = new JTextField("10:00", 5);
+		timeEndTextField = new JTextField(meeting.getTimeEnd(), 5);
 		///timeTextField.setEnabled(false);
+		
+		String meetingRoom = meeting.getRoom();
 		
 		Object[] roomsStrings = rooms.toArray();
 		roomsComboBox = new JComboBox(roomsStrings);
+		
+		// sets the combobox to the current meeting room
+		for(int i = 0; i < roomsStrings.length; i++) {
+			if((roomsStrings[i].toString()).equals(meetingRoom)) {
+				
+				roomsComboBox.setSelectedItem(roomsStrings[i]);
+				System.out.println("ROOM: " + i);
+			}
+		}
+		
 		roomsComboBox.addActionListener(new SelectRoomListener());
 	
-		String theFirstRoom = roomsComboBox.getItemAt(0).toString();
-		roomTextField = new JTextField(theFirstRoom , 10);
+		//String theFirstRoom = roomsComboBox.getItemAt(0).toString();
+		roomTextField = new JTextField(meetingRoom , 10);
 		roomTextField.setEnabled(false);
 		
 		leftModel = new DefaultListModel();
@@ -146,11 +159,11 @@ public class EditMeetingFrame extends JFrame {
 		//participantsTextField = new JTextField("7", 3);  @DEPRECATED
 		//participantsTextField.setEnabled(false);
 		
-		descriptionTextField = new JTextField("Alle må ta med snacks", 20);
+		descriptionTextField = new JTextField(meeting.getDescription(), 20);
 		//commentTextField.setEnabled(false);
 		
-		addMeeting = new JButton("Add meeting");
-		addMeeting.addActionListener(new AddMeetingListener());
+		saveMeeting = new JButton("Save meeting");
+		saveMeeting.addActionListener(new SaveMeetingListener());
 		
 		closeFrame = new JButton("Cancel");
 		closeFrame.addActionListener(new CloseFrameListener());
@@ -245,7 +258,7 @@ public class EditMeetingFrame extends JFrame {
 
 		c.gridx = 1;
 		c.gridy = 7;
-		panel.add(addMeeting, c);
+		panel.add(saveMeeting, c);
 		
 		c.gridx = 2;
 		c.gridy = 7;
@@ -329,7 +342,7 @@ public class EditMeetingFrame extends JFrame {
 		}
 	}
 	
-	class AddMeetingListener implements ActionListener {
+	class SaveMeetingListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -341,18 +354,31 @@ public class EditMeetingFrame extends JFrame {
 			String timeStart = timeStartTextField.getText();
 			String timeEnd = timeEndTextField.getText();
 			String room = roomTextField.getText();
-			ArrayList<Person> participants = new ArrayList<Person>();
 			String description = descriptionTextField.getText();
 			
+			meeting.setTitle(title);
+			meeting.setResponsible("" + Client.user.getId());
+			meeting.setDate(date);
+			meeting.setTimeStart(timeStart);
+			meeting.setTimeEnd(timeEnd);
+			meeting.setRoom(room);
+			meeting.setDescription(description);
 			
 			for(int i = 0; i < rightModel.size(); i++) {
-				participants.add((Person)rightModel.get(i));
+				Person p = (Person)rightModel.get(i);
+				meeting.addParticipant(p);
 			}
 			// TODO: add meeting to model
-			Meeting meeting = new Meeting(title, date, responsible, timeStart, timeEnd, description, "no", "no", room);
-			//meeting.save();
+			//Meeting meeting = new Meeting(title, date, responsible, timeStart, timeEnd, description, "no", "no", room);
+			meeting.save();
 			
-			JOptionPane.showMessageDialog(null, "The meeting was added.");
+			// update meetingpanel
+			MainPanel mainPanel = (MainPanel)mainFrame.getMainPanel();
+			EastPanel eastPanel = (EastPanel)mainPanel.getEastPanel();
+			MeetingPanel meetingPanel = (MeetingPanel)eastPanel.getMeetingPanel();
+			meetingPanel.setModel(meeting);
+			
+			JOptionPane.showMessageDialog(null, "The meeting was changed.");
 			dispose();
 		}
 	}

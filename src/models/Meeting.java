@@ -91,6 +91,15 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		}
 	}
 	
+	public static Meeting get(int id) {
+		for (Meeting meeting : Meeting.all()) {
+			if(meeting.getId() == id) {
+				return meeting;
+			}
+		}
+		return null;
+	}
+	
 	public static ArrayList<Meeting> all() {
 		String query = "get,getMeetings";
 		ArrayList<Object> list = Client.request(query);
