@@ -99,7 +99,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 				for (Meeting meeting: Meeting.meetings) {
 					if(meeting.getId() == ((Meeting)object).getId()) {
 						sat = true;
-						//meeting.updatePerson((Person)object);
+						meeting.updateMeeting((Meeting)object);
 					}
 				}
 				
@@ -247,7 +247,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		}
 	}
 	
-	private void updateMeeting(Meeting object) {
+	public void updateMeeting(Meeting object) {
 		this.setTimeStart(object.getTimeStart());
 		this.setTimeEnd(object.getTimeEnd());
 		this.setTitle(object.getTitle());
