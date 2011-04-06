@@ -7,7 +7,6 @@ public class Updater extends Thread {
 	int sleepTime = 1000;
 	Client client;
 	
-	
 	public Updater() {
 	}
 	
@@ -27,7 +26,7 @@ public class Updater extends Thread {
 	
 	public void run(){
 		while (runs){
-			Person.all();
+			//Person.all();
 			internalSleep();
 		}
 	}

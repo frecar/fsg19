@@ -52,7 +52,6 @@ public class Person implements Serializable{
 			this.password 	= result.getString("password");
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -68,16 +67,14 @@ public class Person implements Serializable{
 		
 		for (Object object : list) {
 				boolean sat = false;
-				for (Person person : Person.persons) 
-				{	
-					if(person.getId() == ((Person)object).getId()) 
-					{
+				for (Person person : Person.persons) {	
+					if(person.getId() == ((Person)object).getId()) {
 						sat = true;
 						person.updatePerson((Person)object);
 					}
 				}
-				if(!sat) 
-				{
+				
+				if(!sat) {
 					persons.add((Person)object);
 				}
 		}
@@ -128,20 +125,6 @@ public class Person implements Serializable{
 
 	public String getName() {
 		return name;
-	}
-	
-	public Person load(){
-		System.out.println("loading " + name);
-		File file = new File(name);
-		Person temp = null;
-		try {
-			temp = (Person) FileHandler.deSerialize(file, this.getClass().newInstance());
-		} catch (InstantiationException e1) {
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			e1.printStackTrace();
-		}
-		return temp;	
 	}
 
 	public void setId(int id) {

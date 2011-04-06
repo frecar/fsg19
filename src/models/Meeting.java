@@ -58,16 +58,15 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		try {
 			this.id 			= Integer.parseInt(result.getString("id"));
 			this.title		 	= result.getString("title");
+			this.timeStart		= result.getString("time_start");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}		
 	}
 	
 	public Meeting(String title, String date, String responsible, String timeStart,String timeEnd,
 			 String description, String canceled, String deleted, String room) {
 		
-		super();
 		this.title = title;
 		this.date = date;
 		this.responsible = responsible;
@@ -83,8 +82,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 
 	
 	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.id;
 	}
 	
 	public String getTitle() {
@@ -203,7 +201,6 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	}
 	
 	private void updateMeeting(Meeting object) {
-		
 		this.setTimeStart(object.getTimeStart());
 		this.setTimeEnd(object.getTimeEnd());
 		this.setTitle(object.getTitle());
@@ -217,25 +214,20 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	public static ArrayList<Meeting> all() {
 		String query = "get,getMeetings";
 		ArrayList<Object> list = Client.request(query);
-		
+
 		for (Object object : list) {
 				boolean sat = false;
-				for (Meeting meeting : Meeting.meetings) 
-				{	
-					if(meeting.getId() == ((Meeting)object).getId()) 
-					{
+				for (Meeting meeting : Meeting.meetings) {	
+					if(meeting.getId() == ((Meeting)object).getId()) {			
 						sat = true;
 						meeting.updateMeeting((Meeting)object);
 					}
 				}
-				if(!sat) 
-				{
+				if(!sat) {
 					meetings.add((Meeting)object);
 				}
 		}
-	
 		return meetings;
-	
 	}
 	
 	public void save(){
@@ -253,8 +245,6 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-		
-		Meeting.all();
 		
 	}
 	
