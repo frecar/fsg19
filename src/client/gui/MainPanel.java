@@ -25,14 +25,9 @@ public class MainPanel extends JPanel{
 		setLayout(new BorderLayout(5, 10));
 		//setBorder(new TitledBorder("KEKFACE"));
 		
-		north = new NorthPanel(new GridLayout(1, 1));
-		south = new SouthPanel(new BorderLayout(), this);
 		center = new CenterPanel(new BorderLayout());
-		//center.setOpaque(true);
-		//center.setBackground(Color.BLUE);
-		
-		
-		
+		south = new SouthPanel(new BorderLayout(), this);	
+		north = new NorthPanel(new GridLayout(1, 1));		
 		west = new WestPanel(new BorderLayout(), this);
 		east = new EastPanel(new FlowLayout(), this);
 		

@@ -114,8 +114,13 @@ public class LoginDialog extends JDialog implements ActionListener {
 				Person user = (Person) persons.get(index);
 				Client.user = user;
 				
-				// Update the status
 				MainPanel mainPanel = (MainPanel)mainFrame2.getMainPanel();
+				
+				WestPanel westPanel = (WestPanel)mainPanel.getWestPanel();
+				westPanel.fillMeetings();
+				
+				// Update the status
+				
 				SouthPanel southPanel = (SouthPanel)mainPanel.getSouthPanel();
 				JLabel status = southPanel.getStatus();
 				status.setText("Logged in as: " + username + " Email: " + user.getEmail());

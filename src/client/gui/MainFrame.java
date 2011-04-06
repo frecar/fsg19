@@ -100,7 +100,7 @@ public class MainFrame {
 			mainPanel.setVisible(true);
 			MainPanel mainPanel2 = (MainPanel)mainPanel;			
 			WestPanel westPanel = (WestPanel)mainPanel2.getWestPanel();
-			westPanel.fillMeetings();
+			//westPanel.fillMeetings();
 			
 			new MenuBarBuilder(frame, this, MenuBarBuilder.AFTER_CONNECTED_MENUBAR);
 		}

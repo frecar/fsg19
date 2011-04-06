@@ -347,6 +347,7 @@ public class NewMeetingFrame extends JFrame {
 			for(int i = 0; i < rightModel.size(); i++) {
 				Person p = (Person)rightModel.get(i);
 				meeting.addParticipant(p);
+				System.out.println("Legger til " + p + " til møtet");
 			}
 			// TODO: add meeting to model
 			meeting.save();
