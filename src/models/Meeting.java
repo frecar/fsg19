@@ -1,6 +1,7 @@
 package models;
 
 import java.beans.XMLEncoder;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.ObjectOutputStream;
@@ -11,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import sun.tools.tree.ThisExpression;
+//import sun.tools.tree.ThisExpression;
 
 import client.Client;
 import client.Config;
