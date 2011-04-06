@@ -31,6 +31,8 @@ public class MainPanel extends JPanel{
 		//center.setOpaque(true);
 		//center.setBackground(Color.BLUE);
 		
+		
+		
 		west = new WestPanel(new BorderLayout(), this);
 		east = new EastPanel(new FlowLayout(), this);
 		
@@ -39,6 +41,7 @@ public class MainPanel extends JPanel{
 		add(center, BorderLayout.CENTER);
 		add(west, BorderLayout.WEST);
 		add(east, BorderLayout.EAST);
+		
 	}
 	
 

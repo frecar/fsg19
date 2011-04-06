@@ -49,6 +49,7 @@ public class MainFrame {
 	private void createAndShowGUI() {
 			
 		
+		
 		/* try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
 		catch (ClassNotFoundException e) {}
 		catch (InstantiationException e) {}
@@ -62,6 +63,8 @@ public class MainFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());		
 		
+
+		
 		// Creates and add mainpanel, but does not show it yet(must login first)
 		mainPanel = new MainPanel(this);
 		mainPanel.setVisible(false);
@@ -74,8 +77,8 @@ public class MainFrame {
 		new MenuBarBuilder(frame, this, MenuBarBuilder.BEFORE_CONNECTED_MENUBAR);
 		
 		// Creates and show a login dialog
-		createAndShowLogin();
 		
+		createAndShowLogin();
 		/**
 		 * Bypasses the login box because it became annoying after a while
 //		 */	
@@ -95,6 +98,10 @@ public class MainFrame {
 		if(loginDialog.getSucceeded()) {
 			
 			mainPanel.setVisible(true);
+			MainPanel mainPanel2 = (MainPanel)mainPanel;			
+			WestPanel westPanel = (WestPanel)mainPanel2.getWestPanel();
+			westPanel.fillMeetings();
+			
 			new MenuBarBuilder(frame, this, MenuBarBuilder.AFTER_CONNECTED_MENUBAR);
 		}
 		else {

@@ -31,7 +31,7 @@ import client.gui.EastPanel.MeetingPanel;
 
 public class WestPanel extends JPanel {
 
-	private JPanel parent;
+	private MainPanel parent;
 	private JList meetings;
 	private DefaultListModel model;
 	
@@ -39,8 +39,10 @@ public class WestPanel extends JPanel {
 	
 	private Meeting m1, m2, m3, m4, m5;
 	
+	private MainPanel mainPanel;
 	
-	public WestPanel(LayoutManager layout, JPanel parent) {
+	
+	public WestPanel(LayoutManager layout, MainPanel parent) {
 		super(layout);
 		
 		this.parent = parent;
@@ -48,7 +50,8 @@ public class WestPanel extends JPanel {
 		setBorder(new TitledBorder("WEST"));
 		
 		MainPanel mainPanel = (MainPanel)parent;
-		Person user = mainPanel.getMainFrame().getClient().user;
+		
+		
 		
 		//meetingsList = Meeting.all();
 		
@@ -108,6 +111,13 @@ public class WestPanel extends JPanel {
 	
 	}
 
+	public void fillMeetings() {
+		System.out.println("now filling meetings");
+		
+		Person user = parent.getMainFrame().getClient().user;
+		System.out.println(user);
+	}
+	
 	public JList getMeetings() {
 		return meetings;
 	}
