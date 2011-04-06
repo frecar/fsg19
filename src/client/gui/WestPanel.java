@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -33,6 +34,8 @@ public class WestPanel extends JPanel {
 	private JList meetings;
 	DefaultListModel model;
 	
+	private ArrayList<Meeting> meetingsList;
+	
 	private Meeting m1, m2, m3, m4, m5;
 	
 	
@@ -43,6 +46,14 @@ public class WestPanel extends JPanel {
 		
 		setBorder(new TitledBorder("WEST"));
 		
+		MainPanel mainPanel = (MainPanel)parent;
+		meetingsList = Meeting.all();
+		
+		for(Meeting m: meetingsList) {
+			System.out.println(m.getTitle());
+		}
+		
+		System.exit(0);
 		m1 = new Meeting("Fest hos Arne", "12.12 2011", "3", "16:15", "18:00", "Will ther be cake?", "no", "no", "R7");
 		m2 = new Meeting("Budsjett", "05.12 2011", "4", "10:15", "14:00", "No cake for you?", "no", "no", "R50");
 		m3 = new Meeting("Kurs i java", "04.12 2011", "4", "10:15", "14:00", "No cake for you?", "no", "no", "R50");

@@ -59,12 +59,12 @@ public class CalendarPanel extends JPanel {
 		pnlCalendar.add(stblCalendar);
 		
 		//Set bounds
-		pnlCalendar.setBounds(0, 0, 320, 335);
+		pnlCalendar.setBounds(0, 0, 420, 335);
 		lblMonth.setBounds(160-lblMonth.getPreferredSize().width/2, 25, 100, 25);
 		lblYear.setBounds(10, 305, 100, 20);
 		cmbYear.setBounds(230, 305, 80, 20);
-		btnPrev.setBounds(10, 25, 50, 25);
-		btnNext.setBounds(260, 25, 50, 25);
+		btnPrev.setBounds(10, 25, 100, 25);
+		btnNext.setBounds(260, 25, 100, 25);
 		stblCalendar.setBounds(10, 50, 300, 250);
 		
 		//Get real month/year
