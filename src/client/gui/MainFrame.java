@@ -17,7 +17,7 @@ public class MainFrame {
 
 	private LoginDialog loginDialog;
 	private JFrame frame;
-	private JFrame newMeeting, editMeeting;
+	private JFrame newMeeting, editMeeting, seeMessages;
 	private JPanel mainPanel;
 	
 	public JPanel getMainPanel() {
@@ -119,5 +119,14 @@ public class MainFrame {
 		//newMeeting.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//newMeeting.setLayout(new GridBagLayout());
 		editMeeting.setVisible(true);	
+	}
+	
+	public void showMessages() {
+		seeMessages = new SeeMessagesFrame(this);
+		seeMessages.setSize(800, 600);
+		seeMessages.setLocationRelativeTo(null);
+		//newMeeting.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//newMeeting.setLayout(new GridBagLayout());
+		seeMessages.setVisible(true);
 	}
 }

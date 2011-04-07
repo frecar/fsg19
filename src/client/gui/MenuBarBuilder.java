@@ -38,6 +38,10 @@ public class MenuBarBuilder {
 				fileMenu.add(newAppointmentMenuItem);
 				newAppointmentMenuItem.addActionListener(new newAppointmentListener());
 				
+				JMenuItem seeMessagesMenuItem = new JMenuItem("See Messages");
+				fileMenu.add(seeMessagesMenuItem);
+				seeMessagesMenuItem.addActionListener(new seeMessagesListener());
+				
 				fileMenu.addSeparator();
 				
 				JMenuItem exitMenuItem = new JMenuItem("Exit");
@@ -93,6 +97,14 @@ public class MenuBarBuilder {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
+		}
+	}
+	
+	class seeMessagesListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			mf.showMessages();
 		}
 	}
 
