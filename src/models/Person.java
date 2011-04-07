@@ -76,21 +76,20 @@ public class Person implements Serializable{
 		ArrayList<Object> list = Client.request(query);
 		
 		ArrayList<Meeting> p = new ArrayList<Meeting>();
-		
-		for (Object object : list) {
-				boolean sat = false;
-				for (Meeting meeting : meetings) {
-					if(meeting.getId() == ((Meeting)object).getId()) {
-						sat = true;
-						meeting.updateMeeting((Meeting)object);
-					}
-				}
-				
-				if(!sat) {
-					meetings.add((Meeting)object);
-				}
-		}
 			
+		for (Object meeting : list) {
+			p.add((Meeting)meeting);
+		}
+		
+		return p;
+	}
+	
+	public ArrayList<Meeting> get_invites() {
+		String query = "get,getInvitesForUser,"+this.id;
+		ArrayList<Object> list = Client.request(query);
+		
+		ArrayList<Meeting> p = new ArrayList<Meeting>();
+		
 		for (Object meeting : list) {
 			p.add((Meeting)meeting);
 		}

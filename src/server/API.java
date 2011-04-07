@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -60,16 +61,40 @@ public class API {
 	public void arrangeMeetingsAndPersons(Meeting meeting) {
 		String query;
 		
-		query = "DELETE FROM Meeting_Person WHERE meeting_id = '"+meeting.getId()+"'";	
-		performUpdateQuery(query);	    	
-	
+		
+		ArrayList<String> oldParticipants = new ArrayList<String>();
+		ResultSet result = this.requestDatabase("SELECT id FROM Meeting_Person WHERE meeting_id="+meeting.getId());
+		try {
+			while(result.next()) {
+				oldParticipants.add(result.getString("id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<String> currentParticipants = new ArrayList<String>();
 		for (Person person : meeting.getParticipants()) {
-			query = "INSERT INTO Meeting_Person (person_id, meeting_id) " +
-			"VALUES (" +
-			"'"+person.getId()+"'," +
-			"'"+meeting.getId()+"'" +
-			")";	
-			performUpdateQuery(query);	    	
+			Integer k = new Integer(person.getId());
+			currentParticipants.add(k.toString());
+		}
+		
+		//CREATE 
+		for (String s : currentParticipants) {
+			if(!oldParticipants.contains(s)) {
+				query = "INSERT INTO Meeting_Person (person_id, meeting_id) " +
+				"VALUES (" +
+				"'"+s+"'," +
+				"'"+meeting.getId()+"'" +
+				")";	
+				performUpdateQuery(query);
+			}		
+		}
+		//DELETE UNUSED
+		for (String s : oldParticipants) {
+			if(!currentParticipants.contains(s)) {
+				query = "DELETE FROM Meeting_Person WHERE meeting_id="+meeting.getId()+" AND person_id" + s; 	
+				performUpdateQuery(query);
+			}		
 		}
 		
 	}
@@ -154,8 +179,13 @@ public class API {
 	}
 	
 	public Object getMeetingsForUser(String id) {
-		String query = "SELECT Meeting.* FROM Meeting, Meeting_Person WHERE Meeting.id = Meeting_Person.meeting_id AND Meeting_Person.person_id = "+id;
+		String query = "SELECT Meeting.* FROM Meeting, Meeting_Person WHERE Meeting.id = Meeting_Person.meeting_id AND Meeting_Person.status = 1 AND Meeting_Person.person_id = "+id;
 		return getObjects(query, "models.Meeting");
+	}
+	
+	public Object getInvitesForUser(String id) {
+		String query = "SELECT Meeting.* FROM Meeting, Meeting_Person WHERE Meeting.id = Meeting_Person.meeting_id AND Meeting_Person.status = 0 AND Meeting_Person.person_id = "+id;
+		return getObjects(query, "models.Meeting");	
 	}
 	
 	public Object getPersons() {
