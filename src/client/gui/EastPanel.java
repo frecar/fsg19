@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
@@ -69,6 +70,13 @@ public class EastPanel extends JPanel{
 		private JButton editButton, deleteButton;
 		
 		/**
+		 * the list containing all participants
+		 */
+		private JList leftList;
+		private DefaultListModel leftModel;
+		private JScrollPane leftScroll;
+		
+		/**
 		 * The meeting which this panel currently holds
 		 */
 		Meeting model;
@@ -95,6 +103,25 @@ public class EastPanel extends JPanel{
 				this.timeEndTextField.setText(this.model.getTimeEnd());
 				this.roomTextField.setText(this.model.getRoom());
 				this.participantsTextField.setText(this.model.getNumOfParticipants());
+				
+				int size = model.getParticipants().size();
+				
+				for(int i = 0; i < size; i++) {
+					
+					Person p = model.getParticipants().get(i);
+					
+					if(leftModel.size() == 0) {
+						leftModel.addElement(p);
+					}
+					for(int j = 0; j < leftModel.size(); j++) {
+						
+						if(p.getId() != ((Person)leftModel.get(j)).getId()) {
+							leftModel.addElement(p);
+							System.out.println("adding " + p + " to meetinglist");
+						}
+					}
+				}
+				
 				this.descriptionTextField.setText(this.model.getDescription());
 				
 				MainPanel mainPanel = (MainPanel)parent;
@@ -149,6 +176,10 @@ public class EastPanel extends JPanel{
 			
 			participantsTextField = new JTextField("PARTICIPANTS", 3);
 			participantsTextField.setEnabled(false);
+			
+			leftModel = new DefaultListModel();
+			leftList = new JList(leftModel);
+			leftScroll = new JScrollPane(leftList);
 			
 			descriptionTextField = new JTextField("DESCRIPTION", 20);
 			descriptionTextField.setEnabled(false);
@@ -216,6 +247,10 @@ public class EastPanel extends JPanel{
 			c.gridx = 1;
 			c.gridy = 5;
 			add(participantsTextField, c);
+			
+			c.gridx = 2;
+			c.gridy = 5;
+			add(leftScroll, c);
 			
 			c.gridx = 0;
 			c.gridy = 6;

@@ -278,7 +278,7 @@ public class EditMeetingFrame extends JFrame {
 	}
 
 	/**
-	 * Fils the model with all persons, except the logged in user, which is already
+	 * Fills the model with all persons, except the logged in user, which is already
 	 * in the right list
 	 */
 	private void fillModel(DefaultListModel model, ArrayList<Person> persons) {
@@ -388,7 +388,7 @@ public class EditMeetingFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			JOptionPane.showMessageDialog(null, "The meeting was NOT added.");
+			JOptionPane.showMessageDialog(null, "The meeting was NOT edited.");
 			dispose();
 		}
 	}

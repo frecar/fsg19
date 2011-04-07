@@ -38,9 +38,9 @@ public class Client {
 		Thread thread1 = new Updater("updated", 8000, client);
 
 	
-		Meeting m = Meeting.get(1);
-		m.setTitle("hey");
-		m.save();
+//		Meeting m = Meeting.get(1);
+//		m.setTitle("hey");
+//		m.save();
 	}
 		
 	

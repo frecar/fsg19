@@ -174,7 +174,7 @@ public class WestPanel extends JPanel {
 		if(Client.user != null) {
 			for(Object o: Client.user.get_meetings()) {
 				model.addElement(o);
-				System.out.println(((Meeting)o).getResponsible());
+				//System.out.println(((Meeting)o).getResponsible());
 			}
 		}
 		
