@@ -44,6 +44,15 @@ public class Person implements Serializable{
 		setList(new ArrayList<Meeting>());
 	}
 	
+	public static Person get(int id) {
+		for (Person person : Person.all()) {
+			if(person.getId() == id) {
+				return person;
+			}
+		}
+		return null;
+	}
+	
 	public Person(ResultSet result) {
 		try {
 			this.id 		= Integer.parseInt(result.getString("id"));
@@ -66,21 +75,26 @@ public class Person implements Serializable{
 		String query = "get,getMeetingsForUser,"+this.id;
 		ArrayList<Object> list = Client.request(query);
 		
-		for (Object object : list) {
-				boolean sat = false;
-				for (Meeting meeting : meetings) {
-					if(meeting.getId() == ((Meeting)object).getId()) {
-						sat = true;
-						meeting.updateMeeting((Meeting)object);
-					}
-				}
-				
-				if(!sat) {
-					meetings.add((Meeting)object);
-				}
-		}
+		ArrayList<Meeting> p = new ArrayList<Meeting>();
 			
-		return meetings;
+		for (Object meeting : list) {
+			p.add((Meeting)meeting);
+		}
+		
+		return p;
+	}
+	
+	public ArrayList<Meeting> get_invites() {
+		String query = "get,getInvitesForUser,"+this.id;
+		ArrayList<Object> list = Client.request(query);
+		
+		ArrayList<Meeting> p = new ArrayList<Meeting>();
+		
+		for (Object meeting : list) {
+			p.add((Meeting)meeting);
+		}
+		
+		return p;
 	}
 	
 	public static ArrayList<Person> all() {

@@ -91,6 +91,15 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		}
 	}
 	
+	public static Meeting get(int id) {
+		for (Meeting meeting : Meeting.all()) {
+			if(meeting.getId() == id) {
+				return meeting;
+			}
+		}
+		return null;
+	}
+	
 	public static ArrayList<Meeting> all() {
 		String query = "get,getMeetings";
 		ArrayList<Object> list = Client.request(query);
@@ -113,6 +122,18 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	
 	public String getTitle() {
 		return title;
+	}
+	
+	public void delete() {
+		Socket socket;
+		try {
+			socket = new Socket(Config.SERVER, Config.SERVER_PORT);
+			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());	
+			oos.writeObject("delete,deleteMeeting,"+this.id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		
 	}
 
 	public void setTitle(String title) {
@@ -195,7 +216,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 					sat = true;
 				}
 			}
-			
+
 			if(!sat) {
 				participants.add((Person)object);
 			}

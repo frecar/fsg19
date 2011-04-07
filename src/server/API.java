@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -60,18 +61,51 @@ public class API {
 	public void arrangeMeetingsAndPersons(Meeting meeting) {
 		String query;
 		
-		query = "DELETE FROM Meeting_Person WHERE meeting_id = '"+meeting.getId()+"'";	
-		performUpdateQuery(query);	    	
-	
-		for (Person person : meeting.getParticipants()) {
-			query = "INSERT INTO Meeting_Person (person_id, meeting_id) " +
-			"VALUES (" +
-			"'"+person.getId()+"'," +
-			"'"+meeting.getId()+"'" +
-			")";	
-			performUpdateQuery(query);	    	
+		
+		ArrayList<String> oldParticipants = new ArrayList<String>();
+		ResultSet result = this.requestDatabase("SELECT id FROM Meeting_Person WHERE meeting_id="+meeting.getId());
+		try {
+			while(result.next()) {
+				oldParticipants.add(result.getString("id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
+		ArrayList<String> currentParticipants = new ArrayList<String>();
+		for (Person person : meeting.getParticipants()) {
+			Integer k = new Integer(person.getId());
+			currentParticipants.add(k.toString());
+		}
+		
+		//CREATE 
+		for (String s : currentParticipants) {
+			if(!oldParticipants.contains(s)) {
+				query = "INSERT INTO Meeting_Person (person_id, meeting_id) " +
+				"VALUES (" +
+				"'"+s+"'," +
+				"'"+meeting.getId()+"'" +
+				")";	
+				performUpdateQuery(query);
+			}		
+		}
+		//DELETE UNUSED
+		for (String s : oldParticipants) {
+			if(!currentParticipants.contains(s)) {
+				query = "DELETE FROM Meeting_Person WHERE meeting_id="+meeting.getId()+" AND person_id" + s; 	
+				performUpdateQuery(query);
+			}		
+		}
+		
+	}
+	
+	public void deleteMeeting(String str) {
+
+		String query = "DELETE FROM Meeting_Person WHERE meeting_id="+str;
+		performUpdateQuery(query);	    
+		String qq = "DELETE FROM Meeting WHERE id="+str;
+		performUpdateQuery(qq);	  
+		System.out.println(qq);
 	}
 	
 	public void saveMeeting(String str) {
@@ -79,10 +113,11 @@ public class API {
 				
 		String query;		
 		if (p.getId()==0){
-			query = "INSERT INTO Meeting (title, room, time_start, time_end, description, responsible) " +
+			query = "INSERT INTO Meeting (title, room, date, time_start, time_end, description, responsible) " +
 					"VALUES (" +
 					"'"+p.getTitle()+"'," +
 					"'"+p.getRoom()+"'," +
+					"'"+p.getDate()+"'," +
 					"'"+p.getTimeStart()+"'," +
 					"'"+p.getTimeEnd()+"'," +
 					"'"+p.getDescription()+"'," +
@@ -93,6 +128,7 @@ public class API {
 			query = "UPDATE Meeting SET " +
 				"title='"+p.getTitle()+"', " +
 				"room='"+p.getRoom()+"', " +
+				"date='"+p.getDate()+"', " +
 				"time_start='"+p.getTimeStart()+"', " +
 				"time_end='"+p.getTimeEnd()+"', " +
 				"responsible='"+p.getResponsible()+"' " +
@@ -143,8 +179,13 @@ public class API {
 	}
 	
 	public Object getMeetingsForUser(String id) {
-		String query = "SELECT Meeting.* FROM Meeting, Meeting_Person WHERE Meeting.id = Meeting_Person.meeting_id AND Meeting_Person.person_id = "+id;
+		String query = "SELECT Meeting.* FROM Meeting, Meeting_Person WHERE Meeting.id = Meeting_Person.meeting_id AND Meeting_Person.status = 1 AND Meeting_Person.person_id = "+id;
 		return getObjects(query, "models.Meeting");
+	}
+	
+	public Object getInvitesForUser(String id) {
+		String query = "SELECT Meeting.* FROM Meeting, Meeting_Person WHERE Meeting.id = Meeting_Person.meeting_id AND Meeting_Person.status = 0 AND Meeting_Person.person_id = "+id;
+		return getObjects(query, "models.Meeting");	
 	}
 	
 	public Object getPersons() {
@@ -234,6 +275,7 @@ public class API {
 				Object ret = (Object) m.invoke(api, arguments);
 				return (Object) ret;
 			}
+			
 			else {
 				m.invoke(api, arguments);
 			}

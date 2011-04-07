@@ -27,7 +27,9 @@ public class Updater extends Thread {
 	public void run(){
 		while (runs){
 			//Person.all();
+			
 			internalSleep();
+			
 		}
 	}
 	

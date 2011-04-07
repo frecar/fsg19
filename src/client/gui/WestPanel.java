@@ -27,11 +27,12 @@ import javax.swing.event.ListSelectionListener;
 import models.Meeting;
 import models.Person;
 
+import client.Client;
 import client.gui.EastPanel.MeetingPanel;
 
 public class WestPanel extends JPanel {
 
-	private JPanel parent;
+	private MainPanel parent;
 	private JList meetings;
 	private DefaultListModel model;
 	
@@ -39,8 +40,10 @@ public class WestPanel extends JPanel {
 	
 	private Meeting m1, m2, m3, m4, m5;
 	
+	private MainPanel mainPanel;
 	
-	public WestPanel(LayoutManager layout, JPanel parent) {
+	
+	public WestPanel(LayoutManager layout, MainPanel parent) {
 		super(layout);
 		
 		this.parent = parent;
@@ -48,7 +51,8 @@ public class WestPanel extends JPanel {
 		setBorder(new TitledBorder("WEST"));
 		
 		MainPanel mainPanel = (MainPanel)parent;
-		Person user = mainPanel.getMainFrame().getClient().user;
+		
+		
 		
 		//meetingsList = Meeting.all();
 		
@@ -57,15 +61,15 @@ public class WestPanel extends JPanel {
 //		}
 //		
 		//System.exit(0);
-		m1 = new Meeting("Fest hos Arne", "12.12 2011", "3", "16:15", "18:00", "Will ther be cake?", "no", "no", "R7");
-		m2 = new Meeting("Budsjett", "05.12 2011", "4", "10:15", "14:00", "No cake for you?", "no", "no", "R50");
-		m3 = new Meeting("Kurs i java", "04.12 2011", "4", "10:15", "14:00", "No cake for you?", "no", "no", "R50");
 		
 		model = new DefaultListModel();
-		model.addElement(m1);
-		model.addElement(m2);
-		model.addElement(m3);
 	
+
+		
+//		
+//		for(Meeting m: Client.user.get_meetings()) {
+//			System.out.println(m);
+//		}
 		
 		meetings = new JList(getSortedMeetingsModel());
 		meetings.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -106,8 +110,48 @@ public class WestPanel extends JPanel {
 //		}).start();
 		
 	
+		
 	}
 
+	public void fillMeetings() {
+		System.out.println("now filling meetings");
+		
+	
+//		m1 = new Meeting("Fest hos Arne", "12.12 2011", "3", "16:15", "18:00", "Will ther be cake?", "no", "no", "R7");
+//		m2 = new Meeting("Budsjett", "05.12 2011", "4", "10:15", "14:00", "No cake for you?", "no", "no", "R50");
+//		m3 = new Meeting("Kurs i java", "04.12 2011", "4", "10:15", "14:00", "No cake for you?", "no", "no", "R50");
+//		
+		
+//		model.addElement(m1);
+//		model.addElement(m2);
+//		model.addElement(m3);
+		
+		
+		for(Meeting m: Client.user.get_meetings()) {
+			model.addElement(m);
+			
+		}
+		
+		meetings.setModel(model);
+		
+		new Thread(new Runnable() {
+			public void run() {
+				while(true) {
+					meetings.setModel(getSortedMeetingsModel());
+					
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+
+	
+	}
+	
 	public JList getMeetings() {
 		return meetings;
 	}
@@ -127,8 +171,11 @@ public class WestPanel extends JPanel {
 		Arrays.sort(meetings);
 		DefaultListModel model = new DefaultListModel();
 		
-		for(Object o: meetings) {
-			model.addElement(o);
+		if(Client.user != null) {
+			for(Object o: Client.user.get_meetings()) {
+				model.addElement(o);
+				System.out.println(((Meeting)o).getResponsible());
+			}
 		}
 		
 		return model;

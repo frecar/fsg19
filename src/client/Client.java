@@ -21,20 +21,28 @@ public class Client {
 	private MainFrame mf;
 	
 	public Client() {
+		Client.client = this;
 		System.out.println("client started");
 		mf = new MainFrame(this);
 		mf.initGUI();
 		Client.client = this;
+		
 	}
+
+		
+		
+
 	
 	public static void main(String[] args){
 		Client client = new Client();
 		Thread thread1 = new Updater("updated", 8000, client);
-		
-		Person person = Person.all().get(0);
-		Meeting m = Meeting.all().get(0);
-		m.save();	
+
+	
+		Meeting m = Meeting.get(1);
+		m.setTitle("hey");
+		m.save();
 	}
+		
 	
 	public static ArrayList<Object> request(String request) {
 		Object object;

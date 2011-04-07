@@ -91,7 +91,7 @@ public class NewMeetingFrame extends JFrame {
 		participantsLabel = new JLabel("Participants:");
 		descriptionLabel = new JLabel("Comment:");
 		
-		titleTextField = new JTextField("Budsjettkutt skal diskuteres", 20);
+		titleTextField = new JTextField("", 20);
 		//titleTextField.setEnabled(false);
 		
 		String loggedInUser;
@@ -106,12 +106,12 @@ public class NewMeetingFrame extends JFrame {
 		responsibleTextField = new JTextField(loggedInUser, 20);
 		responsibleTextField.setEnabled(false);
 		
-		dateTextField = new JTextField("08.05.11", 20);
+		dateTextField = new JTextField("12.05 2011", 20);
 		//dateTextField.setEnabled(false);
 		
-		timeStartTextField = new JTextField("0815", 5);
+		timeStartTextField = new JTextField("12:15", 5);
 		
-		timeEndTextField = new JTextField("10:00", 5);
+		timeEndTextField = new JTextField("14:00", 5);
 		///timeTextField.setEnabled(false);
 		
 		Object[] roomsStrings = rooms.toArray();
@@ -143,7 +143,7 @@ public class NewMeetingFrame extends JFrame {
 		//participantsTextField = new JTextField("7", 3);  @DEPRECATED
 		//participantsTextField.setEnabled(false);
 		
-		descriptionTextField = new JTextField("Alle må ta med snacks", 20);
+		descriptionTextField = new JTextField("", 20);
 		//commentTextField.setEnabled(false);
 		
 		addMeeting = new JButton("Add meeting");
@@ -338,15 +338,16 @@ public class NewMeetingFrame extends JFrame {
 			String timeStart = timeStartTextField.getText();
 			String timeEnd = timeEndTextField.getText();
 			String room = roomTextField.getText();
-			ArrayList<Person> participants = new ArrayList<Person>();
+		
 			String description = descriptionTextField.getText();
 			
 			Meeting meeting = new Meeting(title, date, user.getId() + "", timeStart, timeEnd, description, "no", "no", room);
-			
+			System.out.println("DATO: " + date);
 			
 			for(int i = 0; i < rightModel.size(); i++) {
 				Person p = (Person)rightModel.get(i);
 				meeting.addParticipant(p);
+				System.out.println("Legger til " + p + " til møtet");
 			}
 			// TODO: add meeting to model
 			meeting.save();
