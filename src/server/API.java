@@ -106,8 +106,17 @@ public class API {
 		
 	}
 	
+	public void personAcceptMeeting(String person_id, String meeting_id) {
+		String query = "UPDATE Meeting_Person SET status=1 WHERE meeting_id="+meeting_id+" AND person_id="+person_id;
+		performUpdateQuery(query);	    
+	}
+	
+	public void personRejectMeeting(String person_id, String meeting_id) {
+		String query = "UPDATE Meeting_Person SET status=2 WHERE meeting_id="+meeting_id+" AND person_id="+person_id;
+		performUpdateQuery(query);	    
+	}
+	
 	public void deleteMeeting(String str) {
-
 		String query = "DELETE FROM Meeting_Person WHERE meeting_id="+str;
 		performUpdateQuery(query);	    
 		String qq = "DELETE FROM Meeting WHERE id="+str;

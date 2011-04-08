@@ -142,7 +142,6 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		this.participants = new ArrayList<Person>();
 	}
 	
-	
 	public void addParticipant(Person p ) {
 		this.participants.add(p);
 	}

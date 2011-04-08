@@ -71,6 +71,44 @@ public class Person implements Serializable{
 		this.setName(object.getName());
 	}
 	
+	public void acceptMeeting(Meeting meeting) {
+    	Socket socket;
+		try {
+			
+			socket = new Socket(Config.SERVER, Config.SERVER_PORT);
+			String query = "set,personAcceptMeeting,"+this.id+","+meeting.getId();
+			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());	
+			oos.writeObject(query);
+			
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void rejectMeeting(Meeting meeting) {
+		Socket socket;
+		try {
+			
+			socket = new Socket(Config.SERVER, Config.SERVER_PORT);
+			String query = "set,personRejectMeeting,"+this.id+","+meeting.getId();
+			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());	
+			oos.writeObject(query);
+			
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	
+	}
+	
 	public ArrayList<Meeting> get_meetings() {
 		String query = "get,getMeetingsForUser,"+this.id;
 		ArrayList<Object> list = Client.request(query);

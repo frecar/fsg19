@@ -35,8 +35,10 @@ public class Client {
 		Meeting m = Meeting.all().get(0);
 		Person p = new Person("Per");
 		m.addParticipant(p);
-		m.removeParticipant(p);
 		m.save();	
+		
+		p.rejectMeeting(m);
+		
 	}
 	
 	public static ArrayList<Object> request(String request) {
