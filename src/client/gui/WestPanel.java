@@ -50,10 +50,11 @@ public class WestPanel extends JPanel {
 	
 	private JButton next, prev;
 	
-	private int realWeek, currentWeek, realDay;
-	private int minPrev, maxNext;
+	private int realWeek, currentWeek, currentDay;
+
 	
-	private JLabel currentWeekLabel;	
+	private JLabel currentWeekLabel;
+	private int currentWeekOfYear = 15;;	
 	
 	public WestPanel(LayoutManager layout, MainPanel parent) {
 		super(layout);
@@ -64,7 +65,7 @@ public class WestPanel extends JPanel {
 		
 		MainPanel mainPanel = (MainPanel)parent;
 		
-		
+		currentDay = now.get(Calendar.DAY_OF_WEEK);
 		//create an array of days
 //		String[] strDays = new String[]{
 //		"Sunday",
@@ -224,9 +225,9 @@ public class WestPanel extends JPanel {
 			
 				Calendar cal = new GregorianCalendar(year, month - 1, day);
 				
-				int thisDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
+				;
 				
-				if((cal.get(Calendar.WEEK_OF_YEAR) == now.get(Calendar.WEEK_OF_YEAR))) {
+				if((cal.get(Calendar.WEEK_OF_YEAR) == currentWeekOfYear)) {
 					model.addElement(o);
 					//System.out.println("Adding: " + o);
 				}
