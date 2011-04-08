@@ -5,8 +5,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Random;
 
 import javax.swing.DefaultListModel;
@@ -40,8 +43,14 @@ public class WestPanel extends JPanel {
 	
 	private Meeting m1, m2, m3, m4, m5;
 	
+	private Calendar now = Calendar.getInstance();
+
 	private MainPanel mainPanel;
 	
+	private JButton next, prev;
+	
+	private int realWeek, currentWeek;
+	private JLabel currentWeekLabel;	
 	
 	public WestPanel(LayoutManager layout, MainPanel parent) {
 		super(layout);
@@ -80,12 +89,25 @@ public class WestPanel extends JPanel {
 		
 		JPanel labels = new JPanel();
 		
-		labels.add(new JButton("Previous"));
-		labels.add(new JLabel("Week: 16 "));
-		labels.add(new JButton("Next"));
+		realWeek = now.get(Calendar.WEEK_OF_YEAR) - 1;
+		currentWeek = realWeek;
+		
+		prev = new JButton("Previous");
+		prev.addActionListener(new PrevMeetingListener());
+		
+		next = new JButton("Next");
+		next.addActionListener(new NextMeetingListener());
+		
+		currentWeekLabel = new JLabel("Week: "  + realWeek + "");
+		
+		labels.add(prev);
+		labels.add(currentWeekLabel);
+		labels.add(next);
 		
 		add(labels, BorderLayout.NORTH);
 		add(scroll, BorderLayout.CENTER);
+		
+	
 		
 		// Test for checking model view controller
 //		new Thread(new Runnable() {
@@ -173,6 +195,8 @@ public class WestPanel extends JPanel {
 		System.out.println(meetings.length);
 		if(Client.user != null) {
 			for(Object o: Client.user.get_meetings()) {
+				
+				String month = ((Meeting) o).getDate();
 				model.addElement(o);
 				//System.out.println(((Meeting)o).getResponsible());
 			}
@@ -259,5 +283,23 @@ public class WestPanel extends JPanel {
 			
 		}
 		
+	}
+	
+	public class NextMeetingListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			currentWeek++;
+			
+			currentWeekLabel.setText((currentWeek) + "");
+			System.out.println("NEXT");
+		}
+	}
+	
+	public class PrevMeetingListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			currentWeek--;
+			
+			currentWeekLabel.setText((currentWeek) + "");
+			System.out.println("PREV");
+		}
 	}
 }

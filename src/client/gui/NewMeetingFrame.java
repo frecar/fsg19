@@ -347,10 +347,18 @@ public class NewMeetingFrame extends JFrame {
 			for(int i = 0; i < rightModel.size(); i++) {
 				Person p = (Person)rightModel.get(i);
 				meeting.addParticipant(p);
-				System.out.println("Legger til " + p + " til møtet");
+				//System.out.println("Legger til " + p + " til møtet");
 			}
-			// TODO: add meeting to model
+
 			meeting.save();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			meeting = Meeting.all().get(Meeting.all().size() -1 );
+			user.acceptMeeting(meeting);
 			
 			JOptionPane.showMessageDialog(null, "The meeting was added.");
 			dispose();
