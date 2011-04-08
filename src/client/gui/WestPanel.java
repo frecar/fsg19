@@ -127,20 +127,19 @@ public class WestPanel extends JPanel {
 //		model.addElement(m3);
 		
 		
-		for(Meeting m: Client.user.get_meetings()) {
-			model.addElement(m);
-			
-		}
+
 		
 		meetings.setModel(model);
 		
 		new Thread(new Runnable() {
 			public void run() {
 				while(true) {
-					meetings.setModel(getSortedMeetingsModel());
-					System.out.println("now filling meeting(this is done each 10 sec");
+					DefaultListModel m = getSortedMeetingsModel();
+			
+					meetings.setModel(m);
+					System.out.println("now filling meeting(this is done each 10 sec)");
 					try {
-						Thread.sleep(10000);
+						Thread.sleep(5000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -171,6 +170,7 @@ public class WestPanel extends JPanel {
 		Arrays.sort(meetings);
 		DefaultListModel model = new DefaultListModel();
 		
+		System.out.println(meetings.length);
 		if(Client.user != null) {
 			for(Object o: Client.user.get_meetings()) {
 				model.addElement(o);

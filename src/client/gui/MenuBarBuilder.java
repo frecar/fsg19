@@ -27,16 +27,16 @@ public class MenuBarBuilder {
 			JMenuBar menuBar = new JMenuBar();
 			f.setJMenuBar(menuBar);
 			
-			JMenu fileMenu = new JMenu("New");
+			JMenu fileMenu = new JMenu("Calendar");
 			menuBar.add(fileMenu);
 			
 				JMenuItem newMeetingMenuItem = new JMenuItem("New Meeting");
 				fileMenu.add(newMeetingMenuItem);
 				newMeetingMenuItem.addActionListener(new newMeetingListener());
 				
-				JMenuItem newAppointmentMenuItem = new JMenuItem("New Appointment");
-				fileMenu.add(newAppointmentMenuItem);
-				newAppointmentMenuItem.addActionListener(new newAppointmentListener());
+//				JMenuItem newAppointmentMenuItem = new JMenuItem("New Appointment");
+//				fileMenu.add(newAppointmentMenuItem);
+//				newAppointmentMenuItem.addActionListener(new newAppointmentListener());
 				
 				JMenuItem seeMessagesMenuItem = new JMenuItem("See Messages");
 				fileMenu.add(seeMessagesMenuItem);

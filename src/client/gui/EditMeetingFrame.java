@@ -361,7 +361,10 @@ public class EditMeetingFrame extends JFrame {
 			meeting.setTimeStart(timeStart);
 			meeting.setTimeEnd(timeEnd);
 			meeting.setRoom(room);
-			meeting.setDescription("NABB");
+			meeting.setDescription(description);
+			System.out.println(meeting.getParticipants().size());
+			
+			meeting.clearParticipants();
 			
 			for(int i = 0; i < rightModel.size(); i++) {
 				Person p = (Person)rightModel.get(i);
