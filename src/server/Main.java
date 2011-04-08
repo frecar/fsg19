@@ -25,8 +25,7 @@ public class Main {
 	/**
 	* Constructor, starts the main listen loop using provided port
 	*/
-	public Main(String port) {
-		
+	public Main(String port) {	
 		this.port = Integer.parseInt(port);
 		startListenLoop();
 	}

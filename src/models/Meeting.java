@@ -131,7 +131,17 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	}
 	
 	public ArrayList<Person> getParticipants() {
-		return participants;
+		String query = "get,getParticipantsForMeeting,"+this.id;
+		ArrayList<Object> list = Client.request(query);
+		
+		ArrayList<Person> persons = new ArrayList<Person>();
+			
+		for (Object ob : list) {
+			persons.add((Person)ob);
+		}	
+		
+		participants = persons;
+		return persons;	
 	}
 
 	public void setParticipants(ArrayList<Person> participants) {
