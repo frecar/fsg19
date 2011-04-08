@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import com.sun.xml.internal.bind.v2.TODO;
 
@@ -47,7 +49,8 @@ public class SeeMessagesFrame extends JFrame{
 		
 		list = new JList(listModel);
 		listScroll = new JScrollPane(list);
-		
+		list.addListSelectionListener(new SelectListener());
+
 		confirm = new JButton("Confirm");
 		confirm.addActionListener(new ConfirmListener());
 		cancel = new JButton("Cancel");
@@ -67,7 +70,7 @@ public class SeeMessagesFrame extends JFrame{
 		panel.add(confirm, c);
 		
 		c.gridx = 1;
-		c.gridy = 0;
+		c.gridy = 1;
 		panel.add(cancel, c);
 		
 		
@@ -78,25 +81,37 @@ public class SeeMessagesFrame extends JFrame{
 	}
 	
 	private void fillModel(DefaultListModel model, ArrayList<Meeting> meetings) {
-		
-		for(Object o: meetings) {
+		for(Object o: Client.user.get_invites()) {
 			Meeting m = (Meeting)o;
 			model.addElement(m);
 		}
 	}
 	
+	class SelectListener implements ListSelectionListener {
+		public void valueChanged(ListSelectionEvent arg0) {
+		}	
+	}
+	
 	class ConfirmListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			//
-			
+			if(!(list.getSelectedIndex() == -1)) {
+				Meeting m = (Meeting)list.getSelectedValue();
+				Client.user.acceptMeeting(m);
+				listModel.removeElement(m);
+			}
 		}
 	}
 	
 	class CancelListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			//
-			
+			if(!(list.getSelectedIndex() == -1)) {
+				Meeting m = (Meeting)list.getSelectedValue();
+				Client.user.rejectMeeting(m);
+				listModel.removeElement(m);
+			}
 		}
 	}
+	
+	
 	
 }

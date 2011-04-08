@@ -31,13 +31,6 @@ public class Client {
 	public static void main(String[] args){
 		Client client = new Client();
 		Thread thread1 = new Updater("updated", 8000, client);	
-	
-		Meeting m = Meeting.all().get(0);
-		Person p = new Person("Per");
-		m.addParticipant(p);
-		m.save();	
-		
-		p.rejectMeeting(m);
 		
 	}
 	
