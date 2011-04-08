@@ -339,7 +339,7 @@ public class WestPanel extends JPanel {
 				currentWeekOfYear++;
 			}
 			
-			currentWeekLabel.setText("Week: " + ((1 + currentWeek)));
+			currentWeekLabel.setText("Week: " + ((currentWeek)));
 			System.out.println("NEXT");
 		}
 	}
@@ -356,7 +356,7 @@ public class WestPanel extends JPanel {
 				currentWeekOfYear--;
 			}
 
-			currentWeekLabel.setText("Week: " + ((currentWeek+1)));
+			currentWeekLabel.setText("Week: " + ((currentWeek)));
 			System.out.println("PREV");
 		}
 	}

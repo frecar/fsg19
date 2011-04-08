@@ -43,8 +43,8 @@ public class CenterPanel extends JPanel{
 		
 	
 		
-		calendarPanel = new CalendarPanel();
-		add(calendarPanel);
+		//calendarPanel = new CalendarPanel();
+		//add(calendarPanel);
 
 
 		
