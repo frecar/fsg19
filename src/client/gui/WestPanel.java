@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Random;
 
 import javax.swing.DefaultListModel;
@@ -43,7 +44,7 @@ public class WestPanel extends JPanel {
 	
 	private Meeting m1, m2, m3, m4, m5;
 	
-	private Calendar now = Calendar.getInstance();
+	private Calendar now = new GregorianCalendar();
 
 	private MainPanel mainPanel;
 	
@@ -65,21 +66,22 @@ public class WestPanel extends JPanel {
 		
 		
 		//create an array of days
-		String[] strDays = new String[]{
-		"Sunday",
-		"Monday",
-		"Tuesday",
-		"Wednesday",
-		"Thusday",
-		"Friday",
-		"Saturday"};
-		
-		realDay = now.get(Calendar.DAY_OF_WEEK);
-		
-		minPrev = realDay - 2;
-		maxNext = 7 - realDay + 1;
-		
-		System.out.println(strDays[realDay -1] + "minPrev: " + minPrev + " maxNext: " + maxNext);
+//		String[] strDays = new String[]{
+//		"Sunday",
+//		"Monday",
+//		"Tuesday",
+//		"Wednesday",
+//		"Thusday",
+//		"Friday",
+//		"Saturday"};
+//		
+//		realDay = now.get(Calendar.DAY_OF_WEEK);
+//		System.out.println(strDays[realDay - 1]);
+//		
+//		minPrev = realDay - 2;
+//		maxNext = 7 - realDay + 1; 
+//		System.out.println(minPrev + " " + maxNext);
+		//System.exit(0);
 		//meetingsList = Meeting.all();
 		
 //		for(Meeting m: meetingsList) {
@@ -178,7 +180,7 @@ public class WestPanel extends JPanel {
 					meetings.setModel(m);
 					//System.out.println("now filling meeting(this is done each 10 sec)");
 					try {
-						Thread.sleep(5000);
+						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -213,8 +215,28 @@ public class WestPanel extends JPanel {
 		if(Client.user != null) {
 			for(Object o: Client.user.get_meetings()) {
 				
-				String month = ((Meeting) o).getDate();
-				model.addElement(o);
+				Meeting m1 = (Meeting)o;
+				
+				String date = m1.getDate();
+				int year = Integer.parseInt(date.substring(6, 10));
+				int month = Integer.parseInt(date.substring(3, 5));
+				int day = Integer.parseInt(date.substring(0, 2));
+			
+				Calendar cal = new GregorianCalendar(year, month - 1, day);
+				
+				int thisDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
+				
+				if((cal.get(Calendar.WEEK_OF_YEAR) == now.get(Calendar.WEEK_OF_YEAR))) {
+					model.addElement(o);
+					//System.out.println("Adding: " + o);
+				}
+				else {
+					//System.out.println("Not adding: " + cal.get(Calendar.WEEK_OF_YEAR) + ":" + now.get(Calendar.WEEK_OF_YEAR));
+					//System.out.println(now);
+				}
+						
+				
+			
 				//System.out.println(((Meeting)o).getResponsible());
 			}
 		}
