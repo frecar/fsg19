@@ -285,7 +285,5 @@ public class API {
 		}
 				
 		return "empty";
-	}
-	
-	
+	}	
 }
