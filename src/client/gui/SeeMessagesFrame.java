@@ -1,6 +1,7 @@
 package client.gui;
 
 import java.awt.GridBagConstraints;
+
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -17,7 +18,7 @@ import javax.swing.JScrollPane;
 import com.sun.xml.internal.bind.v2.TODO;
 
 import client.Client;
-import client.gui.EditMeetingFrame.AddMeetingListener;
+//import client.gui.EditMeetingFrame.AddMeetingListener;
 
 import models.Meeting;
 import models.Person;
