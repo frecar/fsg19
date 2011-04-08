@@ -85,7 +85,9 @@ public class EastPanel extends JPanel{
 			// Add this MeetingPanel as listener on the model
 			if(model != null) {
 				setVisible(true);
+				
 				editButton.setEnabled(false);
+				deleteButton.setEnabled(false);
 				
 				model.addMeetingListener(this);
 		
@@ -103,13 +105,13 @@ public class EastPanel extends JPanel{
 				MainPanel mainPanel = (MainPanel)parent;
 				Person user = mainPanel.getMainFrame().getClient().user;
 				
-				System.out.println();
+				// if the meeting is owned by current user
 				if(user.getName().equals(Person.get(Integer.parseInt(this.model.getResponsible())).getName())) {
 					editButton.setEnabled(true);
+					deleteButton.setEnabled(true);
 				}
-				else {
-					
-				}
+
+				
 			}
 			else {
 				setVisible(false);
