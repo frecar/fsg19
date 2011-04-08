@@ -27,10 +27,11 @@ public class Client {
 		mf.initGUI();
 		Client.client = this;
 		
-		Meeting m = Meeting.get(1);
-		m.setDescription("tyest");
-		m.setTitle("title!!!");
-		m.save();
+
+//		Meeting m = Meeting.get(1);
+//		m.setDescription("tyest");
+//		m.setTitle("title!!!");
+//		m.save();
 		
 		
 		
@@ -38,21 +39,14 @@ public class Client {
 //		m.setTitle("buu");
 //		m.save();
 		//System.out.println(m.getDescription());
+
 		
 	}
 
-		
-		
-
-	
 	public static void main(String[] args){
 		Client client = new Client();
 		Thread thread1 = new Updater("updated", 8000, client);
-
-	
-//		Meeting m = Meeting.get(1);
-//		m.setTitle("hey");
-//		m.save();
+		System.out.println(Person.all());
 	}
 		
 	

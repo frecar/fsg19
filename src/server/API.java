@@ -61,9 +61,9 @@ public class API {
 	public void arrangeMeetingsAndPersons(Meeting meeting) {
 		String query;
 		
-		
 		ArrayList<String> oldParticipants = new ArrayList<String>();
 		ResultSet result = this.requestDatabase("SELECT id FROM Meeting_Person WHERE meeting_id="+meeting.getId());
+		
 		try {
 			while(result.next()) {
 				oldParticipants.add(result.getString("id"));
@@ -95,8 +95,7 @@ public class API {
 				query = "DELETE FROM Meeting_Person WHERE meeting_id="+meeting.getId()+" AND person_id" + s; 	
 				performUpdateQuery(query);
 			}		
-		}
-		
+		}		
 	}
 	
 	public void deleteMeeting(String str) {
@@ -131,7 +130,8 @@ public class API {
 				"date='"+p.getDate()+"', " +
 				"time_start='"+p.getTimeStart()+"', " +
 				"time_end='"+p.getTimeEnd()+"', " +
-				"responsible='"+p.getResponsible()+"' " +
+				"responsible='"+p.getResponsible()+"', " +
+				"decription='"+p.getDescription()+"' " +
 				"WHERE id = '"+p.getId()+"'";	
 		}
 		
@@ -285,7 +285,5 @@ public class API {
 		}
 				
 		return "empty";
-	}
-	
-	
+	}	
 }

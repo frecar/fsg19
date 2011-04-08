@@ -223,7 +223,10 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		}
 
 		return participants;
-
+	}
+	
+	public void clearParticipants() {
+		participants = new ArrayList<Person>();
 	}
 	
 	public void addParticipant(Person p) {
@@ -294,8 +297,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 			oos.writeObject("set,saveMeeting,"+xml);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
-		
+		}			
 	}
 	
 	public String toString() {
