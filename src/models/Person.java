@@ -17,7 +17,6 @@ import client.Config;
 
 import com.sun.org.apache.xml.internal.serializer.ToStream;
 
-
 public class Person implements Serializable{
 
 	/**

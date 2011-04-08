@@ -30,7 +30,8 @@ public class Client {
 
 	public static void main(String[] args){
 		Client client = new Client();
-		Thread thread1 = new Updater("updated", 8000, client);		
+		Thread thread1 = new Updater("updated", 8000, client);	
+				
 	}
 	
 	public static ArrayList<Object> request(String request) {

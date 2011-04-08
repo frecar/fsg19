@@ -75,6 +75,16 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		participants = new ArrayList<Person>();
 	}
 	
+	public String getParticipantStatus(Person person) {
+		PersonMeeting m = PersonMeeting.get(person.getId(), this.id);
+		if(m.getStatus().equals("1")) 
+			return "Attending";
+		else if(m.getStatus().equals("2")) 
+			return "Rejected";
+		else
+			return "Pending";
+	}
+
 	public Meeting(ResultSet result) {
 		try {
 			this.id 			= Integer.parseInt(result.getString("id"));
@@ -85,7 +95,6 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 			this.date 			= result.getString("date");
 			this.description 	= result.getString("description");
 			this.responsible 	= result.getString("responsible");
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

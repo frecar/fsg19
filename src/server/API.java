@@ -16,6 +16,7 @@ import java.lang.reflect.Method;
 
 import models.Meeting;
 import models.Person;
+import models.PersonMeeting;
 import models.Room;
 
 public class API {
@@ -55,6 +56,17 @@ public class API {
 				"WHERE id = '"+p.getId()+"'";	
 		}
 
+		performUpdateQuery(query);	    
+	}
+	
+	public void savePersonMeeting(String str) {
+		PersonMeeting p = (PersonMeeting)retreiveObject(str);
+		String query;
+		query = "UPDATE Meeting_Person SET " +
+				"person_id='"+p.getPerson_id()+"', " +
+				"meeting_id='"+p.getMeeting_id()+"', " +
+				"status='"+p.getStatus()+"' " +
+				"WHERE id = '"+p.getId()+"'";	
 		performUpdateQuery(query);	    
 	}
 		
@@ -184,6 +196,11 @@ public class API {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Object getPersonMeeting(String person_id, String meeting_id) {
+		String query = "SELECT * FROM Meeting_Person WHERE person_id = "+person_id+" AND meeting_id="+meeting_id;
+		return getObjects(query, "models.PersonMeeting");
 	}
 	
 	public Object getParticipantsForMeeting(String id) {
