@@ -290,7 +290,6 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 			socket = new Socket(Config.SERVER, Config.SERVER_PORT);
 			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());	
 			oos.writeObject("set,saveMeeting,"+xml);
-			System.out.println(xml);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}			

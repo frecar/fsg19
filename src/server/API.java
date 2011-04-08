@@ -72,21 +72,15 @@ public class API {
 			e.printStackTrace();
 		}
 		
-		System.out.println("LOFF: " + meeting.getParticipants());
-		System.out.println("Gamle: " + oldParticipants);
-		
 		ArrayList<String> currentParticipants = new ArrayList<String>();
 		for (Person person : meeting.getParticipants()) {
 			Integer k = new Integer(person.getId());
 			currentParticipants.add(k.toString());
 		}
 		
-		System.out.println("Nye: " + currentParticipants);
-		
 		//CREATE 
 		for (String s : currentParticipants) {
 			if(!oldParticipants.contains(s)) {
-				System.out.println("Legger til "+s);
 				query = "INSERT INTO Meeting_Person (person_id, status, meeting_id) " +
 				"VALUES (" +
 				"'"+s+"'," +
@@ -122,7 +116,6 @@ public class API {
 		performUpdateQuery(query);	    
 		String qq = "DELETE FROM Meeting WHERE id="+str;
 		performUpdateQuery(qq);	  
-		System.out.println(qq);
 	}
 	
 	public void saveMeeting(String str) {
