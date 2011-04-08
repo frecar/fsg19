@@ -72,6 +72,7 @@ public class API {
 			e.printStackTrace();
 		}
 		
+		System.out.println("LOFF: " + meeting.participants);
 		System.out.println("Gamle: " + oldParticipants);
 		
 		ArrayList<String> currentParticipants = new ArrayList<String>();
