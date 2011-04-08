@@ -62,43 +62,48 @@ public class API {
 		String query;
 		
 		ArrayList<String> oldParticipants = new ArrayList<String>();
-		ResultSet result = this.requestDatabase("SELECT id FROM Meeting_Person WHERE meeting_id="+meeting.getId());
+		ResultSet result = this.requestDatabase("SELECT person_id FROM Meeting_Person WHERE meeting_id="+meeting.getId());
 		
 		try {
 			while(result.next()) {
-				oldParticipants.add(result.getString("id"));
+				oldParticipants.add(result.getString("person_id"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		System.out.println(oldParticipants);
+		System.out.println("Gamle: " + oldParticipants);
 		
 		ArrayList<String> currentParticipants = new ArrayList<String>();
-		for (Person person : meeting.getParticipants()) {
+		for (Person person : meeting.participants) {
 			Integer k = new Integer(person.getId());
 			currentParticipants.add(k.toString());
 		}
 		
+		System.out.println("Nye: " + currentParticipants);
+		
 		//CREATE 
 		for (String s : currentParticipants) {
 			if(!oldParticipants.contains(s)) {
+				System.out.println("Legger til "+s);
 				query = "INSERT INTO Meeting_Person (person_id, status, meeting_id) " +
 				"VALUES (" +
 				"'"+s+"'," +
-				"'1'," +
+				"'0'," +
 				"'"+meeting.getId()+"'" +
 				")";	
 				performUpdateQuery(query);
 			}		
 		}
+		
 		//DELETE UNUSED
 		for (String s : oldParticipants) {
 			if(!currentParticipants.contains(s)) {
-				query = "DELETE FROM Meeting_Person WHERE meeting_id="+meeting.getId()+" AND person_id" + s; 	
+				query = "DELETE FROM Meeting_Person WHERE meeting_id="+meeting.getId()+" AND person_id=" + s; 	
 				performUpdateQuery(query);
 			}		
 		}		
+		
 	}
 	
 	public void deleteMeeting(String str) {
@@ -112,7 +117,7 @@ public class API {
 	
 	public void saveMeeting(String str) {
 		Meeting p = (Meeting)retreiveObject(str);
-				
+						
 		String query;		
 		if (p.getId()==0){
 			query = "INSERT INTO Meeting (title, room, date, time_start, time_end, description, responsible) " +
@@ -134,7 +139,7 @@ public class API {
 				"time_start='"+p.getTimeStart()+"', " +
 				"time_end='"+p.getTimeEnd()+"', " +
 				"responsible='"+p.getResponsible()+"', " +
-				"decription='"+p.getDescription()+"' " +
+				"description='"+p.getDescription()+"' " +
 				"WHERE id = '"+p.getId()+"'";	
 		}
 		

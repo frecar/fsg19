@@ -38,7 +38,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	private String deleted;
 	private String room;
 	
-	private ArrayList<Person> participants = new ArrayList<Person>();
+	public ArrayList<Person> participants = new ArrayList<Person>();
 
 	/**
 	 * All GUI listeners who is interested in the meetings
@@ -104,19 +104,14 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		String query = "get,getMeetings";
 		ArrayList<Object> list = Client.request(query);
 		
-		for (Object object : list) {
-				boolean sat = false;
-				for (Meeting meeting: Meeting.meetings) {
-					if(meeting.getId() == ((Meeting)object).getId()) {
-						sat = true;
-						meeting.updateMeeting((Meeting)object);
-					}
-				}
-				
-				if(!sat) {
-					meetings.add((Meeting)object);
-				}
+		ArrayList<Meeting> meets = new ArrayList<Meeting>();
+		
+		for (Object obj : list) {
+			meets.add(((Meeting)obj));
 		}
+	
+		meetings = meets;
+		
 		return meetings;
 	}
 	
@@ -133,9 +128,24 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-		
+	}
+	
+	public ArrayList<Person> getParticipants() {
+		return participants;
 	}
 
+	public void setParticipants(ArrayList<Person> participants) {
+		this.participants = participants;
+	}
+	
+	public void addParticipant(Person p ) {
+		this.participants.add(p);
+	}
+	
+	public void removeParticipant(Person p ) {
+		this.participants.remove(p);
+	}
+	
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -204,33 +214,6 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		this.room = room;
 	}
 
-	public ArrayList<Person> getParticipants() {
-		
-		String query = "get,getParticipantsForMeeting,"+this.id;
-		ArrayList<Object> list = Client.request(query);
-		
-		ArrayList<Person> persons = new ArrayList<Person>();
-			
-		for (Object ob : list) {
-			persons.add((Person)ob);
-		}	
-		
-		return persons;
-		
-	}
-	
-	public void clearParticipants() {
-		participants = new ArrayList<Person>();
-	}
-	
-	public void addParticipant(Person p) {
-		participants.add(p);
-	}
-
-	public void setParticipants(ArrayList<Person> participants) {
-		this.participants = participants;
-	}
-	
 	public String getNumOfParticipants() {
 		if(participants.size() == 0) {
 			return "0";
