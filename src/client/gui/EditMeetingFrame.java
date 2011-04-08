@@ -66,8 +66,7 @@ public class EditMeetingFrame extends JFrame {
 	private MainFrame mainFrame;
 	
 	private ArrayList<Person> persons;
-	
-	// TODO  bruk rooms istedenfor strings
+
 	private JComboBox roomsComboBox;
 	private ArrayList<Room> rooms = Room.all();
 	
@@ -278,7 +277,7 @@ public class EditMeetingFrame extends JFrame {
 	}
 
 	/**
-	 * Fils the model with all persons, except the logged in user, which is already
+	 * Fills the model with all persons, except the logged in user, which is already
 	 * in the right list
 	 */
 	private void fillModel(DefaultListModel model, ArrayList<Person> persons) {
@@ -362,7 +361,7 @@ public class EditMeetingFrame extends JFrame {
 			meeting.setTimeStart(timeStart);
 			meeting.setTimeEnd(timeEnd);
 			meeting.setRoom(room);
-			meeting.setDescription(description);
+			meeting.setDescription("NABB");
 			
 			for(int i = 0; i < rightModel.size(); i++) {
 				Person p = (Person)rightModel.get(i);
@@ -388,7 +387,7 @@ public class EditMeetingFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			JOptionPane.showMessageDialog(null, "The meeting was NOT added.");
+			JOptionPane.showMessageDialog(null, "The meeting was NOT edited.");
 			dispose();
 		}
 	}

@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
@@ -68,6 +69,7 @@ public class EastPanel extends JPanel{
 		
 		private JButton editButton, deleteButton;
 		
+
 		/**
 		 * The meeting which this panel currently holds
 		 */
@@ -95,6 +97,7 @@ public class EastPanel extends JPanel{
 				this.timeEndTextField.setText(this.model.getTimeEnd());
 				this.roomTextField.setText(this.model.getRoom());
 				this.participantsTextField.setText(this.model.getNumOfParticipants());
+				
 				this.descriptionTextField.setText(this.model.getDescription());
 				
 				MainPanel mainPanel = (MainPanel)parent;
@@ -149,6 +152,8 @@ public class EastPanel extends JPanel{
 			
 			participantsTextField = new JTextField("PARTICIPANTS", 3);
 			participantsTextField.setEnabled(false);
+			
+		
 			
 			descriptionTextField = new JTextField("DESCRIPTION", 20);
 			descriptionTextField.setEnabled(false);
@@ -216,6 +221,7 @@ public class EastPanel extends JPanel{
 			c.gridx = 1;
 			c.gridy = 5;
 			add(participantsTextField, c);
+	
 			
 			c.gridx = 0;
 			c.gridy = 6;

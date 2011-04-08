@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Date;
 
 	/**
 	* Represents one connection. Uses the SessionHandler class to
@@ -27,7 +28,7 @@ import java.net.Socket;
 		this.sessionHandler = new SessionHandler();
 		this.ip = socket.getInetAddress().toString();
 		
-		System.out.println("Client accepted from " + this.ip);
+		System.out.println(new Date() + "  Client accepted from " + this.ip);
 	}
 	
 	public void run() {

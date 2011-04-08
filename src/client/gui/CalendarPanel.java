@@ -137,7 +137,7 @@ public class CalendarPanel extends JPanel {
 		for (int i=1; i<=nod; i++){
 			int row = new Integer((i+som-2)/7);
 			int column  =  (i+som-2)%7;
-			mtblCalendar.setValueAt(i+10, row, column);
+			mtblCalendar.setValueAt(i, row, column);
 		}
 
 		//Apply renderers
