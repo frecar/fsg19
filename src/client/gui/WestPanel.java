@@ -54,13 +54,15 @@ public class WestPanel extends JPanel {
 
 	
 	private JLabel currentWeekLabel;
-	private int currentWeekOfYear = 15;;	
+	private int currentWeekOfYear;
 	
 	public WestPanel(LayoutManager layout, MainPanel parent) {
 		super(layout);
 		
-		this.parent = parent;
+		currentWeekOfYear = now.get(Calendar.WEEK_OF_YEAR);
 		
+		this.parent = parent;
+	
 		setBorder(new TitledBorder("WEST"));
 		
 		MainPanel mainPanel = (MainPanel)parent;
@@ -225,7 +227,7 @@ public class WestPanel extends JPanel {
 			
 				Calendar cal = new GregorianCalendar(year, month - 1, day);
 				
-				;
+				
 				
 				if((cal.get(Calendar.WEEK_OF_YEAR) == currentWeekOfYear)) {
 					model.addElement(o);
@@ -328,14 +330,16 @@ public class WestPanel extends JPanel {
 	public class NextMeetingListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			
-			if(currentWeek == 52) {
-				currentWeek = 1;
+			if(currentWeek == 51) {
+				currentWeek = 0;
+				currentWeekOfYear = 0;
 			}
 			else {
 				currentWeek++;
+				currentWeekOfYear++;
 			}
 			
-			currentWeekLabel.setText("Week: " + (currentWeek));
+			currentWeekLabel.setText("Week: " + ((1 + currentWeek)));
 			System.out.println("NEXT");
 		}
 	}
@@ -343,14 +347,16 @@ public class WestPanel extends JPanel {
 	public class PrevMeetingListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			
-			if(currentWeek == 1) {
-				currentWeek = 52;
+			if(currentWeek == 0) {
+				currentWeek = 51;
+				currentWeekOfYear = 51;
 			}
 			else {
 				currentWeek--;
+				currentWeekOfYear--;
 			}
 
-			currentWeekLabel.setText("Week: " + (currentWeek));
+			currentWeekLabel.setText("Week: " + ((currentWeek+1)));
 			System.out.println("PREV");
 		}
 	}

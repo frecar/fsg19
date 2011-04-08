@@ -1,6 +1,7 @@
 package client.gui;
 
 import java.awt.BorderLayout;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -21,7 +22,9 @@ import javax.swing.table.AbstractTableModel;
 
 import models.Meeting;
 import models.Person;
+import models.MyTableModel;
 
+import client.Client;
 import client.interfaces.MeetingListener;
 
 public class EastPanel extends JPanel{
@@ -34,6 +37,8 @@ public class EastPanel extends JPanel{
 		super(layout);
 		
 		this.parent = parent;
+		
+		
 		
 		setBorder(new TitledBorder("EAST"));
 		
@@ -74,14 +79,7 @@ public class EastPanel extends JPanel{
 
 		private JButton editButton, deleteButton;
 		
-		private String[] columnNames = {"Name", "Status"};
-
-		private Object[][] data = {
-			    {"Kathy", "Accepted"},
-			    {"John", "* Declined"},
-			    {"Sue", "Accepted"},
-			    {"Jane", "Accepted"},
-			    {"Joe", "Accepted"}};
+		private MyTableModel tmodel;
 
 		
 		/**
@@ -127,7 +125,25 @@ public class EastPanel extends JPanel{
 					editButton.setEnabled(true);
 					deleteButton.setEnabled(true);
 				}
-
+				
+				tmodel.clear();
+				
+				model.updateParticipants();
+				
+				for(Person p: model.getParticipants()) {
+					String name1 = p.getName();
+					String status = model.getParticipantStatus(p);
+					
+					System.out.println(name1 + " LAWL " + status);
+					tmodel.addPerson(name1, status);
+				}
+				//tmodel.addPerson("Arne", "coacksacka");
+//				
+//				table = new JTable(data, new String[] { "arne", "per"});
+//				table.setFillsViewportHeight(true);
+//				tableScroll = new JScrollPane(table);
+			
+			
 				
 			}
 			else {
@@ -183,7 +199,9 @@ public class EastPanel extends JPanel{
 			deleteButton = new JButton("Delete");
 			deleteButton.addActionListener(this);
 			
-			table = new JTable(data, columnNames);
+			tmodel = new MyTableModel();
+			
+			table = new JTable(tmodel);
 			table.setFillsViewportHeight(true);
 			tableScroll = new JScrollPane(table);
 			
