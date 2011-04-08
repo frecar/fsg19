@@ -27,6 +27,11 @@ public class Client {
 		mf.initGUI();
 		Client.client = this;
 		
+//		Meeting m = Meeting.get(4);
+//		m.setTitle("buu");
+//		m.save();
+		//System.out.println(m.getDescription());
+		
 	}
 
 		

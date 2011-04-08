@@ -66,8 +66,7 @@ public class EditMeetingFrame extends JFrame {
 	private MainFrame mainFrame;
 	
 	private ArrayList<Person> persons;
-	
-	// TODO  bruk rooms istedenfor strings
+
 	private JComboBox roomsComboBox;
 	private ArrayList<Room> rooms = Room.all();
 	
@@ -362,7 +361,7 @@ public class EditMeetingFrame extends JFrame {
 			meeting.setTimeStart(timeStart);
 			meeting.setTimeEnd(timeEnd);
 			meeting.setRoom(room);
-			meeting.setDescription(description);
+			meeting.setDescription("NABB");
 			
 			for(int i = 0; i < rightModel.size(); i++) {
 				Person p = (Person)rightModel.get(i);

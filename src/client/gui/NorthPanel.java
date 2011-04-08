@@ -16,7 +16,7 @@ public class NorthPanel extends JPanel{
 		
 		setBorder(new TitledBorder("NORTH"));
 		
-		ImageIcon image = new ImageIcon("/home/nab/fsg19/src/images/calendar.png");
+		ImageIcon image = new ImageIcon("src/images/calendar.png");
 		add(new JLabel(image));
 	}
 }

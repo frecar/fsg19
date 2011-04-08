@@ -114,7 +114,7 @@ public class WestPanel extends JPanel {
 	}
 
 	public void fillMeetings() {
-		System.out.println("now filling meetings");
+		
 		
 	
 //		m1 = new Meeting("Fest hos Arne", "12.12 2011", "3", "16:15", "18:00", "Will ther be cake?", "no", "no", "R7");
@@ -138,9 +138,9 @@ public class WestPanel extends JPanel {
 			public void run() {
 				while(true) {
 					meetings.setModel(getSortedMeetingsModel());
-					
+					System.out.println("now filling meeting(this is done each 10 sec");
 					try {
-						Thread.sleep(2000);
+						Thread.sleep(10000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
