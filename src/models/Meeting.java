@@ -209,20 +209,14 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		String query = "get,getParticipantsForMeeting,"+this.id;
 		ArrayList<Object> list = Client.request(query);
 		
-		for (Object object : list) {
-			boolean sat = false;
-			for (Person person : participants) {
-				if(person.getId() == ((Person)object).getId()) {
-					sat = true;
-				}
-			}
-
-			if(!sat) {
-				participants.add((Person)object);
-			}
-		}
-
-		return participants;
+		ArrayList<Person> persons = new ArrayList<Person>();
+			
+		for (Object ob : list) {
+			persons.add((Person)ob);
+		}	
+		
+		return persons;
+		
 	}
 	
 	public void clearParticipants() {

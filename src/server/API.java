@@ -72,6 +72,8 @@ public class API {
 			e.printStackTrace();
 		}
 		
+		System.out.println(oldParticipants);
+		
 		ArrayList<String> currentParticipants = new ArrayList<String>();
 		for (Person person : meeting.getParticipants()) {
 			Integer k = new Integer(person.getId());
@@ -81,9 +83,10 @@ public class API {
 		//CREATE 
 		for (String s : currentParticipants) {
 			if(!oldParticipants.contains(s)) {
-				query = "INSERT INTO Meeting_Person (person_id, meeting_id) " +
+				query = "INSERT INTO Meeting_Person (person_id, status, meeting_id) " +
 				"VALUES (" +
 				"'"+s+"'," +
+				"'1'," +
 				"'"+meeting.getId()+"'" +
 				")";	
 				performUpdateQuery(query);
@@ -139,7 +142,9 @@ public class API {
 		if (p.getId()==0){
 			p.setId(Integer.parseInt(getHighestId("Meeting")));
 		}
+		
 		arrangeMeetingsAndPersons(p);
+		
 	}
 
 	private String getHighestId(String table) {
