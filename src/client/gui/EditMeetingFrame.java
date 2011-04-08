@@ -143,8 +143,8 @@ public class EditMeetingFrame extends JFrame {
 		this.fillModel(leftModel, persons);
 		// Add the currently logged in user
 		rightModel.addElement(this.getUser());
+		meeting.updateParticipants();
 		this.fillModel(rightModel, meeting.getParticipants());
-		
 		
 		leftList = new JList(leftModel);
 		leftScroll = new JScrollPane(leftList);
@@ -366,7 +366,7 @@ public class EditMeetingFrame extends JFrame {
 			meeting.setDescription(description);
 			
 			
-			//meeting.clearParticipants();
+			meeting.clearParticipants();
 			
 			for(int i = 0; i < rightModel.size(); i++) {
 				Person p = (Person)rightModel.get(i);
@@ -375,7 +375,7 @@ public class EditMeetingFrame extends JFrame {
 			// TODO: add meeting to model
 			//Meeting meeting = new Meeting(title, date, responsible, timeStart, timeEnd, description, "no", "no", room);
 			
-			System.out.println("KAKE: " + meeting.participants);
+			System.out.println("KAKE: " + meeting.getParticipants());
 			meeting.save();
 			
 			// update meetingpanel

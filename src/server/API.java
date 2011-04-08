@@ -72,11 +72,11 @@ public class API {
 			e.printStackTrace();
 		}
 		
-		System.out.println("LOFF: " + meeting.participants);
+		System.out.println("LOFF: " + meeting.getParticipants());
 		System.out.println("Gamle: " + oldParticipants);
 		
 		ArrayList<String> currentParticipants = new ArrayList<String>();
-		for (Person person : meeting.participants) {
+		for (Person person : meeting.getParticipants()) {
 			Integer k = new Integer(person.getId());
 			currentParticipants.add(k.toString());
 		}

@@ -30,8 +30,7 @@ public class Client {
 
 	public static void main(String[] args){
 		Client client = new Client();
-		Thread thread1 = new Updater("updated", 8000, client);	
-		
+		Thread thread1 = new Updater("updated", 8000, client);		
 	}
 	
 	public static ArrayList<Object> request(String request) {
@@ -42,7 +41,6 @@ public class Client {
 
 		try {
 			Socket socket = new Socket(Config.SERVER, Config.SERVER_PORT);		
-		
 			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());	
 			oos.writeObject(request);
 			ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
