@@ -308,6 +308,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 		int month = Integer.parseInt(date.substring(3, 5));
 		int day = Integer.parseInt(date.substring(0, 2));
 		
+		
 		int thisYear = Integer.parseInt(this.getDate().substring(6, 10));
 		int thisMonth = Integer.parseInt(this.getDate().substring(3, 5));
 		int thisDay = Integer.parseInt(this.getDate().substring(0, 2));

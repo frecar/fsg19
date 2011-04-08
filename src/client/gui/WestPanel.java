@@ -49,7 +49,9 @@ public class WestPanel extends JPanel {
 	
 	private JButton next, prev;
 	
-	private int realWeek, currentWeek;
+	private int realWeek, currentWeek, realDay;
+	private int minPrev, maxNext;
+	
 	private JLabel currentWeekLabel;	
 	
 	public WestPanel(LayoutManager layout, MainPanel parent) {
@@ -62,7 +64,22 @@ public class WestPanel extends JPanel {
 		MainPanel mainPanel = (MainPanel)parent;
 		
 		
+		//create an array of days
+		String[] strDays = new String[]{
+		"Sunday",
+		"Monday",
+		"Tuesday",
+		"Wednesday",
+		"Thusday",
+		"Friday",
+		"Saturday"};
 		
+		realDay = now.get(Calendar.DAY_OF_WEEK);
+		
+		minPrev = realDay - 2;
+		maxNext = 7 - realDay + 1;
+		
+		System.out.println(strDays[realDay -1] + "minPrev: " + minPrev + " maxNext: " + maxNext);
 		//meetingsList = Meeting.all();
 		
 //		for(Meeting m: meetingsList) {
@@ -159,7 +176,7 @@ public class WestPanel extends JPanel {
 					DefaultListModel m = getSortedMeetingsModel();
 			
 					meetings.setModel(m);
-					System.out.println("now filling meeting(this is done each 10 sec)");
+					//System.out.println("now filling meeting(this is done each 10 sec)");
 					try {
 						Thread.sleep(5000);
 					} catch (InterruptedException e) {
@@ -287,18 +304,30 @@ public class WestPanel extends JPanel {
 	
 	public class NextMeetingListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			currentWeek++;
 			
-			currentWeekLabel.setText((currentWeek) + "");
+			if(currentWeek == 52) {
+				currentWeek = 1;
+			}
+			else {
+				currentWeek++;
+			}
+			
+			currentWeekLabel.setText("Week: " + (currentWeek));
 			System.out.println("NEXT");
 		}
 	}
 	
 	public class PrevMeetingListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			currentWeek--;
 			
-			currentWeekLabel.setText((currentWeek) + "");
+			if(currentWeek == 1) {
+				currentWeek = 52;
+			}
+			else {
+				currentWeek--;
+			}
+
+			currentWeekLabel.setText("Week: " + (currentWeek));
 			System.out.println("PREV");
 		}
 	}

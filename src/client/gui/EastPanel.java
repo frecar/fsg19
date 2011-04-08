@@ -14,8 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.AbstractTableModel;
 
 import models.Meeting;
 import models.Person;
@@ -67,9 +69,21 @@ public class EastPanel extends JPanel{
 		private JTextField roomTextField;
 		private JTextField participantsTextField;
 		
+		private JTable table;
+		private JScrollPane tableScroll;
+
 		private JButton editButton, deleteButton;
 		
+		private String[] columnNames = {"Name", "Status"};
 
+		private Object[][] data = {
+			    {"Kathy", "Accepted"},
+			    {"John", "* Declined"},
+			    {"Sue", "Accepted"},
+			    {"Jane", "Accepted"},
+			    {"Joe", "Accepted"}};
+
+		
 		/**
 		 * The meeting which this panel currently holds
 		 */
@@ -85,6 +99,9 @@ public class EastPanel extends JPanel{
 			// Add this MeetingPanel as listener on the model
 			if(model != null) {
 				setVisible(true);
+				
+				
+			
 				
 				editButton.setEnabled(false);
 				deleteButton.setEnabled(false);
@@ -166,6 +183,11 @@ public class EastPanel extends JPanel{
 			deleteButton = new JButton("Delete");
 			deleteButton.addActionListener(this);
 			
+			table = new JTable(data, columnNames);
+			table.setFillsViewportHeight(true);
+			tableScroll = new JScrollPane(table);
+			
+			
 			GridBagConstraints c = new GridBagConstraints();
 			//c.fill = GridBagConstraints.HORIZONTAL;
 			c.insets = new Insets(10,0,0,0);
@@ -242,6 +264,9 @@ public class EastPanel extends JPanel{
 			add(deleteButton, c);
 		
 
+			c.gridx = 1;
+			c.gridy = 8;
+			add(tableScroll, c);
 //			c.gridx = 0;
 //			c.gridy = 7;
 //			add(addMeeting, c);
