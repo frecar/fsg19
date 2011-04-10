@@ -54,11 +54,11 @@ public class MenuBarBuilder {
 					}
 				});
 			
-			JMenu helpMenu = new JMenu("Help");
-			menuBar.add(helpMenu);
-			
-				JMenuItem lolMenuItem = new JMenuItem("You are fucked");
-				helpMenu.add(lolMenuItem);
+//			JMenu helpMenu = new JMenu("Help");
+//			menuBar.add(helpMenu);
+//			
+//				JMenuItem lolMenuItem = new JMenuItem("You are fucked");
+//				helpMenu.add(lolMenuItem);
 		}
 		else if(action == MenuBarBuilder.BEFORE_CONNECTED_MENUBAR) {
 			JMenuBar menuBar = new JMenuBar();

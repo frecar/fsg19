@@ -305,7 +305,7 @@ public class Meeting implements Serializable, Comparable<Meeting>{
 	}
 	
 	public String toString() {
-		return "id: " + id + ", title: "+title;
+		return title + " | " + date + " | " + timeStart + "-" + timeEnd+ " | " + room;
 	}
 
 	/**

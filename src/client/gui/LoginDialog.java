@@ -49,13 +49,13 @@ public class LoginDialog extends JDialog implements ActionListener {
     	persons = Person.all();
     	JPanel panel = new JPanel(new GridLayout(3, 2, 5, 5));
 
-    	usernameLabel = new JLabel("Username: (dag) ");
+    	usernameLabel = new JLabel("Username: ");
     	panel.add(usernameLabel);
     	
     	usernameTextField = new JTextField(20);
     	panel.add(usernameTextField);
     	
-    	passwordLabel = new JLabel("Password: (a) ");
+    	passwordLabel = new JLabel("Password: ");
     	panel.add(passwordLabel);
     	
     	passwordTextField = new JPasswordField(20);
@@ -123,7 +123,7 @@ public class LoginDialog extends JDialog implements ActionListener {
 				
 				SouthPanel southPanel = (SouthPanel)mainPanel.getSouthPanel();
 				JLabel status = southPanel.getStatus();
-				status.setText("Logged in as: " + username + " Email: " + user.getEmail());
+				status.setText("Logged in as: " + username);
 				break;
 			}
 			

@@ -57,7 +57,7 @@ public class MainFrame {
 		catch (UnsupportedLookAndFeelException e) {} */
 
 		// the main application frame
-		frame = new JFrame("Epic new application");
+		frame = new JFrame("Calendar 9000");
 		frame.setSize(800, 600);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

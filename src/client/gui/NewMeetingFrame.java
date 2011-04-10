@@ -358,9 +358,11 @@ public class NewMeetingFrame extends JFrame {
 				e.printStackTrace();
 			}
 			meeting = Meeting.all().get(Meeting.all().size() -1 );
-			user.acceptMeeting(meeting);
+			
+			
 			
 			JOptionPane.showMessageDialog(null, "The meeting was added.");
+			user.acceptMeeting(meeting);
 			dispose();
 		}
 	}
